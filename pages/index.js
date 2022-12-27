@@ -31,6 +31,7 @@ import {
 import { useRouter } from "next/router";
 import React, { useContext, useRef } from "react";
 import { RiStore2Line, RiSignalWifiErrorLine } from "react-icons/ri";
+import { FcGallery, FcShop } from "react-icons/fc";
 
 export default function CallToActionWithAnnotation() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -49,6 +50,9 @@ export default function CallToActionWithAnnotation() {
   const disconnectWallet = useDisconnect();
   function homeClick() {
     router.push("/listings");
+  }
+  function uploadClick() {
+    router.push("/upload");
   }
   
   return (
@@ -83,14 +87,33 @@ export default function CallToActionWithAnnotation() {
 		<>
 {networkMismatch ? (
 <>
-            <Button leftIcon={<RiSignalWifiErrorLine />} variant={'outline'} onClick={() => switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID))} colorScheme={'blue'} size={'sm'}>
+            <Button leftIcon={<RiSignalWifiErrorLine />} variant={'outline'}
+              rounded={'full'}
+              px={6} onClick={() => switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID))} colorScheme={'blue'} size={'md'}>
 Switch Network
             </Button>
 </>
 ) : (
 <>
-            <Button leftIcon={<RiStore2Line />} variant={'outline'} onClick={homeClick} colorScheme={'blue'} size={'sm'}>
-              GoTo Marketplace
+            <Button leftIcon={<FcShop />} variant={'outline'} onClick={homeClick}
+              colorScheme={'green'}
+              bg={'green.400'}
+              rounded={'full'}
+              px={6}
+              _hover={{
+                bg: 'green.500',
+              }}>
+              Marketplace
+            </Button>
+            <Button leftIcon={<FcGallery />} variant={'outline'} onClick={uploadClick}
+              colorScheme={'green'}
+              bg={'green.400'}
+              rounded={'full'}
+              px={6}
+              _hover={{
+                bg: 'green.500',
+              }}>
+              Create Listing
             </Button>
 </>
 )}
