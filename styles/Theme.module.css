@@ -4,7 +4,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
 }
 
 .collectionContainer {
@@ -13,7 +12,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2%;
+  margin-top: 20%;
 }
 
 .ourCollection {
@@ -35,8 +34,8 @@
 }
 
 .imageInput {
-  width: 100%;
-  height: 100px;
+  width: 350px;
+  height: 350px;
   border: 1px dashed grey;
   border-radius: 16px;
   display: flex;
@@ -255,37 +254,65 @@
   opacity: 0.25;
 }
 
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  font: 14px arial;
+}
+
 .nftBoxGrid {
-  width: 1200px;
-  max-width: 95vw;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 1%;
-  margin-top: 28px;
-  flex-wrap: wrap;
+    width: 1200px;
+    max-width: 95vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 28px;
+    margin-bottom: 150px;
+    flex-wrap: wrap;
 }
 
 .nftBox {
-  border-radius: 16px;
-  border: 1px solid #ccc;
-  width: 19%;
-  min-height: 200px;
-  padding: 4px;
-  height: 100%;
-  color: inherit;
-  text-decoration: none;
+    border-radius: 16px;
+    width: 100%;
+    min-height: 200px;
+    padding: 4px;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
 }
 
 .nftMedia {
+  object-fit: cover !important;
+  object-position: center !important;
   width: 100%;
+  height: 300px;
   max-height: 300px;
-  border-radius: 15px;
+}
+.uploadSection {
+	display: flex;
+	gap: 15px;
 }
 
 /* On mobile, make the .mintInfoContainer stack vertically */
 @media screen and (max-width: 850px) {
+.uploadSection {
+    flex-direction: column;
+}
+.nftBoxGrid {
+    width: auto;
+    max-width: 95vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.nftMedia {
+  height: 160px;
+}
   .mintInfoContainer {
     flex-direction: column;
     padding-bottom: 5%;
@@ -348,8 +375,31 @@
   justify-content: center;
 }
 
+.inputDesc {
+	width: 350px;
+}
+.upload {
+	width: 350px;
+}
+
 /* On Mobile, change .listingContainer to be stacked vertically */
 @media screen and (max-width: 900px) {
+
+.inputDesc {
+	margin-bottom: 160px;
+}
+
+.imageInput {
+  width: 100%;
+  height: 250px;
+  border: 1px dashed grey;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey;
+  cursor: pointer;
+}
   .listingContainer {
     flex-direction: column;
     align-items: center;

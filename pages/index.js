@@ -1,283 +1,187 @@
-import React, { useState } from "react";
+import Head from 'next/head';
 import {
-  useContract,
+  useAddress,
+  useDisconnect,
+  useMetamask, useWalletConnect, useCoinbaseWallet,
   useNetwork,
   useNetworkMismatch,
-  useAddress,
-  useSDK,
-  useCreateDirectListing,
-  useCreateAuctionListing,
 } from "@thirdweb-dev/react";
-import { ChainId, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
+import {
+  Box,
+  Heading,
+  Container,
+  Text,
+  Button,
+  Stack,
+  Icon,
+  useColorModeValue,
+  createIcon,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  useDisclosure,
+  Menu,
+  MenuItem,
+  MenuDivider,
+  useToast 
+} from '@chakra-ui/react';
 import { useRouter } from "next/router";
-import { useRef } from "react";
-import styles from "../styles/Theme.module.css";
+import React, { useContext, useRef } from "react";
+import { RiStore2Line, RiSignalWifiErrorLine } from "react-icons/ri";
 
-const Create = () => {
-  const address = useAddress();
+export default function CallToActionWithAnnotation() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
+  const router = useRouter();
+  const toast = useToast();
   const networkMismatch = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
-  const sdk = useSDK();
-
-  const [creatingListing, setCreatingListing] = useState(false);
-
-  const { contract: nftCollection } = useContract(
-    "0x5e0d08BF82f40b80DF1beb1874D04C1416BCc8B2",
-    "nft-collection"
-  );
-  const { contract: marketplace } = useContract(
-    "0x4719c1737a69b50Ed303E01f7725Cc8aEd855Be1",
-    "marketplace"
-  );
-
-  const { mutateAsync: makeDirectListing } =
-    useCreateDirectListing(marketplace);
-  const { mutateAsync: makeAuctionListing } =
-    useCreateAuctionListing(marketplace);
-
-  // Other hooks
-  const router = useRouter();
-  const [file, setFile] = useState();
-  const fileInputRef = useRef(null);
-
-  // This function gets called when the form is submitted.
-  async function handleCreateListing(e) {
-    setCreatingListing(true);
-    try {
-      // Prevent page from refreshing
-      e.preventDefault();
-
-      // De-construct data from form submission
-      const { listingType, name, description, price } = e.target.elements;
-
-      console.log({
-        listingType: listingType.value,
-        name: name.value,
-        description: description.value,
-        price: price.value,
-      });
-
-      // Ensure user is on the correct network
-      if (networkMismatch) {
-        switchNetwork?.(ChainId.Goerli);
-        return;
-      }
-
-      // Upload image using storage SDK
-      const img = await sdk.storage.upload(file);
-
-      // Signature Mint NFT, get info (fetch generate mint signature)
-      const req = await fetch("/api/generate-mint-signature", {
-        method: "POST",
-        body: JSON.stringify({
-          address,
-          name: e.target.elements.name.value,
-          description: e.target.elements.description.value,
-          image: img,
-        }),
-      });
-
-      const signedPayload = (await req.json()).signedPayload;
-
-      const nft = await nftCollection?.signature.mint(signedPayload);
-
-      const mintedTokenId = nft.id.toNumber();
-
-      // Store the result of either the direct listing creation or the auction listing creation
-      let transactionResult = undefined;
-
-      // Depending on the type of listing selected, call the appropriate function
-      // For Direct Listings:
-      if (listingType.value === "directListing") {
-        transactionResult = await createDirectListing(
-          "0x5e0d08BF82f40b80DF1beb1874D04C1416BCc8B2",
-          mintedTokenId,
-          price.value
-        );
-      }
-
-      // For Auction Listings:
-      if (listingType.value === "auctionListing") {
-        transactionResult = await createAuctionListing(
-          "0x5e0d08BF82f40b80DF1beb1874D04C1416BCc8B2",
-          mintedTokenId,
-          price.value
-        );
-      }
-
-      // If the transaction succeeds, take the user back to the homepage to view their listing!
-      if (transactionResult) {
-        router.push(`/`);
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Error creating listing. Check the console for more details");
-    } finally {
-      setCreatingListing(false);
-    }
+  const address = useAddress();
+  
+  const connectWithMetamask = useMetamask();
+  const connectWithWalletConnect = useWalletConnect();
+  const connectWithCoinbaseWallet = useCoinbaseWallet();
+  const disconnectWallet = useDisconnect();
+  function homeClick() {
+    router.push("/listings");
   }
-
-  async function createAuctionListing(contractAddress, tokenId, price) {
-    try {
-      makeAuctionListing(
-        {
-          assetContractAddress: contractAddress, // Contract Address of the NFT
-          buyoutPricePerToken: price, // Maximum price, the auction will end immediately if a user pays this price.
-          currencyContractAddress: NATIVE_TOKEN_ADDRESS, // NATIVE_TOKEN_ADDRESS is the crpyto curency that is native to the network. i.e. Goerli ETH.
-          listingDurationInSeconds: 60 * 60 * 24 * 7, // When the auction will be closed and no longer accept bids (1 Week)
-          quantity: 1, // How many of the NFTs are being listed (useful for ERC 1155 tokens)
-          reservePricePerToken: 0, // Minimum price, users cannot bid below this amount
-          startTimestamp: new Date(), // When the listing will start
-          tokenId: tokenId, // Token ID of the NFT.
-        },
-        {
-          onSuccess: (tx) => {
-            return tx;
-          },
-        }
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function createDirectListing(contractAddress, tokenId, price) {
-    try {
-      makeDirectListing(
-        {
-          assetContractAddress: contractAddress, // Contract Address of the NFT
-          buyoutPricePerToken: price, // Maximum price, the auction will end immediately if a user pays this price.
-          currencyContractAddress: NATIVE_TOKEN_ADDRESS, // NATIVE_TOKEN_ADDRESS is the crpyto curency that is native to the network. i.e. Goerli ETH.
-          listingDurationInSeconds: 60 * 60 * 24 * 7, // When the auction will be closed and no longer accept bids (1 Week)
-          quantity: 1, // How many of the NFTs are being listed (useful for ERC 1155 tokens)
-          startTimestamp: new Date(0), // When the listing will start
-          tokenId: tokenId, // Token ID of the NFT.
-        },
-        {
-          onSuccess: (tx) => {
-            return tx;
-          },
-        }
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  // Function to store file in state when user uploads it
-  const uploadFile = () => {
-    if (fileInputRef?.current) {
-      fileInputRef.current.click();
-
-      fileInputRef.current.onchange = () => {
-        if (fileInputRef?.current?.files?.length) {
-          const file = fileInputRef.current.files[0];
-          setFile(file);
-        }
-      };
-    }
-  };
-
+  
   return (
-    <form onSubmit={(e) => handleCreateListing(e)}>
-      <div className={styles.container}>
-        {/* Form Section */}
-        <div className={styles.collectionContainer}>
-          <h1 className={styles.ourCollection}>
-            Upload your NFT to the marketplace:
-          </h1>
+    <>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
 
-          {/* Toggle between direct listing and auction listing */}
-          <div className={styles.listingTypeContainer}>
-            <input
-              type="radio"
-              name="listingType"
-              id="directListing"
-              value="directListing"
-              defaultChecked
-              className={styles.listingType}
-            />
-            <label htmlFor="directListing" className={styles.listingTypeLabel}>
-              Direct Listing
-            </label>
-            <input
-              type="radio"
-              name="listingType"
-              id="auctionListing"
-              value="auctionListing"
-              className={styles.listingType}
-            />
-            <label htmlFor="auctionListing" className={styles.listingTypeLabel}>
-              Auction Listing
-            </label>
-          </div>
-
-          {file ? (
-            <img
-              src={URL.createObjectURL(file)}
-              style={{ cursor: "pointer", maxHeight: 250, borderRadius: 8 }}
-              onClick={() => setFile(undefined)}
-            />
+      <Container maxW={'3xl'}>
+        <Stack
+          as={Box}
+          textAlign={'center'}
+          spacing={{ base: 8, md: 14 }}
+          py={{ base: 20, md: 36 }}>
+          <Heading
+            fontWeight={600}
+            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+            lineHeight={'110%'}>
+            Make money from <br />
+            <Text as={'span'} color={'green.400'}>
+              your creativity
+            </Text>
+          </Heading>
+          <Text color={'gray.500'}>
+            Monetize your creativity by charging your most loyal readers and reward
+            them loyalty points. Give back to your loyal readers by granting
+            them access to your pre-releases and staking NFT.
+          </Text>
+          <Stack
+            direction={'column'}
+            spacing={3}
+            align={'center'}
+            alignSelf={'center'}
+            position={'relative'}>
+        {address ? (
+		<>
+{networkMismatch ? (
+<>
+            <Button leftIcon={<RiSignalWifiErrorLine />} variant={'outline'} onClick={() => switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID))} colorScheme={'blue'} size={'sm'}>
+Switch Network
+            </Button>
+</>
+) : (
+<>
+            <Button leftIcon={<RiStore2Line />} variant={'outline'} onClick={homeClick} colorScheme={'blue'} size={'sm'}>
+              GoTo Marketplace
+            </Button>
+</>
+)}
+	    </>
           ) : (
-            <div
-              className={styles.imageInput}
-              onClick={uploadFile}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => {
-                e.preventDefault();
-                setFile(e.dataTransfer.files[0]);
-              }}
-            >
-              Drag and drop an image here to upload it!
-            </div>
-          )}
-          <input
-            type="file"
-            accept="image/png, image/gif, image/jpeg"
-            id="profile-picture-input"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-          />
+		  <>
+            <Button onClick={onOpen}
+              colorScheme={'green'}
+              bg={'green.400'}
+              rounded={'full'}
+              px={6}
+              _hover={{
+                bg: 'green.500',
+              }}>
+              Connect Wallet
+            </Button>
+            <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
+              Learn more
+            </Button>
+			<AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+		motionPreset='slideInBottom'
+		isCentered
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Connect Wallet
+            </AlertDialogHeader>
 
-          {/* Sale Price For Listing Field */}
-          <input
-            type="text"
-            name="name"
-            className={styles.textInput}
-            placeholder="Name"
-            style={{ minWidth: "320px" }}
-          />
+            <AlertDialogBody>
+              <Menu>
+                  <MenuDivider />
+                  <MenuItem onClick={() => {connectWithMetamask(), onClose()}}>Metamask</MenuItem>
+                  <MenuItem onClick={() => {connectWithWalletConnect(), onClose()}}>WalletConnect</MenuItem>
+                  <MenuItem onClick={() => {connectWithCoinbaseWallet(), onClose()}}>CoinBase</MenuItem>
+              </Menu>
+            </AlertDialogBody>
 
-          {/* Sale Price For Listing Field */}
-          <input
-            type="text"
-            name="description"
-            className={styles.textInput}
-            placeholder="Description"
-            style={{ minWidth: "320px" }}
-          />
-
-          {/* Sale Price For Listing Field */}
-          <input
-            type="text"
-            name="price"
-            className={styles.textInput}
-            placeholder="Price (in ETH)"
-            style={{ minWidth: "320px" }}
-          />
-
-          <button
-            type="submit"
-            className={styles.mainButton}
-            style={{ marginTop: 32, borderStyle: "none" }}
-            disabled={creatingListing}
-          >
-            {creatingListing ? "Loading..." : "Mint + List NFT"}
-          </button>
-        </div>
-      </div>
-    </form>
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose} colorScheme='red'>
+                Cancel
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+            <Box>
+              <Icon
+                as={Arrow}
+                color={useColorModeValue('gray.800', 'gray.300')}
+                w={71}
+                position={'absolute'}
+                right={-71}
+                top={'15px'}
+              />
+              <Text
+                fontSize={'lg'}
+                fontFamily={'Caveat'}
+                position={'absolute'}
+                right={'-105px'}
+                top={'-15px'}
+                transform={'rotate(10deg)'}>
+                Sign Your Wallet
+              </Text>
+            </Box>
+		  </>
+		)}
+          </Stack>
+        </Stack>
+      </Container>
+    </>
   );
-};
+}
 
-export default Create;
+const Arrow = createIcon({
+  displayName: 'Arrow',
+  viewBox: '0 0 72 24',
+  path: (
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M0.600904 7.08166C0.764293 6.8879 1.01492 6.79004 1.26654 6.82177C2.83216 7.01918 5.20326 7.24581 7.54543 7.23964C9.92491 7.23338 12.1351 6.98464 13.4704 6.32142C13.84 6.13785 14.2885 6.28805 14.4722 6.65692C14.6559 7.02578 14.5052 7.47362 14.1356 7.6572C12.4625 8.48822 9.94063 8.72541 7.54852 8.7317C5.67514 8.73663 3.79547 8.5985 2.29921 8.44247C2.80955 9.59638 3.50943 10.6396 4.24665 11.7384C4.39435 11.9585 4.54354 12.1809 4.69301 12.4068C5.79543 14.0733 6.88128 15.8995 7.1179 18.2636C7.15893 18.6735 6.85928 19.0393 6.4486 19.0805C6.03792 19.1217 5.67174 18.8227 5.6307 18.4128C5.43271 16.4346 4.52957 14.868 3.4457 13.2296C3.3058 13.0181 3.16221 12.8046 3.01684 12.5885C2.05899 11.1646 1.02372 9.62564 0.457909 7.78069C0.383671 7.53862 0.437515 7.27541 0.600904 7.08166ZM5.52039 10.2248C5.77662 9.90161 6.24663 9.84687 6.57018 10.1025C16.4834 17.9344 29.9158 22.4064 42.0781 21.4773C54.1988 20.5514 65.0339 14.2748 69.9746 0.584299C70.1145 0.196597 70.5427 -0.0046455 70.931 0.134813C71.3193 0.274276 71.5206 0.70162 71.3807 1.08932C66.2105 15.4159 54.8056 22.0014 42.1913 22.965C29.6185 23.9254 15.8207 19.3142 5.64226 11.2727C5.31871 11.0171 5.26415 10.5479 5.52039 10.2248Z"
+      fill="currentColor"
+    />
+  ),
+});

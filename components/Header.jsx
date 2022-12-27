@@ -33,7 +33,7 @@ export default function Header() {
               Disconnect
             </a>
             <p className={styles.verticalSpacer}>|</p>
-            <p>{address.slice(0, 6).concat("...").concat(address.slice(-4))}</p>
+            <p>{address.slice(0, 2).concat("").concat(address.slice(-4))}</p>
           </>
         ) : (
           <ConnectWallet accentColor="#5204BF" colorMode="dark" />

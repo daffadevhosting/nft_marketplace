@@ -5,6 +5,7 @@ import {
   useContractMetadata,
   ThirdwebNftMedia,
 } from "@thirdweb-dev/react";
+import { Card, CardHeader, CardBody, CardFooter, Divider, Container, Spinner } from '@chakra-ui/react'
 import { MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import styles from "../styles/Theme.module.css";
 
@@ -19,7 +20,7 @@ export default function Listings() {
   const [filter, setFilter] = useState(0); // 0 = direct, auction = 1
 
   return (
-    <div className={styles.container}>
+    <Container centerContent>
       <div className={styles.collectionContainer}>
         <div className={styles.detailPageContainer}>
           {!loadingMetadata ? (
@@ -28,7 +29,9 @@ export default function Listings() {
               <p>{contractMetadata?.description}</p>
             </>
           ) : (
-            <p>Loading...</p>
+		  <div className={styles.loading}>
+		  <Spinner size='md' />
+          </div>
           )}
           <hr className={`${styles.smallDivider} ${styles.detailPageHr}`} />
         </div>
@@ -70,22 +73,37 @@ export default function Listings() {
                   key={listing.id.toString()}
                   href={`/listing/${listing.id}`}
                 >
+			<Card maxW='sm' overflow='hidden'>
                   <ThirdwebNftMedia
                     metadata={{ ...listing.asset }}
                     className={styles.nftMedia}
                   />
+				<CardBody>
                   <h4>{listing.asset.name}</h4>
+  </CardBody>
+  <Divider />
+  <CardFooter>
                   <p>
                     {listing.buyoutCurrencyValuePerToken.displayValue}{" "}
                     {listing.buyoutCurrencyValuePerToken.symbol}
                   </p>
+  </CardFooter>
+</Card>
                 </a>
               ))}
           </div>
         ) : (
-          <p>Loading...</p>
+          <><div className={styles.loading}>
+		  <Spinner
+			  thickness='4px'
+			  speed='0.65s'
+			  emptyColor='gray.200'
+			  color='blue.500'
+			  size='xl' />
+          </div>
+		  </>
         )}
       </div>
-    </div>
+    </Container>
   );
 }

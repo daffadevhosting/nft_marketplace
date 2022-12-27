@@ -1,4 +1,5 @@
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { NFT_COLLECTION_ADDRESS } from "../../const/contractAddresses";
 
 export default async function generateMintSignature(req, res) {
   // De-construct body from request
@@ -6,7 +7,7 @@ export default async function generateMintSignature(req, res) {
   const sdk = ThirdwebSDK.fromPrivateKey(process.env.PRIVATE_KEY, "goerli");
 
   const nftContract = await sdk.getContract(
-    "0x5e0d08BF82f40b80DF1beb1874D04C1416BCc8B2",
+    NFT_COLLECTION_ADDRESS,
     "nft-collection"
   );
 

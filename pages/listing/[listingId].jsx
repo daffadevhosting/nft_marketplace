@@ -5,11 +5,14 @@ import {
   useNetworkMismatch,
   useListing,
 } from "@thirdweb-dev/react";
+import { Spinner } from '@chakra-ui/react'
 import { ChainId, ListingType, NATIVE_TOKENS } from "@thirdweb-dev/sdk";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { MARKETPLACE_ADDRESS } from "../../const/contractAddresses";
 import styles from "../../styles/Theme.module.css";
+
+const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
 
 export default function ListingPage() {
   const router = useRouter();
@@ -33,18 +36,25 @@ export default function ListingPage() {
   const [bidAmount, setBidAmount] = useState("");
 
   if (loadingListing) {
-    return <div className={styles.loadingOrError}>Loading...</div>;
+    return <div className={styles.loading}>
+		  <Spinner
+			  thickness='4px'
+			  speed='0.65s'
+			  emptyColor='gray.200'
+			  color='blue.500'
+			  size='xl' />
+		   </div>;
   }
 
   if (!listing) {
-    return <div className={styles.loadingOrError}>Listing not found</div>;
+    return <div className={styles.loading}>Listing not found</div>;
   }
 
   async function createBidOrOffer() {
     try {
       // Ensure user is on the correct network
       if (networkMismatch) {
-        switchNetwork && switchNetwork(ChainId.Mumbai);
+        switchNetwork && switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID));
         return;
       }
 
@@ -53,7 +63,7 @@ export default function ListingPage() {
         await marketplace?.direct.makeOffer(
           listingId, // The listingId of the listing we want to make an offer for
           1, // Quantity = 1
-          NATIVE_TOKENS[ChainId.Goerli].wrapped.address, // Wrapped Ether address on Goerli
+          NATIVE_TOKENS[activeChainId].wrapped.address, // Wrapped Ether address on Goerli
           bidAmount // The offer amount the user entered
         );
       }
@@ -68,9 +78,9 @@ export default function ListingPage() {
           listing?.type === ListingType.Auction ? "Bid" : "Offer"
         } created successfully!`
       );
-    } catch (error) {
-      console.error(error.message || "something went wrong");
-      alert(error.message || "something went wrong");
+    } catch (err) {
+      console.error(err.message || "something went wrong");
+      alert(err.message || "something went wrong");
     }
   }
 
@@ -78,16 +88,16 @@ export default function ListingPage() {
     try {
       // Ensure user is on the correct network
       if (networkMismatch) {
-        switchNetwork && switchNetwork(ChainId.Mumbai);
+        switchNetwork && switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID));
         return;
       }
 
       // Simple one-liner for buying the NFT
       await marketplace?.buyoutListing(listingId, 1);
       alert("NFT bought successfully!");
-    } catch (error) {
-      console.error(error);
-      alert(error);
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
     }
   }
 
