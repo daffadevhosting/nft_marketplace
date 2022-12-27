@@ -2,6 +2,8 @@ import {
   useAddress,
   useDisconnect,
   useMetamask, useWalletConnect, useCoinbaseWallet,
+  useNetwork,
+  useNetworkMismatch,
 } from "@thirdweb-dev/react";
 import { ReactNode } from 'react';
 import {
@@ -25,7 +27,7 @@ import {
 import { useRouter } from "next/router";
 import { useContext, useRef } from "react";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { RiLoginCircleFill, RiWallet3Fill, RiShieldUserFill } from "react-icons/ri";
+import { RiLoginCircleFill, RiWallet3Fill, RiShieldUserFill, RiSignalWifiErrorLine } from "react-icons/ri";
 
 const NavLink = ({ children }, { children: ReactNode }) => (
   <Link
@@ -48,6 +50,8 @@ export default function Navbar() {
   const router = useRouter();
   const toast = useToast();
   const address = useAddress();
+  const networkMismatch = useNetworkMismatch();
+  const [, switchNetwork] = useNetwork();
   
   const color = useColorModeValue('gray.200', 'gray.700');
   
@@ -105,6 +109,12 @@ export default function Navbar() {
                   </Center>
                   <br />
                   <MenuDivider />
+{networkMismatch ? (
+<>
+                  <MenuItem leftIcon={<RiSignalWifiErrorLine />} onClick={() => switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID))} colorScheme={'blue'}>Switch Network</MenuItem>
+</>
+) : (
+<>
                   <MenuItem onClick={marketClick}>Marketplace</MenuItem>
                   <MenuItem onClick={handleClick}>Upload NFT</MenuItem>
                   <MenuItem onClick={() => {disconnectWallet(), homeClick(), toast({
@@ -115,6 +125,8 @@ export default function Navbar() {
           isClosable: true,
         })}
 				  }>Logout</MenuItem>
+</>
+)}
                 </MenuList>
 	  </>
           ) : (
