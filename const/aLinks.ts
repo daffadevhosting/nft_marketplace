@@ -1,5 +1,5 @@
 export const explorerUrl = () => {
-  const address = process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS
+  const address = process.env.NEXT_PUBLIC_NFT_COLLECTION_ADDRESS
 
   switch (process.env.NEXT_PUBLIC_CHAIN_ID) {
     case '1':
@@ -87,7 +87,7 @@ export const swapUrl = () => {
 }
 
 export const openseaUrl = () => {
-  const name = process.env.NEXT_PUBLIC_CONTRACT_NAME
+  const name = process.env.NEXT_PUBLIC_0PENSEA_NAME
 
   switch (process.env.NEXT_PUBLIC_CHAIN_ID) {
     case '137':

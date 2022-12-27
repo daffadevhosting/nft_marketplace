@@ -24,12 +24,17 @@ import {
   Center,
   useToast 
 } from '@chakra-ui/react';
+import Image from 'next/image';
 import { useRouter } from "next/router";
 import { useContext, useRef } from "react";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { openseaUrl } from "../const/aLinks";
 import { RiLoginCircleFill, RiWallet3Fill, RiShieldUserFill, RiSignalWifiErrorLine } from "react-icons/ri";
 
-const Title = 'NFT marketplace'
+const Title = 'NFT marketplace';
+const openseaLink = openseaUrl;
+const Logo = "/icons/opensea.svg";
+
 const NavLink = ({ children }, { children: ReactNode }) => (
   <Link
     px={2}
@@ -79,6 +84,10 @@ export default function Navbar() {
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={5}>
+              <Button>
+  <Link href={openseaLink()} passHref target="_blank" rel="noopener noreferrer" title="OpenSea" style={{height: 28,}}>
+				<Image src={Logo} width={28} height={28} alt="logo" /></Link>
+              </Button>
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon size={32} /> : <SunIcon size={32} />}
               </Button>
