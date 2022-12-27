@@ -1,10 +1,12 @@
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import { NFT_COLLECTION_ADDRESS } from "../../const/contractAddresses";
+import { NFT_COLLECTION_ADDRESS, NETWORK_CHAIN_NAME } from "../../const/contractAddresses";
+
+const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
 
 export default async function generateMintSignature(req, res) {
   // De-construct body from request
   let { address, name, description, image } = JSON.parse(req.body);
-  const sdk = ThirdwebSDK.fromPrivateKey(process.env.PRIVATE_KEY, process.env.NEXT_PUBLIC_CHAIN_ID);
+  const sdk = ThirdwebSDK.fromPrivateKey(process.env.PRIVATE_KEY, "NETWORK_CHAIN_NAME");
 
   const nftContract = await sdk.getContract(
     NFT_COLLECTION_ADDRESS,

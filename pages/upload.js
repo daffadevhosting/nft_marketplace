@@ -211,7 +211,7 @@ const Create = () => {
 		  <div className={styles.uploadSection}>
 <div className={styles.upload}>
           {file ? (
-            <Image width={350} height={350} alt='upload'
+            <img width={350} height={350} alt='upload'
               src={URL.createObjectURL(file)}
               style={{ cursor: "pointer", height: 350, maxHeight: 350, width: 350, borderRadius: 8 }}
               onClick={() => setFile(undefined)}
@@ -309,6 +309,7 @@ Switch Network
           </Button >
           ) : (
           <Button
+			colorScheme={'red'}
             className={styles.mainButton}
             style={{ marginTop: 32, borderStyle: "none" }}
 			disabled> Connect Wallet
