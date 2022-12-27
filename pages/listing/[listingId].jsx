@@ -192,7 +192,8 @@ export default function ListingPage() {
               colorScheme={'red'}
               bg={'red.400'}
               _hover={{ bg: 'red.500' }}
-              onClick={buyNft}>
+              onClick={buyNft}
+			  style={{fontWeight: 700, color: 'white'}}>
               Buy
             </Button>
           </Stack>
