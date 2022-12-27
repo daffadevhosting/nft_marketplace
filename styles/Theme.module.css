@@ -417,7 +417,7 @@
 }
 
 .listingTypeContainer {
-  margin-top: 64px;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -434,21 +434,20 @@
 
 .listingTypeLabel {
   display: inline-block;
-  background-color: #262936;
   padding: 10px 20px;
   font-size: 16px;
   border: 2px solid #444;
-  border-radius: 4px;
-  border-radius: 16px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
 }
 
 .listingType:checked + label {
   border: 3px solid transparent;
-  border-radius: 20px;
+  border-radius: 8px;
+  color: #fff;
   background: linear-gradient(to right, #262936, #262936),
-    linear-gradient(to right, #418dff, #cc25b3);
+    linear-gradient(to right, #418dff,  rgb(66 153 225 / 60%));
   background-clip: padding-box, border-box;
   background-origin: padding-box, border-box;
 }

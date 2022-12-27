@@ -29,6 +29,7 @@ import { useContext, useRef } from "react";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { RiLoginCircleFill, RiWallet3Fill, RiShieldUserFill, RiSignalWifiErrorLine } from "react-icons/ri";
 
+const Title = 'NFT marketplace'
 const NavLink = ({ children }, { children: ReactNode }) => (
   <Link
     px={2}
@@ -74,7 +75,7 @@ export default function Navbar() {
     <>
       <Box bg={color} px={4} style={{position: 'fixed', width: '100%', zIndex: 99999, top: 0}}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box>Logo</Box>
+          <Box>{Title}</Box>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={5}>

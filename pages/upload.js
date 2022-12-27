@@ -208,30 +208,6 @@ const Create = () => {
             Upload your NFT to the marketplace:
           </h1>
 
-          {/* Toggle between direct listing and auction listing */}
-          <div className={styles.listingTypeContainer}>
-            <input
-              type="radio"
-              name="listingType"
-              id="directListing"
-              value="directListing"
-              defaultChecked
-              className={styles.listingType}
-            />
-            <label htmlFor="directListing" className={styles.listingTypeLabel}>
-              Direct Listing
-            </label>
-            <input
-              type="radio"
-              name="listingType"
-              id="auctionListing"
-              value="auctionListing"
-              className={styles.listingType}
-            />
-            <label htmlFor="auctionListing" className={styles.listingTypeLabel}>
-              Auction Listing
-            </label>
-          </div>
 		  <div className={styles.uploadSection}>
 <div className={styles.upload}>
           {file ? (
@@ -289,6 +265,29 @@ const Create = () => {
             placeholder="Price (in BNB)"
             style={{ minWidth: "320px" }}
           />
+          <div className={styles.listingTypeContainer}>
+            <input
+              type="radio"
+              name="listingType"
+              id="directListing"
+              value="directListing"
+              defaultChecked
+              className={styles.listingType}
+            />
+            <label htmlFor="directListing" className={styles.listingTypeLabel}>
+              Direct Listing
+            </label>
+            <input
+              type="radio"
+              name="listingType"
+              id="auctionListing"
+              value="auctionListing"
+              className={styles.listingType}
+            />
+            <label htmlFor="auctionListing" className={styles.listingTypeLabel}>
+              Auction Listing
+            </label>
+          </div>
 
         {address ? (
           <Button 
