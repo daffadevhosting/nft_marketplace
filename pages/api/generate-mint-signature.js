@@ -4,7 +4,7 @@ import { NFT_COLLECTION_ADDRESS } from "../../const/contractAddresses";
 export default async function generateMintSignature(req, res) {
   // De-construct body from request
   let { address, name, description, image } = JSON.parse(req.body);
-  const sdk = ThirdwebSDK.fromPrivateKey(process.env.PRIVATE_KEY, "goerli");
+  const sdk = ThirdwebSDK.fromPrivateKey(process.env.PRIVATE_KEY, process.env.NEXT_PUBLIC_CHAIN_ID);
 
   const nftContract = await sdk.getContract(
     NFT_COLLECTION_ADDRESS,
