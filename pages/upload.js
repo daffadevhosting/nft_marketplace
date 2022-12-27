@@ -291,6 +291,7 @@ const Create = () => {
 
         {address ? (
           <Button 
+			colorScheme={'blue'}
             type="submit"
             className={styles.mainButton}
             style={{ marginTop: 32, borderStyle: "none" }}

@@ -117,7 +117,7 @@ export default function Navbar() {
 ) : (
 <>
                   <MenuItem onClick={marketClick}>Marketplace</MenuItem>
-                  <MenuItem onClick={handleClick}>Upload NFT</MenuItem>
+                  <MenuItem onClick={handleClick}>Create NFT</MenuItem>
                   <MenuItem onClick={() => {disconnectWallet(), homeClick(), toast({
           title: 'Wallet Disconnected.',
           description: "You've disconnect your wallet.",
