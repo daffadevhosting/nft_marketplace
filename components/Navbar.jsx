@@ -92,14 +92,14 @@ export default function Navbar() {
                   variant={'link'}
                   cursor={'pointer'}
                   minW={0}>
-                  <RiWallet3Fill
+                  <RiShieldUserFill
                     size={32}
                   />
                 </MenuButton>
                 <MenuList alignItems={'center'}>
                   <br />
                   <Center>
-                    <RiShieldUserFill
+                    <RiWallet3Fill
                       size={60}
                     />
                   </Center>
