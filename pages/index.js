@@ -41,6 +41,8 @@ export default function CallToActionWithAnnotation() {
   const [, switchNetwork] = useNetwork();
   const address = useAddress();
   
+  const color = useColorModeValue('gray.800', 'gray.300');
+  
   const connectWithMetamask = useMetamask();
   const connectWithWalletConnect = useWalletConnect();
   const connectWithCoinbaseWallet = useCoinbaseWallet();
@@ -51,13 +53,6 @@ export default function CallToActionWithAnnotation() {
   
   return (
     <>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
       <Container maxW={'3xl'}>
         <Stack
           as={Box}
@@ -148,7 +143,7 @@ Switch Network
             <Box>
               <Icon
                 as={Arrow}
-                color={useColorModeValue('gray.800', 'gray.300')}
+                color={color}
                 w={71}
                 position={'absolute'}
                 right={-71}

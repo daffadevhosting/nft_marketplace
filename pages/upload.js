@@ -13,6 +13,7 @@ import { NFT_COLLECTION_ADDRESS, MARKETPLACE_ADDRESS } from "../const/contractAd
 import { useRouter } from "next/router";
 import { useContext, useRef } from "react";
 import { Button, useToast } from '@chakra-ui/react';
+import Image from 'next/image';
 import styles from "../styles/Theme.module.css";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
@@ -234,7 +235,7 @@ const Create = () => {
 		  <div className={styles.uploadSection}>
 <div className={styles.upload}>
           {file ? (
-            <img
+            <Image width={350} height={350} alt='upload'
               src={URL.createObjectURL(file)}
               style={{ cursor: "pointer", height: 350, maxHeight: 350, width: 350, borderRadius: 8 }}
               onClick={() => setFile(undefined)}

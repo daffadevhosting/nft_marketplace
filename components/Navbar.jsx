@@ -49,6 +49,8 @@ export default function Navbar() {
   const toast = useToast();
   const address = useAddress();
   
+  const color = useColorModeValue('gray.200', 'gray.700');
+  
   const connectWithMetamask = useMetamask();
   const connectWithWalletConnect = useWalletConnect();
   const connectWithCoinbaseWallet = useCoinbaseWallet();
@@ -66,7 +68,7 @@ export default function Navbar() {
   
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4} style={{position: 'fixed', width: '100%', zIndex: 99999, top: 0}}>
+      <Box bg={color} px={4} style={{position: 'fixed', width: '100%', zIndex: 99999, top: 0}}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box>Logo</Box>
 
