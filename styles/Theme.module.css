@@ -439,6 +439,7 @@
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
+  color: #444;
 }
 
 .listingType:checked + label {
@@ -449,4 +450,9 @@
     linear-gradient(to right, #418dff,  rgb(66 153 225 / 60%));
   background-clip: padding-box, border-box;
   background-origin: padding-box, border-box;
+}
+.listingTypeLabel:hover {
+  background: linear-gradient(to right, #262936, #262936),
+    linear-gradient(to right, #418dff,  rgb(66 153 225 / 60%));
+  color: #fff;
 }
