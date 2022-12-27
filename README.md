@@ -1,1 +1,1 @@
-## thirdweb Marketplace
+## thirdweb Marketplace with chakra-UI template
