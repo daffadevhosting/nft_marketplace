@@ -18,7 +18,7 @@ import styles from "../styles/Theme.module.css";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
 
-const Create = () => {
+const Upload = () => {
   const address = useAddress();
   const networkMismatch = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
@@ -323,4 +323,4 @@ Switch Network
   );
 };
 
-export default Create;
+export default Upload;

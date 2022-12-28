@@ -75,6 +75,9 @@ export default function Navbar() {
   function homeClick() {
     router.push("/");
   }
+  function sellingClick() {
+    router.push("/resell");
+  }
   
   return (
     <>
@@ -127,6 +130,7 @@ export default function Navbar() {
 <>
                   <MenuItem onClick={marketClick}>Marketplace</MenuItem>
                   <MenuItem onClick={handleClick}>Create NFT</MenuItem>
+                  <MenuItem onClick={sellingClick}>Resell NFT</MenuItem>
                   <MenuItem onClick={() => {disconnectWallet(), homeClick(), toast({
           title: 'Wallet Disconnected.',
           description: "You've disconnect your wallet.",
