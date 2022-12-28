@@ -1,4 +1,6 @@
-export const explorerUrl = () => {
+import { useAddress } from "@thirdweb-dev/react";
+  
+  export const explorerUrl = () => {
   const address = process.env.NEXT_PUBLIC_NFT_COLLECTION_ADDRESS
 
   switch (process.env.NEXT_PUBLIC_CHAIN_ID) {
@@ -26,6 +28,39 @@ export const explorerUrl = () => {
     case '4002':
       // FantomTestnet
       return `https://testnet.ftmscan.com/token/${address}`
+    default:
+      return ''
+  }
+}
+
+export const walletscanUrl = () => {
+  const walletAddress = useAddress();
+
+  switch (process.env.NEXT_PUBLIC_CHAIN_ID) {
+    case '1':
+      // Mainnet
+      return `https://etherscan.io/address/${walletAddress}`
+    case '5':
+      // Goerli
+      return `https://goerli.etherscan.io/address/${walletAddress}`
+	case '56':
+	  // BNB
+      return `https://bscscan.com/address/${walletAddress}`
+    case '97':
+      // tBNB
+      return `https://testnet.bscscan.com/address/${walletAddress}`
+    case '137':
+      // Polygon
+      return `https://polygonscan.com/address/${walletAddress}`
+    case '80001':
+      // Munbai
+      return `https://mumbai.polygonscan.com/address/${walletAddress}`
+    case '250':
+      // Fantom
+      return `https://ftmscan.com/address/${walletAddress}`
+    case '4002':
+      // FantomTestnet
+      return `https://testnet.ftmscan.com/address/${walletAddress}`
     default:
       return ''
   }
@@ -151,5 +186,6 @@ export const snsLinks = {
   twitterUrl,
   instagramUrl,
   discordUrl,
-  cmcUrl
+  cmcUrl,
+  walletscanUrl
 }

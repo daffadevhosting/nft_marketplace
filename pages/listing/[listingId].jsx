@@ -12,6 +12,7 @@ import {
   Box,
   Heading,
   Text,
+  Input,
   Button,
   Image,
   Icon,
@@ -118,7 +119,7 @@ export default function ListingPage() {
   }
   
   return (
-    <Container maxW={'7xl'}>
+    <Container maxW={'5xl'}>
       <Stack
         align={'center'}
         spacing={{ base: 8, md: 10 }}
@@ -151,7 +152,7 @@ export default function ListingPage() {
           <Heading
             lineHeight={1.1}
             fontWeight={600}
-            fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}>
+            fontSize={{ base: '3xl', sm: '4xl', lg: '5xl' }}>
             <Text
               as={'span'}
               position={'relative'}
@@ -162,13 +163,13 @@ export default function ListingPage() {
                 position: 'absolute',
                 bottom: 1,
                 left: 0,
-                bg: 'red.400',
+                bg: 'blue.200',
                 zIndex: -1,
               }}>
              {listing.asset.name}
             </Text>
             <br />
-            <Text as={'span'} color={'red.400'}>
+            <Text as={'span'} color={'red.500'}>
             Owned by <b>{listing.sellerAddress?.slice(0, 7)}</b>
             </Text>
           </Heading>
@@ -181,16 +182,17 @@ export default function ListingPage() {
           </Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}
-            direction={{ base: 'column', sm: 'row', }}>
+            direction={{ base: 'column', sm: 'row', }}
+			style={{margin: '20px auto'}}>
             <Button
 			  width={'248px'}
               rounded={'full'}
               size={'md'}
               fontWeight={'normal'}
               px={6}
-              colorScheme={'red'}
-              bg={'red.400'}
-              _hover={{ bg: 'red.500' }}
+              colorScheme={'blue'}
+              bg={'blue.400'}
+              _hover={{ bg: 'blue.600' }}
               onClick={buyNft}
 			  style={{fontWeight: 700, color: 'white'}}>
               Buy

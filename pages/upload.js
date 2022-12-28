@@ -226,7 +226,7 @@ const Upload = () => {
                 setFile(e.dataTransfer.files[0]);
               }}
             >
-              Drag and drop an image here to upload it!
+              Click or Drag an image here to upload it!
             </div>
           )}
 		  </div>
@@ -265,36 +265,13 @@ const Upload = () => {
             placeholder="Price (in BNB)"
             style={{ minWidth: "320px" }}
           />
-          <div className={styles.listingTypeContainer}>
-            <input
-              type="radio"
-              name="listingType"
-              id="directListing"
-              value="directListing"
-              defaultChecked
-              className={styles.listingType}
-            />
-            <label htmlFor="directListing" className={styles.listingTypeLabel}>
-              Direct Listing
-            </label>
-            <input
-              type="radio"
-              name="listingType"
-              id="auctionListing"
-              value="auctionListing"
-              className={styles.listingType}
-            />
-            <label htmlFor="auctionListing" className={styles.listingTypeLabel}>
-              Auction Listing
-            </label>
-          </div>
 
         {address ? (
           <Button 
 			colorScheme={'blue'}
             type="submit"
             className={styles.mainButton}
-            style={{ marginTop: 32, borderStyle: "none" }}
+            style={{ marginTop: 62, borderStyle: "none" }}
             disabled={creatingListing}
           >
 {networkMismatch ? (

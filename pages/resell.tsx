@@ -189,36 +189,6 @@ const Resell: NextPage = () => {
           />
             </FormControl>
             <Stack spacing={10}>
-              <Stack
-                direction={{ base: 'column', sm: 'row' }}
-                align={'start'}
-                justify={'space-between'}>
-
-          {/* Toggle between direct listing and auction listing */}
-          <div className={styles.listingTypeContainer}>
-            <input
-              type="radio"
-              name="listingType"
-              id="directListing"
-              value="directListing"
-              defaultChecked
-              className={styles.listingType}
-            />
-            <label htmlFor="directListing" className={styles.listingTypeLabel}>
-              Direct Listing
-            </label>
-            <input
-              type="radio"
-              name="listingType"
-              id="auctionListing"
-              value="auctionListing"
-              className={styles.listingType}
-            />
-            <label htmlFor="auctionListing" className={styles.listingTypeLabel}>
-              Auction Listing
-            </label>
-          </div>
-              </Stack>
         {address ? (
           <Button 
 				style={{marginTop: '10px'}}

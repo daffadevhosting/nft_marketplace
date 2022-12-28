@@ -38,33 +38,6 @@ export default function Listings() {
           <hr className={`${styles.smallDivider} ${styles.detailPageHr}`} />
         </div>
 
-        {/* Toggle between direct listing and auction listing */}
-        <div className={styles.listingTypeContainer}>
-          <input
-            type="radio"
-            name="listingType"
-            id="directListing"
-            value="directListing"
-            defaultChecked
-            className={styles.listingType}
-            onClick={() => setFilter(0)}
-          />
-          <label htmlFor="directListing" className={styles.listingTypeLabel}>
-            Direct Listing
-          </label>
-          <input
-            type="radio"
-            name="listingType"
-            id="auctionListing"
-            value="auctionListing"
-            className={styles.listingType}
-            onClick={() => setFilter(1)}
-          />
-          <label htmlFor="auctionListing" className={styles.listingTypeLabel}>
-            Auction Listing
-          </label>
-        </div>
-
         {!isLoading ? (
           <div className={styles.nftBoxGrid}>
             {listings

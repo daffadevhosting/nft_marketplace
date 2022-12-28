@@ -28,11 +28,12 @@ import Image from 'next/image';
 import { useRouter } from "next/router";
 import { useContext, useRef } from "react";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { openseaUrl } from "../const/aLinks";
+import { openseaUrl, walletscanUrl } from "../const/aLinks";
 import { RiLoginCircleFill, RiWallet3Fill, RiShieldUserFill, RiSignalWifiErrorLine } from "react-icons/ri";
 
 const Title = 'NFT marketplace';
 const openseaLink = openseaUrl;
+const scanUrl = walletscanUrl;
 const Logo = "/icons/opensea.svg";
 
 const NavLink = ({ children }, { children: ReactNode }) => (
@@ -118,7 +119,9 @@ export default function Navbar() {
                   </Center>
                   <br />
                   <Center>
+					<Link href={scanUrl()} target="_blank" rel="noopener noreferrer" title="Wallet Scan" style={{height: 28,}}>
                     <p>{address.slice(0, 3).concat("").concat(address.slice(-4))}</p>
+					</Link>
                   </Center>
                   <MenuDivider />
                   <Center>
