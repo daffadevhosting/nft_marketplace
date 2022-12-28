@@ -24,12 +24,16 @@ import {
   NATIVE_TOKEN_ADDRESS,
   TransactionResult,
 } from "@thirdweb-dev/sdk";
+import Image from 'next/image';
 import { MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import { openseaUrl } from "../const/aLinks";
 import styles from "../styles/Theme.module.css";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
+const openseaLink = openseaUrl;
+const Logo = "/icons/opensea.svg"
 
 const Resell: NextPage = () => {
   const address = useAddress();
@@ -149,6 +153,12 @@ const Resell: NextPage = () => {
         <Stack align={'center'}>
           <Heading fontSize={'2xl'}>
             Resell your NFT to marketplace</Heading>
+          <Text fontSize={'lg'} color={'gray.600'}>
+            Kamu juga bisa jual kembali di <Link href={openseaLink()} className={styles.linkOpnsi} color={'blue.400'} target="_blank" rel="noopener noreferrer" title="OpenSea">OPENSEA <Image src={Logo} width={18} height={18} alt="opensea" /></Link>
+          </Text>
+          <Text fontSize={'sm'} color={'gray.600'}>
+		  Contract: 0xd928c0977ae3dbc6561e4731d388e4335c24ed5a
+          </Text>
         </Stack>
         <Box
           rounded={'lg'}
@@ -211,6 +221,7 @@ const Resell: NextPage = () => {
               </Stack>
         {address ? (
           <Button 
+				style={{marginTop: '10px'}}
 				type="submit"
                 bg={'blue.400'}
                 color={'white'}

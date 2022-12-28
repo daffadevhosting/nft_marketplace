@@ -381,6 +381,13 @@
 	width: 350px;
 }
 
+.linkOpnsi {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+}
+
 .hoverItem:hover {
     background: #0052ff;
     border-radius: 6px;
