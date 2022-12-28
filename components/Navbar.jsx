@@ -85,7 +85,7 @@ export default function Navbar() {
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={5}>
               <Button>
-  <Link href={openseaLink()} passHref target="_blank" rel="noopener noreferrer" title="OpenSea" style={{height: 28,}}>
+  <Link href={openseaLink()} target="_blank" rel="noopener noreferrer" title="OpenSea" style={{height: 28,}}>
 				<Image src={Logo} width={28} height={28} alt="logo" /></Link>
               </Button>
               <Button onClick={toggleColorMode}>

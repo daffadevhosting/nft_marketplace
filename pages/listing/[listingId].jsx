@@ -169,20 +169,19 @@ export default function ListingPage() {
             </Text>
             <br />
             <Text as={'span'} color={'red.400'}>
-          <p>
             Owned by <b>{listing.sellerAddress?.slice(0, 6)}</b>
-          </p>
             </Text>
           </Heading>
-          <Text color={'gray.500'}>
-          <h2 style={{fontSize: 25}}>
+          <Text color={'gray.500'} style={{fontSize: 15}}>
+            <b>{listing.asset.description}</b>
+          </Text>
+          <Text color={'gray.500'} style={{fontSize: 25}}>
             <b>{listing.buyoutCurrencyValuePerToken.displayValue}</b>{" "}
             {listing.buyoutCurrencyValuePerToken.symbol}
-          </h2>
           </Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}
-            direction={{ base: 'column', sm: 'row' }}>
+            direction={{ base: 'column', sm: 'row', }}>
             <Button
 			  width={'248px'}
               rounded={'full'}

@@ -5,7 +5,9 @@ import {
   useContractMetadata,
   ThirdwebNftMedia,
 } from "@thirdweb-dev/react";
-import { Card, CardHeader, CardBody, CardFooter, Divider, Container, Spinner } from '@chakra-ui/react'
+import { 
+  Link, Card, CardHeader, CardBody, CardFooter, Divider, Container, Spinner
+  } from '@chakra-ui/react'
 import { MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import styles from "../styles/Theme.module.css";
 
@@ -68,7 +70,7 @@ export default function Listings() {
             {listings
               ?.filter((listing) => listing.type === filter)
               ?.map((listing) => (
-                <a
+                <Link
                   className={styles.nftBox}
                   key={listing.id.toString()}
                   href={`/listing/${listing.id}`}
@@ -78,18 +80,18 @@ export default function Listings() {
                     metadata={{ ...listing.asset }}
                     className={styles.nftMedia}
                   />
-				<CardBody>
+				<CardBody style={{padding: '15px'}}>
                   <h4>{listing.asset.name}</h4>
   </CardBody>
   <Divider />
-  <CardFooter>
+  <CardFooter style={{padding: '10px'}}>
                   <p>
                     {listing.buyoutCurrencyValuePerToken.displayValue}{" "}
                     {listing.buyoutCurrencyValuePerToken.symbol}
                   </p>
   </CardFooter>
 </Card>
-                </a>
+                </Link>
               ))}
           </div>
         ) : (

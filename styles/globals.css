@@ -44,6 +44,11 @@ body {
   box-sizing: border-box;
 }
 
+a:-webkit-any-link:hover {
+	color: red;
+	text-decoration: none;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
   border-radius: 8px;
