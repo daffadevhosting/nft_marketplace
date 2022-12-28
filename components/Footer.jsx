@@ -11,7 +11,7 @@ import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import { explorerUrl } from "../const/aLinks";
-const FaBsc = '/icons/bscscan-logo.png';
+const FaBsc = '/icons/bscscan-logo.svg';
 const bscLink = explorerUrl;
 const SocialButton = ({
   children,
@@ -20,7 +20,7 @@ const SocialButton = ({
 }) => {
   return (
     <chakra.button
-      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+      bg={useColorModeValue('blackAlpha.500', 'whiteAlpha.500')}
       rounded={'full'}
       w={8}
       h={8}
@@ -44,7 +44,7 @@ export default function Footer() {
   return (
     <Box style={{position: 'absolute', bottom: 0, width: '100%'}}
       bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}>
+      color={useColorModeValue('gray.200', 'gray.200')}>
       <Container
         as={Stack}
         maxW={'6xl'}
@@ -53,7 +53,7 @@ export default function Footer() {
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}>
-        <Text>© 2022 Chakra Templates. All rights reserved</Text>
+        <Text style={{color: '#8a919e'}}>© 2022 Chakra Templates. All rights reserved</Text>
         <Stack direction={'row'} spacing={6}>
           <SocialButton label={'Twitter'} href={'/'}>
             <FaTwitter />
