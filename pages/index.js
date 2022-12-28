@@ -32,6 +32,7 @@ import { useRouter } from "next/router";
 import React, { useContext, useRef } from "react";
 import { RiStore2Line, RiSignalWifiErrorLine } from "react-icons/ri";
 import { FcGallery, FcShop } from "react-icons/fc";
+import styles from "../styles/Theme.module.css";
 
 export default function CallToActionWithAnnotation() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -149,9 +150,12 @@ Switch Network
             <AlertDialogBody>
               <Menu>
                   <MenuDivider />
-                  <MenuItem onClick={() => {connectWithMetamask(), onClose()}}>Metamask</MenuItem>
-                  <MenuItem onClick={() => {connectWithWalletConnect(), onClose()}}>WalletConnect</MenuItem>
-                  <MenuItem onClick={() => {connectWithCoinbaseWallet(), onClose()}}>CoinBase</MenuItem>
+                  <MenuItem onClick={() => {connectWithMetamask(), onClose()}} className={styles.hoverItem}>Metamask</MenuItem>
+                  <MenuDivider />
+                  <MenuItem onClick={() => {connectWithWalletConnect(), onClose()}} className={styles.hoverItem}>WalletConnect</MenuItem>
+                  <MenuDivider />
+                  <MenuItem onClick={() => {connectWithCoinbaseWallet(), onClose()}} className={styles.hoverItem}>CoinBase</MenuItem>
+                  <MenuDivider />
               </Menu>
             </AlertDialogBody>
 

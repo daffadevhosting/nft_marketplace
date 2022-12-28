@@ -143,7 +143,7 @@ export default function ListingPage() {
               align={'center'}
               w={'100%'}
               h={'100%'}
-			  style={{objectFit: 'cover', objectPosition: 'center'}}
+			  style={{objectFit: 'cover', objectPosition: 'center', margin: 'auto'}}
           />
           </Box>
         </Flex>
