@@ -169,7 +169,7 @@ export default function ListingPage() {
             </Text>
             <br />
             <Text as={'span'} color={'red.400'}>
-            Owned by <b>{listing.sellerAddress?.slice(0, 6)}</b>
+            Owned by <b>{listing.sellerAddress?.slice(0, 7)}</b>
             </Text>
           </Heading>
           <Text color={'gray.500'} style={{fontSize: 15}}>

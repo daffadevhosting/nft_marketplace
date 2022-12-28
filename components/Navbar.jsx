@@ -120,7 +120,10 @@ export default function Navbar() {
                   <Center>
                     <p>{address.slice(0, 3).concat("").concat(address.slice(-4))}</p>
                   </Center>
-                  <br />
+                  <MenuDivider />
+                  <Center>
+					<Link href={"https://testnet.bnbchain.org/faucet-smart"} target="_blank" rel="noopener noreferrer" title="BNB faucet">tBNB Faucet</Link>
+                  </Center>
                   <MenuDivider />
 {networkMismatch ? (
 <>
