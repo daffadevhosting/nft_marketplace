@@ -210,7 +210,7 @@ export default function ListingPage() {
           {copySuccess}
         </div>
       }
-      <form style={{position: 'absolute', bottom: '-9999px'}}>
+      <form style={{position: 'fixed', bottom: '-9999px'}}>
         <input
 		  style={{height: '0px'}}
           ref={TextRef}
