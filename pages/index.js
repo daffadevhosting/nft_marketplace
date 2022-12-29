@@ -26,7 +26,8 @@ import {
   Menu,
   MenuItem,
   MenuDivider,
-  useToast 
+  useToast,
+  Flex
 } from '@chakra-ui/react';
 import { useRouter } from "next/router";
 import React, { useContext, useRef } from "react";
@@ -54,6 +55,9 @@ export default function CallToActionWithAnnotation() {
   }
   function uploadClick() {
     router.push("/upload");
+  }
+  function stakeClick() {
+    router.push("/staking");
   }
   
   return (
@@ -96,6 +100,7 @@ Switch Network
 </>
 ) : (
 <>
+        <Stack flex={2} direction={{ md: 'row', base: 'column'}} spacing={{ base: 5, md: 5 }}>
             <Button leftIcon={<FcShop />} variant={'outline'} onClick={homeClick}
               colorScheme={'green'}
               bg={'green.400'}
@@ -116,11 +121,23 @@ Switch Network
               }}>
               Create Listing
             </Button>
+            <Button leftIcon={<FcGallery />} variant={'outline'} onClick={stakeClick}
+              colorScheme={'blue'}
+              bg={'blue.400'}
+              rounded={'full'}
+              px={6}
+              _hover={{
+                bg: 'blue.500',
+              }}>
+              Stake NFT
+            </Button>
+</Stack>
 </>
 )}
 	    </>
           ) : (
 		  <>
+        <Stack flex={2} direction={{ md: 'row', base: 'column'}} spacing={{ base: 5, md: 5 }}>
             <Button onClick={onOpen}
               colorScheme={'green'}
               bg={'green.400'}
@@ -167,14 +184,15 @@ Switch Network
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-            <Box>
+            <Box style={{position: 'absolute', top: '-35px'}}>
               <Icon
                 as={Arrow}
                 color={color}
                 w={71}
                 position={'absolute'}
                 right={-71}
-                top={'15px'}
+                top={'-8px'}
+                transform={'rotate(-120deg)'}
               />
               <Text
                 fontSize={'lg'}
@@ -186,6 +204,7 @@ Switch Network
                 Sign Your Wallet
               </Text>
             </Box>
+</Stack>
 		  </>
 		)}
           </Stack>

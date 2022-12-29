@@ -4,6 +4,7 @@ import {
   useNetwork,
   useNetworkMismatch,
   useListing,
+  useContractRead
 } from "@thirdweb-dev/react";
 import {
   Container,
@@ -31,6 +32,7 @@ import styles from "../../styles/Theme.module.css";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
 const contracAddress = NFT_COLLECTION_ADDRESS;
+const contractType = 'ERC721';
 
 export default function ListingPage() {
 
@@ -199,6 +201,8 @@ export default function ListingPage() {
 	  Detail:
           <Text fontSize={'sm'} style={{marginTop: '20px'}}>
              <b> ID token: {listing.asset.id}</b>
+			 <br/>
+<b> Type: {contractType}</b>
 		</Text>
       {
        document.queryCommandSupported('copy') &&

@@ -79,6 +79,9 @@ export default function Navbar() {
   function sellingClick() {
     router.push("/resell");
   }
+  function stakeClick() {
+    router.push("/staking");
+  }
   
   return (
     <>
@@ -135,6 +138,7 @@ export default function Navbar() {
 ) : (
 <>
                   <MenuItem onClick={marketClick}>Marketplace</MenuItem>
+                  <MenuItem onClick={stakeClick}>Stake NFT</MenuItem>
                   <MenuItem onClick={handleClick}>Create NFT</MenuItem>
                   <MenuItem onClick={sellingClick}>Resell NFT</MenuItem>
                   <MenuItem onClick={() => {disconnectWallet(), homeClick(), toast({
