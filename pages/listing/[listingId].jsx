@@ -33,6 +33,19 @@ const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
 const contracAddress = NFT_COLLECTION_ADDRESS;
 
 export default function ListingPage() {
+
+  const [copySuccess, setCopySuccess] = useState('');
+  const TextRef = useRef(null);
+
+  function copyToClipboard(e) {
+    TextRef.current.select();
+    document.execCommand('copy');
+    // This is just personal preference.
+    // I prefer to not show the whole text area selected.
+    e.target.focus();
+    setCopySuccess('Berhasil di salin');
+  };
+  
   const router = useRouter();
   const { listingId } = router.query;
   const ref = React.useRef()
@@ -181,13 +194,29 @@ export default function ListingPage() {
           </Text>
             <br />
       <Portal containerRef={ref}>
-          <Text fontSize={'sm'} style={{marginTop: '20px'}}>
-             <b> ID token: {listing.asset.id}</b>
-          </Text>
       </Portal>
       <Box ref={ref} bg='#0a0b0d' padding='10px' borderRadius='8px'>
-        <div>
-		  Contract: {contracAddress}</div>
+	  Detail:
+          <Text fontSize={'sm'} style={{marginTop: '20px'}}>
+             <b> ID token: {listing.asset.id}</b>
+		</Text>
+      {
+       document.queryCommandSupported('copy') &&
+	   <div>
+        <Text>
+		  Contract:{" "}
+          <Button onClick={copyToClipboard} variant={'link'} colorScheme={'blue'}> {contracAddress.slice(0, 3).concat("...").concat(contracAddress.slice(-4))}</Button> 
+		</Text>
+          {copySuccess}
+        </div>
+      }
+      <form style={{position: 'absolute', bottom: '-9999px'}}>
+        <input
+		  style={{height: '0px'}}
+          ref={TextRef}
+          value='0xd928c0977ae3dbc6561e4731d388e4335c24ed5a'
+        />
+      </form>
       </Box>
     </Box>
           <Text color={'gray.500'} style={{fontSize: 25}}>
