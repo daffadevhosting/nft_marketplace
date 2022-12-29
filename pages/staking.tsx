@@ -76,7 +76,7 @@ const Stake: NextPage = () => {
     "token"
   );
 
-  const { contract, iLoading } = useContract(stakingContractAddress);
+  const { contract } = useContract(stakingContractAddress);
 
   // Load Unstaked NFTs
   const { data: ownedNfts } = useOwnedNFTs(nftCollection, address);
