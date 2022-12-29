@@ -306,6 +306,12 @@
     flex-direction: column;
     width: min-content;
 }
+
+.styleStack {
+    width: -webkit-fill-available;
+    margin: auto 13px;
+}
+
 .nftBoxGrid {
     width: auto;
     max-width: 95vw;

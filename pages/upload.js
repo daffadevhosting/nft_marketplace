@@ -213,7 +213,7 @@ const Upload = () => {
   return (
     <form onSubmit={(e) => handleCreateListing(e)}>
     <Center py={6} className={styles.uploadNft}>
-      <Stack
+      <Stack className={styles.styleStack}
         borderWidth="1px"
         borderRadius="lg"
         w={{ sm: '100%', md: '540px' }}
