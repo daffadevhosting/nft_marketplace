@@ -164,7 +164,7 @@ const Resell: NextPage = () => {
           p={8}>
           <Stack spacing={4}>
             <FormControl id="contractAddress" isRequired>
-              <FormLabel>NFT Contract Address</FormLabel>
+              <FormLabel>NFT Contract</FormLabel>
               <Input
             type="text"
             name="contractAddress"

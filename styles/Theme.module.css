@@ -361,6 +361,10 @@
   height: 500px;
 }
 
+.StakeContainer {
+	margin: 0
+}
+
 .leftListing {
   width: 40%;
   display: flex;

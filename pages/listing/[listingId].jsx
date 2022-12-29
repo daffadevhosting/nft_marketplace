@@ -32,7 +32,7 @@ import styles from "../../styles/Theme.module.css";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
 const contracAddress = NFT_COLLECTION_ADDRESS;
-const contractType = 'ERC721';
+const contractType = 'ERC-721';
 
 export default function ListingPage() {
 
@@ -209,7 +209,7 @@ export default function ListingPage() {
 	   <div>
         <Text>
 		  Contract:{" "}
-          <Button onClick={copyToClipboard} variant={'link'} colorScheme={'blue'}> {contracAddress.slice(0, 3).concat("...").concat(contracAddress.slice(-4))}</Button> 
+          <Button onClick={copyToClipboard} variant={'link'} colorScheme={'blue'} title={'Salin'}> {contracAddress.slice(0, 3).concat("...").concat(contracAddress.slice(-4))}</Button> 
 		</Text>
           {copySuccess}
         </div>
