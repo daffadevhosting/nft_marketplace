@@ -1,18 +1,4 @@
 import {
-  Badge,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Image,
-  Link,
-  Stack,
-  Text,
-  useColorModeValue,
-  useToast,
-  Input,
-} from '@chakra-ui/react';import React, { useState } from "react";
-import {
   useContract,
   useNetwork,
   useNetworkMismatch,
@@ -22,6 +8,22 @@ import {
   useCreateAuctionListing,
 } from "@thirdweb-dev/react";
 import { ChainId, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
+import {
+  Badge,
+  Button,
+  Center,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Image,
+  Link,
+  Stack,
+  Text,
+  useColorModeValue,
+  useToast,
+  Input,
+} from '@chakra-ui/react';import React, { useState } from "react";
 import { NFT_COLLECTION_ADDRESS, MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import { useRouter } from "next/router";
 import { useContext, useRef } from "react";
@@ -245,7 +247,7 @@ const Upload = () => {
             </div>
           )}
         </Flex>
-          <input
+          <Input isRequired
             type="file"
             accept="image/png, image/gif, image/jpeg"
             id="profile-picture-input"
@@ -265,25 +267,53 @@ const Upload = () => {
           <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
             @bot-collection
           </Text>
+            <FormControl id="price" isRequired>
           <Input
             type="text"
             name="name"
-            className={styles.textInput}
             placeholder="Name"
           />
+            </FormControl>
+            <FormControl id="description" isRequired>
           <Input
             type="text"
             name="description"
-            className={styles.textInput}
             placeholder="Description"
           />
+            </FormControl>
+            <FormControl id="price" isRequired>
           <Input
             type="text"
             name="price"
-            className={styles.textInput}
             placeholder="Price (in BNB)"
           />
+            </FormControl>
 
+          {/* Toggle between direct listing and auction listing */}
+          <div className={styles.listingTypeContainer}>
+            <input
+              type="radio"
+              name="listingType"
+              id="directListing"
+              value="directListing"
+              defaultChecked
+              className={styles.listingType}
+            />
+            <label htmlFor="directListing" className={styles.listingTypeLabel}>
+              Direct
+            </label>
+            <input
+              type="radio"
+              name="listingType"
+              id="auctionListing"
+              value="auctionListing"
+              className={styles.listingType}
+            />
+            <label htmlFor="auctionListing" className={styles.listingTypeLabel}>
+              Auction
+            </label>
+          </div>
+		  
           <Stack
             width={'100%'}
             mt={'2rem'}

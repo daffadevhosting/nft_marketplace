@@ -149,38 +149,35 @@ const Resell: NextPage = () => {
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={1} style={{margin: '35px auto'}}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={1} style={{margin: '25px auto'}}>
         <Stack align={'center'}>
           <Heading fontSize={'2xl'}>
             Resell your NFT to marketplace</Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
             Kamu juga bisa jual kembali di <Link href={openseaLink()} className={styles.linkOpnsi} color={'blue.400'} target="_blank" rel="noopener noreferrer" title="OpenSea">OPENSEA <Image src={Logo} width={18} height={18} alt="opensea" /></Link>
           </Text>
-          <Text fontSize={'sm'} color={'gray.600'}>
-		  Contract: 0xd928c0977ae3dbc6561e4731d388e4335c24ed5a
-          </Text>
         </Stack>
-        <Box
+        <Box style={{marginTop: '10px'}}
           rounded={'lg'}
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}
           p={8}>
           <Stack spacing={4}>
-            <FormControl id="contractAddress">
+            <FormControl id="contractAddress" isRequired>
               <FormLabel>NFT Contract Address</FormLabel>
               <Input
             type="text"
             name="contractAddress"
             placeholder="NFT Contract Address" />
             </FormControl>
-            <FormControl id="tokenId">
+            <FormControl id="tokenId" isRequired>
               <FormLabel>NFT Token ID</FormLabel>
               <Input
             type="text"
             name="tokenId"
             placeholder="NFT Token ID" />
             </FormControl>
-            <FormControl id="price">
+            <FormControl id="price" isRequired>
               <FormLabel>Sale Price</FormLabel>
           <Input
             type="text"
@@ -188,6 +185,32 @@ const Resell: NextPage = () => {
             placeholder="Sale Price"
           />
             </FormControl>
+
+          {/* Toggle between direct listing and auction listing */}
+          <div className={styles.listingTypeContainer}>
+            <input
+              type="radio"
+              name="listingType"
+              id="directListing"
+              value="directListing"
+              defaultChecked
+              className={styles.listingType}
+            />
+            <label htmlFor="directListing" className={styles.listingTypeLabel}>
+              Direct Listing
+            </label>
+            <input
+              type="radio"
+              name="listingType"
+              id="auctionListing"
+              value="auctionListing"
+              className={styles.listingType}
+            />
+            <label htmlFor="auctionListing" className={styles.listingTypeLabel}>
+              Auction Listing
+            </label>
+          </div>
+		  
             <Stack spacing={10}>
         {address ? (
           <Button 

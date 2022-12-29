@@ -20,20 +20,22 @@ import {
   createIcon,
   IconProps,
   useColorModeValue,
-  Spinner
+  Spinner,
+  Portal 
 } from '@chakra-ui/react';
 import { ChainId, ListingType, NATIVE_TOKENS } from "@thirdweb-dev/sdk";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { MARKETPLACE_ADDRESS } from "../../const/contractAddresses";
+import React, { useContext, useState, useRef } from "react";
+import { MARKETPLACE_ADDRESS, NFT_COLLECTION_ADDRESS } from "../../const/contractAddresses";
 import styles from "../../styles/Theme.module.css";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
-
+const contracAddress = NFT_COLLECTION_ADDRESS;
 
 export default function ListingPage() {
   const router = useRouter();
   const { listingId } = router.query;
+  const ref = React.useRef()
 
   const networkMismatch = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
@@ -173,9 +175,21 @@ export default function ListingPage() {
             Owned by <b>{listing.sellerAddress?.slice(0, 7)}</b>
             </Text>
           </Heading>
+    <Box bg='white.400' color='white' textAlign='left' padding='10px'>
           <Text color={'gray.500'} style={{fontSize: 15}}>
             <b>{listing.asset.description}</b>
           </Text>
+            <br />
+      <Portal containerRef={ref}>
+          <Text fontSize={'sm'} style={{marginTop: '20px'}}>
+             <b> ID token: {listing.asset.id}</b>
+          </Text>
+      </Portal>
+      <Box ref={ref} bg='#0a0b0d' padding='10px' borderRadius='8px'>
+        <div>
+		  Contract: {contracAddress}</div>
+      </Box>
+    </Box>
           <Text color={'gray.500'} style={{fontSize: 25}}>
             <b>{listing.buyoutCurrencyValuePerToken.displayValue}</b>{" "}
             {listing.buyoutCurrencyValuePerToken.symbol}

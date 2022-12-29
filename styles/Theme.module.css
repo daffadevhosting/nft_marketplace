@@ -447,6 +447,7 @@
   justify-content: center;
   margin-bottom: 16px;
   gap: 12px;
+  display: none !important;
 }
 
 .listingType {
@@ -457,7 +458,7 @@
 
 .listingTypeLabel {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 2px 20px;
   font-size: 16px;
   border: 2px solid #444;
   border-radius: 8px;
@@ -467,7 +468,7 @@
 }
 
 .listingType:checked + label {
-  border: 3px solid transparent;
+  border: 2px solid transparent;
   border-radius: 8px;
   color: #fff;
   background: linear-gradient(to right, #262936, #262936),
