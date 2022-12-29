@@ -150,7 +150,7 @@ export default function ListingPage() {
           />
           </Box>
         </Flex>
-        <Stack flex={1} spacing={{ base: 5, md: 10 }}>
+        <Stack flex={1} spacing={{ base: 5, md: 10 }} style={{marginBottom: '35px'}}>
           <Heading
             lineHeight={1.1}
             fontWeight={600}
@@ -175,7 +175,7 @@ export default function ListingPage() {
             Owned by <b>{listing.sellerAddress?.slice(0, 7)}</b>
             </Text>
           </Heading>
-    <Box bg='white.400' color='white' textAlign='left' padding='10px'>
+    <Box bg='white.400' color='white' textAlign='left' padding='10px' className={styles.portalW}>
           <Text color={'gray.500'} style={{fontSize: 15}}>
             <b>{listing.asset.description}</b>
           </Text>

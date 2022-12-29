@@ -307,6 +307,10 @@
     width: min-content;
 }
 
+.portalW  {
+    width: 380px;
+}
+
 .styleStack {
     width: -webkit-fill-available;
     margin: auto 13px;
