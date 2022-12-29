@@ -1,17 +1,4 @@
-import {
-  Badge,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Image,
-  Link,
-  Stack,
-  Text,
-  useColorModeValue,
-  useToast,
-  Input,
-} from '@chakra-ui/react';import React, { useState } from "react";
+import React, { useState } from "react";
 import {
   useContract,
   useNetwork,
@@ -25,6 +12,8 @@ import { ChainId, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
 import { NFT_COLLECTION_ADDRESS, MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import { useRouter } from "next/router";
 import { useContext, useRef } from "react";
+import { Button, Input, useToast } from '@chakra-ui/react';
+import Image from 'next/image';
 import styles from "../styles/Theme.module.css";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
@@ -212,25 +201,16 @@ const Upload = () => {
 
   return (
     <form onSubmit={(e) => handleCreateListing(e)}>
-    <Center py={6} className={styles.uploadNft}>
-      <Stack
-        borderWidth="1px"
-        borderRadius="lg"
-        w={{ sm: '100%', md: '540px' }}
-        height={{ sm: '476px', md: '20rem' }}
-        direction={{ base: 'column', md: 'row' }}
-        bg={useColorModeValue('white', 'gray.900')}
-        boxShadow={'2xl'}
-        padding={4}>
-        <Flex flex={1} bg="blue.200" style={{borderRadius: 16}}>
+        {/* Form Section */}
+        <div className={styles.uploadNft} style={{marginTop: 0}}>
+		  <div className={styles.uploadSection}>
+<div className={styles.upload}>
           {file ? (
-          <Image
-		    borderRadius="16px"
-            objectFit="cover"
-            boxSize="100%"
-            src={URL.createObjectURL(file)} alt='upload'
-			onClick={() => setFile(undefined)}
-          />
+            <img width={350} height={350} alt='upload'
+              src={URL.createObjectURL(file)}
+              style={{ cursor: "pointer", height: 350, maxHeight: 350, width: 350, borderRadius: 8 }}
+              onClick={() => setFile(undefined)}
+            />
           ) : (
             <div
               className={styles.imageInput}
@@ -241,42 +221,40 @@ const Upload = () => {
                 setFile(e.dataTransfer.files[0]);
               }}
             >
-              Click or Drag an image here to upload.
+              Click or Drag an image here to upload it!
             </div>
           )}
-        </Flex>
-          <input
+		  </div>
+		  <div className={styles.inputDesc}>
+          <Input
             type="file"
             accept="image/png, image/gif, image/jpeg"
             id="profile-picture-input"
             ref={fileInputRef}
             style={{ display: "none" }}
           />
-        <Stack
-          flex={1}
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          p={1}
-          pt={2}>
-          <Heading fontSize={'2xl'} fontFamily={'body'}>
-            Upload NFT
-          </Heading>
-          <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
-            @bot-collection
-          </Text>
+
+          <h2 className={styles.ourCollection}>
+            Upload your NFT
+          </h2>
+
+          {/* Sale Price For Listing Field */}
           <Input
             type="text"
             name="name"
             className={styles.textInput}
             placeholder="Name"
           />
+
+          {/* Sale Price For Listing Field */}
           <Input
             type="text"
             name="description"
             className={styles.textInput}
             placeholder="Description"
           />
+
+          {/* Sale Price For Listing Field */}
           <Input
             type="text"
             name="price"
@@ -284,32 +262,14 @@ const Upload = () => {
             placeholder="Price (in BNB)"
           />
 
-          <Stack
-            width={'100%'}
-            mt={'2rem'}
-            direction={'row'}
-            padding={2}
-            justifyContent={'space-between'}
-            alignItems={'center'}>
-
         {address ? (
-            <Button
-			  type="submit"
-              flex={1}
-              fontSize={'sm'}
-              rounded={'full'}
-              bg={'blue.400'}
-              color={'white'}
-              boxShadow={
-                '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
-              }
-              _hover={{
-                bg: 'blue.500',
-              }}
-              _focus={{
-                bg: 'blue.500',
-              }}
-              disabled={creatingListing}>
+          <Button 
+			colorScheme={'blue'}
+            type="submit"
+            className={styles.mainButton}
+            style={{ marginTop: 62, borderStyle: "none" }}
+            disabled={creatingListing}
+          >
 {networkMismatch ? (
 <>
 Switch Network
@@ -319,23 +279,18 @@ Switch Network
             {creatingListing ? "Loading..." : "Mint + List NFT"}
 			</>
 )}
-            </Button>
+          </Button >
           ) : (
-            <Button
-              flex={1}
-              fontSize={'sm'}
-              rounded={'full'}
-              _focus={{
-                bg: 'gray.200',
-              }}
+          <Button
+			colorScheme={'red'}
+            className={styles.mainButton}
+            style={{ marginTop: 32, borderStyle: "none" }}
 			disabled> Connect Wallet
-            </Button>
+          </Button >
 		)}
-		
-          </Stack>
-        </Stack>
-      </Stack>
-    </Center>
+		  </div>
+        </div>
+      </div>
     </form>
   );
 };
