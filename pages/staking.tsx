@@ -60,6 +60,7 @@ const Stake: NextPage = () => {
   const networkMismatch = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
   const color = useColorModeValue('gray.800', 'gray.300');
+  const bgColor = useColorModeValue('white', 'gray.800');
   
   const connectWithMetamask = useMetamask();
   const connectWithWalletConnect = useWalletConnect();
@@ -380,7 +381,7 @@ const Stake: NextPage = () => {
       <Box
         maxW={'100%'}
         w={'full'}
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={bgColor}
         boxShadow={'2xl'}
         rounded={'md'}
         overflow={'hidden'}>
@@ -439,7 +440,7 @@ const Stake: NextPage = () => {
             onClick={() => claimRewards()}
             w={'full'}
             mt={8}
-            bg={useColorModeValue('#151f21', 'gray.900')}
+            bg={bgColor}
             color={'white'}
             rounded={'md'}
             _hover={{
