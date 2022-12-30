@@ -160,7 +160,7 @@ Switch Network
 		isCentered
       >
         <AlertDialogOverlay>
-          <AlertDialogContent>
+          <AlertDialogContent margin={'auto 10px'}>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
               Connect Wallet
             </AlertDialogHeader>

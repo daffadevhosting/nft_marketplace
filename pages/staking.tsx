@@ -31,7 +31,11 @@ import {
   useToast,
   Flex,
   Tag,
-  Spinner
+  Spinner,
+  Avatar,
+  Center,
+  Image,
+  SimpleGrid, Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react';
 import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
@@ -170,7 +174,7 @@ const Stake: NextPage = () => {
 		isCentered
       >
         <AlertDialogOverlay>
-          <AlertDialogContent>
+          <AlertDialogContent margin={'auto 10px'}>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
               Connect Wallet
             </AlertDialogHeader>
@@ -206,7 +210,7 @@ const Stake: NextPage = () => {
                 w={71}
                 position={'absolute'}
                 right={-145}
-                top={'55px'}
+                top={'40px'}
                 transform={'rotate(-100deg)'}
               />
               <Text
@@ -214,7 +218,7 @@ const Stake: NextPage = () => {
                 fontFamily={'Caveat'}
                 position={'absolute'}
                 right={'-105px'}
-                top={'10px'}
+                top={'-8px'}
                 transform={'rotate(10deg)'}>
                 Sign Your Wallet
               </Text>
@@ -370,62 +374,98 @@ const Stake: NextPage = () => {
 		  </div>
       ) : (
         <>
-    <div className={styles.container}>
-          <h2>Your Tokens</h2>
+    <Container maxW={'5xl'} py={12}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+    <Center py={6}>
+      <Box
+        maxW={'100%'}
+        w={'full'}
+        bg={useColorModeValue('white', 'gray.800')}
+        boxShadow={'2xl'}
+        rounded={'md'}
+        overflow={'hidden'}>
+        <Image
+          h={'120px'}
+          w={'full'}
+          src={
+            'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
+          }
+          objectFit={'cover'}
+        />
+        <Flex justify={'center'} mt={-12}>
+          <Avatar
+            size={'xl'}
+            src={
+              'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+            }
+            alt={'Author'}
+            css={{
+              border: '2px solid white',
+            }}
+          />
+        </Flex>
 
-          <div className={styles.tokenGrid}>
-            <div className={styles.tokenItem}>
-              <h3 className={styles.tokenLabel}>Claimable Rewards</h3>
-              <p className={styles.tokenValue}>
+        <Box p={6}>
+          <Stack spacing={0} align={'center'} mb={5}>
+            <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
+              Your Token
+            </Heading>
+            <Text color={'gray.500'}>Staking Reward</Text>
+          </Stack>
+
+          <Stack direction={{ md: 'column', base: 'column'}} justify={'center'} spacing={6}>
+            <Stack spacing={0} align={'center'}>
+              <Text fontWeight={600}>
+                <b>{tokenBalance?.displayValue}</b> {tokenBalance?.symbol}</Text>
+              <Text fontSize={'sm'} color={'gray.500'}>
+                Balance
+              </Text>
+            </Stack>
+            <Stack spacing={0} align={'center'}>
+              <Text fontWeight={600}>
                 <b>
                   {!claimableRewards
                     ? "Loading..."
                     : ethers.utils.formatUnits(claimableRewards, 18)}
                 </b>{" "}
-                {tokenBalance?.symbol}
-              </p>
-            </div>
-            <div className={styles.tokenItem}>
-              <h3 className={styles.tokenLabel}>Current Balance</h3>
-              <p className={styles.tokenValue}>
-                <b>{tokenBalance?.displayValue}</b> {tokenBalance?.symbol}
-              </p>
-            </div>
-          </div>
+                {tokenBalance?.symbol}</Text>
+              <Text fontSize={'sm'} color={'gray.500'}>
+                Claimable
+              </Text>
+            </Stack>
+          </Stack>
 
-          <button
-            className={`${styles.mainButton} ${styles.spacerTop}`}
+          <Button
             onClick={() => claimRewards()}
-          >
+            w={'full'}
+            mt={8}
+            bg={useColorModeValue('#151f21', 'gray.900')}
+            color={'white'}
+            rounded={'md'}
+            _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: 'lg',
+            }}>
             Claim Rewards
-          </button>
-
-          <hr className={`${styles.divider} ${styles.spacerTop}`} />
-
-          <h2>Your Staked NFTs</h2>
-          <div className={styles.nftBoxGrid}>
-            {stakedNfts?.map((nft) => (
-              <div className={styles.nftBox} key={nft.metadata.id.toString()}>
-                <ThirdwebNftMedia
-                  metadata={nft.metadata}
-                  className={styles.nftMedia}
-                />
-                <h3>{nft.metadata.name}</h3>
-                <button
-                  className={`${styles.mainButton} ${styles.spacerBottom}`}
-                  onClick={() => withdraw(nft.metadata.id)}
-                >
-                  Withdraw
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <hr className={`${styles.divider} ${styles.spacerTop}`} />
-
-          <h2>Your Unstaked NFTs</h2>
-
-          <div className={styles.nftBoxGrid}>
+          </Button>
+        </Box>
+      </Box>
+    </Center>
+	
+      <Box my={6}
+        maxW={'100%'}
+        w={'full'}
+        bg={useColorModeValue('white', 'gray.800')}
+        boxShadow={'2xl'}
+        rounded={'md'}
+        overflow={'hidden'}>
+<Tabs isFitted variant='enclosed'>
+  <TabList mb='1em'>
+    <Tab>Your Unstaked NFTs</Tab>
+    <Tab>Your Staked NFTs</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
             {ownedNfts?.map((nft) => (
               <div className={styles.nftBox} key={nft.metadata.id.toString()}>
                 <ThirdwebNftMedia
@@ -441,8 +481,29 @@ const Stake: NextPage = () => {
                 </button>
               </div>
             ))}
-          </div>
-        </div>
+    </TabPanel>
+    <TabPanel>
+            {stakedNfts?.map((nft) => (
+              <div className={styles.nftBox} key={nft.metadata.id.toString()}>
+                <ThirdwebNftMedia
+                  metadata={nft.metadata}
+                  className={styles.nftMedia}
+                />
+                <h3>{nft.metadata.name}</h3>
+                <button
+                  className={`${styles.mainButton} ${styles.spacerBottom}`}
+                  onClick={() => withdraw(nft.metadata.id)}
+                >
+                  Withdraw
+                </button>
+              </div>
+            ))}
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+        </Box>
+      </SimpleGrid>
+    </Container>
         </>
       )}
     </div>

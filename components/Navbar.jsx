@@ -87,7 +87,7 @@ export default function Navbar() {
     <>
       <Box bg={color} px={4} style={{position: 'fixed', width: '100%', zIndex: 99999, top: 0}}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box onClick={homeClick} cursor={'pointer'}>{Title}</Box>
+          <Box onClick={homeClick} cursor={'pointer'} fontSize={'lg'} fontWeight={700}>{Title}</Box>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={5}>
