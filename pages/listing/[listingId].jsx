@@ -28,11 +28,13 @@ import { ChainId, ListingType, NATIVE_TOKENS } from "@thirdweb-dev/sdk";
 import { useRouter } from "next/router";
 import React, { useContext, useState, useRef } from "react";
 import { MARKETPLACE_ADDRESS, NFT_COLLECTION_ADDRESS } from "../../const/contractAddresses";
+import { ChainName } from '../../const/aLinks';
 import styles from "../../styles/Theme.module.css";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
 const contracAddress = NFT_COLLECTION_ADDRESS;
 const contractType = 'ERC-721';
+const networkName = ChainName();
 
 export default function ListingPage() {
 
@@ -203,12 +205,14 @@ export default function ListingPage() {
              <b> ID token: {listing.asset.id}</b>
 			 <br/>
 <b> Type: {contractType}</b>
+<br/>
+<b> Chain: {networkName}</b>
 		</Text>
       {
        document.queryCommandSupported('copy') &&
 	   <div>
         <Text>
-		  Contract:{" "}
+		  <b>Contract:</b>{" "}
           <Button onClick={copyToClipboard} variant={'link'} colorScheme={'blue'} title={'Salin'}> {contracAddress.slice(0, 3).concat("...").concat(contracAddress.slice(-4))}</Button> 
 		</Text>
           {copySuccess}

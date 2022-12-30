@@ -144,7 +144,7 @@ export default function Navbar() {
                   <MenuItem onClick={() => {disconnectWallet(), homeClick(), toast({
           title: 'Wallet Disconnected.',
           description: "You've disconnect your wallet.",
-          status: 'success',
+          status: 'info',
           duration: 6000,
           isClosable: true,
         })}

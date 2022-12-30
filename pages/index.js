@@ -27,7 +27,8 @@ import {
   MenuItem,
   MenuDivider,
   useToast,
-  Flex
+  Flex,
+  Tag
 } from '@chakra-ui/react';
 import { useRouter } from "next/router";
 import React, { useContext, useRef } from "react";
@@ -167,7 +168,10 @@ Switch Network
             <AlertDialogBody>
               <Menu>
                   <MenuDivider />
-                  <MenuItem onClick={() => {connectWithMetamask(), onClose()}} className={styles.hoverItem}>Metamask</MenuItem>
+                  <MenuItem gap='5' onClick={() => {connectWithMetamask(), onClose()}} className={styles.hoverItem}>Metamask
+				  <Tag size='sm' variant='solid' colorScheme='blue' borderRadius='full'>
+					  Recomended
+					</Tag></MenuItem>
                   <MenuDivider />
                   <MenuItem onClick={() => {connectWithWalletConnect(), onClose()}} className={styles.hoverItem}>WalletConnect</MenuItem>
                   <MenuDivider />

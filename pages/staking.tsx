@@ -30,7 +30,8 @@ import {
   MenuDivider,
   useToast,
   Flex,
-   Spinner
+  Tag,
+  Spinner
 } from '@chakra-ui/react';
 import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
@@ -60,6 +61,14 @@ const Stake: NextPage = () => {
   const connectWithWalletConnect = useWalletConnect();
   const connectWithCoinbaseWallet = useCoinbaseWallet();
 
+  const Toast = useToast({
+    position: 'top',
+    title: 'Salah Jaringan',
+    containerStyle: {
+      maxWidth: '100%',
+    },
+  })
+  
   const { contract: editionDrop } = useContract(
     MEMBERPASS_CONTRACT_ADDRESS,
     "edition-drop"
@@ -169,7 +178,11 @@ const Stake: NextPage = () => {
             <AlertDialogBody>
               <Menu>
                   <MenuDivider />
-                  <MenuItem onClick={() => {connectWithMetamask(), onClose()}} className={styles.hoverItem}>Metamask</MenuItem>
+                  <MenuItem gap='5' onClick={() => {connectWithMetamask(), onClose()}} className={styles.hoverItem}>Metamask
+				  <Tag size='sm' variant='solid' colorScheme='blue' borderRadius='full'>
+					  Recomended
+					</Tag>
+					</MenuItem>
                   <MenuDivider />
                   <MenuItem onClick={() => {connectWithWalletConnect(), onClose()}} className={styles.hoverItem}>WalletConnect</MenuItem>
                   <MenuDivider />
@@ -221,7 +234,12 @@ const Stake: NextPage = () => {
   if (isLoading) {
     return 
 		  <div className={styles.loading}>
-		  <Spinner size='md' />
+		  <Spinner
+			  thickness='4px'
+			  speed='0.65s'
+			  emptyColor='gray.200'
+			  color='blue.500'
+			  size='xl' />
           </div>;
   }
   
@@ -267,7 +285,12 @@ const Stake: NextPage = () => {
 
   if (isLoading) {
 		  <div className={styles.loading}>
-		  <Spinner size='md' />
+		  <Spinner
+			  thickness='4px'
+			  speed='0.65s'
+			  emptyColor='gray.200'
+			  color='blue.500'
+			  size='xl' />
           </div>;
   }
 

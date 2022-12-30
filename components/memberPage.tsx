@@ -12,6 +12,8 @@ import {
 import {
   ThirdwebNftMedia,
   useAddress,
+  useNetwork,
+  useNetworkMismatch,
   useClaimNFT,
   useActiveClaimCondition,
   useContract,
@@ -20,6 +22,7 @@ import {
 import { BigNumber } from "ethers";
 import React, { useState } from "react";
 import { MEMBERPASS_CONTRACT_ADDRESS, INITIAL_TOKEN_PRICE } from "../const/contractAddresses";
+import { RiSignalWifiErrorLine } from "react-icons/ri";
 import styles from "../styles/Theme.module.css";
 
 const IMAGE =
@@ -31,6 +34,8 @@ export default function ProductSimple() {
   const { contract: editionDrop } = useContract(MEMBERPASS_CONTRACT_ADDRESS);
   const { mutate: claim, isLoading } = useClaimNFT(editionDrop);
   const address = useAddress();
+  const networkMismatch = useNetworkMismatch();
+  const [, switchNetwork] = useNetwork();
   
   const alert = useToast();
   
@@ -73,7 +78,7 @@ export default function ProductSimple() {
       );
     } catch (error) {
             alert({
-              title: 'Error',
+              title: 'Error Unknown',
 			  status: 'error',
 			  duration: 6000,
 			  isClosable: true,
@@ -134,6 +139,18 @@ export default function ProductSimple() {
               {price}
             </Text>
 			<br/>
+{networkMismatch ? (
+<>
+            <Button leftIcon={<RiSignalWifiErrorLine />}
+              colorScheme={'blue'}
+              bg={'blue.400'}
+              _hover={{ bg: 'blue.600' }}
+			  className={`${styles.mainButton} ${styles.spacerBottom}`}
+              onClick={() => switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID))}>
+Switch Network
+            </Button>
+</>
+) : (
       <Button
               colorScheme={'blue'}
               bg={'blue.400'}
@@ -146,6 +163,7 @@ export default function ProductSimple() {
       >
     Claim {price}
       </Button>
+)}
           </Stack>
         </Stack>
       </Box>
