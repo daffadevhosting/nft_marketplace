@@ -456,7 +456,7 @@ const Stake: NextPage = () => {
       <Box my={6}
         maxW={'100%'}
         w={'full'}
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={bgColor}
         boxShadow={'2xl'}
         rounded={'md'}
         overflow={'hidden'}>
