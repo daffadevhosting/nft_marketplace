@@ -145,7 +145,7 @@ export default function Navbar() {
           title: 'Wallet Disconnected.',
           description: "You've disconnect your wallet.",
           status: 'info',
-          duration: 6000,
+          duration: 3000,
           isClosable: true,
         })}
 				  }>Logout</MenuItem>

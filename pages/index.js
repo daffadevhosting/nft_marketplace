@@ -28,7 +28,7 @@ import {
   MenuDivider,
   useToast,
   Flex,
-  Tag
+  Tag,
 } from '@chakra-ui/react';
 import { useRouter } from "next/router";
 import React, { useContext, useRef } from "react";
@@ -36,7 +36,7 @@ import { RiStore2Line, RiSignalWifiErrorLine } from "react-icons/ri";
 import { FcGallery, FcShop } from "react-icons/fc";
 import styles from "../styles/Theme.module.css";
 
-export default function CallToActionWithAnnotation() {
+export default function Index() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
   const router = useRouter();
@@ -59,6 +59,9 @@ export default function CallToActionWithAnnotation() {
   }
   function stakeClick() {
     router.push("/staking");
+  }
+  function moreClick() {
+    router.push("/learnmore");
   }
   
   return (
@@ -149,7 +152,7 @@ Switch Network
               }}>
               Connect Wallet
             </Button>
-            <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
+            <Button onClick={moreClick} variant={'link'} colorScheme={'blue'} size={'sm'}>
               Learn more
             </Button>
 			<AlertDialog
