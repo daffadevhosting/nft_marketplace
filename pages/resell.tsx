@@ -37,7 +37,6 @@ const openseaLink = openseaUrl;
 const Logo = "/icons/opensea.svg"
 
 const Resell: NextPage = () => {
-  const firstField = React.useRef()
   const address = useAddress();
   // Next JS Router hook to redirect to other pages
   const router = useRouter();
@@ -145,8 +144,7 @@ const Resell: NextPage = () => {
   }
 
   return (
-    <form onSubmit={(e) => handleCreateListing(e)}
-	initialFocusRef={firstField}>
+    <form onSubmit={(e) => handleCreateListing(e)}>
     <Flex
       minH={'100vh'}
       align={'center'}
@@ -169,7 +167,6 @@ const Resell: NextPage = () => {
             <FormControl id="contractAddress" isRequired>
               <FormLabel>NFT Contract</FormLabel>
               <Input
-			ref={firstField}
             type="text"
             name="contractAddress"
             placeholder="NFT Contract Address" />
