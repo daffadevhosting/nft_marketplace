@@ -171,14 +171,14 @@ export default function ListingPage() {
           <Heading
             lineHeight={1.1}
             fontWeight={600}
-            fontSize={{ base: '3xl', sm: '4xl', lg: '5xl' }}>
+            fontSize={{ base: '3xl', sm: '4xl', lg: '4xl' }}>
             <Text
               as={'span'}
               position={'relative'}
               _after={{
                 content: "''",
                 width: 'full',
-                height: '30%',
+                height: '35%',
                 position: 'absolute',
                 bottom: 1,
                 left: 0,
@@ -192,7 +192,7 @@ export default function ListingPage() {
             Owned by <b>{listing.sellerAddress?.slice(0, 7)}</b>
             </Text>
           </Heading>
-    <Box bg='white.400' color='white' textAlign='left' padding='10px' className={styles.portalW}>
+    <Box bg='white.400' color='white' textAlign='left' padding='10px' mt={0} className={styles.portalW}>
           <Text color={'gray.500'} style={{fontSize: 15}}>
             <b>{listing.asset.description}</b>
           </Text>

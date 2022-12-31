@@ -18,6 +18,7 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  Container
 } from '@chakra-ui/react';
 import {
   ChainId,
@@ -36,6 +37,7 @@ const openseaLink = openseaUrl;
 const Logo = "/icons/opensea.svg"
 
 const Resell: NextPage = () => {
+  const firstField = React.useRef()
   const address = useAddress();
   // Next JS Router hook to redirect to other pages
   const router = useRouter();
@@ -143,13 +145,14 @@ const Resell: NextPage = () => {
   }
 
   return (
-    <form onSubmit={(e) => handleCreateListing(e)}>
+    <form onSubmit={(e) => handleCreateListing(e)}
+	initialFocusRef={firstField}>
     <Flex
       minH={'100vh'}
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={1} style={{margin: '25px auto'}}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} px={1}>
         <Stack align={'center'}>
           <Heading fontSize={'2xl'}>
             Resell your NFT to marketplace</Heading>
@@ -166,6 +169,7 @@ const Resell: NextPage = () => {
             <FormControl id="contractAddress" isRequired>
               <FormLabel>NFT Contract</FormLabel>
               <Input
+			ref={firstField}
             type="text"
             name="contractAddress"
             placeholder="NFT Contract Address" />

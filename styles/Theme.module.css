@@ -325,6 +325,10 @@
     width: min-content;
 }
 
+.nftStakeMedia {
+  height: 160px;
+}
+
 .portalW  {
     width: 380px;
 }

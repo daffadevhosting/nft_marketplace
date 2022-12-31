@@ -23,6 +23,7 @@ import {
   useColorModeValue,
   useToast,
   Input,
+  Container
 } from '@chakra-ui/react';import React, { useState } from "react";
 import { NFT_COLLECTION_ADDRESS, MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import { useRouter } from "next/router";
@@ -213,8 +214,9 @@ const Upload = () => {
   };
 
   return (
+	<Container mt={20}>
     <form onSubmit={(e) => handleCreateListing(e)}>
-    <Center py={6} className={styles.uploadNft}>
+    <Center py={6}>
       <Stack className={styles.styleStack}
         borderWidth="1px"
         borderRadius="lg"
@@ -367,6 +369,7 @@ Switch Network
       </Stack>
     </Center>
     </form>
+	</Container>
   );
 };
 
