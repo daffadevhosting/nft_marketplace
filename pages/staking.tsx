@@ -467,7 +467,7 @@ const Stake: NextPage = () => {
               <div className={styles.nftBox} key={nft.metadata.id.toString()}>
                 <ThirdwebNftMedia
                   metadata={nft.metadata}
-                  className={styles.nftMedia}
+                  className={styles.nftStakeMedia}
                 />
                 <Button
 			w={'full'}
@@ -493,7 +493,7 @@ const Stake: NextPage = () => {
               <div className={styles.nftBox} key={nft.metadata.id.toString()}>
                 <ThirdwebNftMedia
                   metadata={nft.metadata}
-                  className={styles.nftMedia}
+                  className={styles.nftStakeMedia}
                 />
                 <Button
 			w={'full'}
