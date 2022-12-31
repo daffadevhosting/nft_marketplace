@@ -158,7 +158,7 @@ const Resell: NextPage = () => {
             Kamu juga bisa jual kembali di <Link href={openseaLink()} className={styles.linkOpnsi} color={'blue.400'} target="_blank" rel="noopener noreferrer" title="OpenSea">OPENSEA <Image src={Logo} width={18} height={18} alt="opensea" /></Link>
           </Text>
         </Stack>
-        <Box style={{marginTop: '10px'}}
+        <Box style={{marginTop: '10px', zIndex: 999}}
           rounded={'lg'}
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}

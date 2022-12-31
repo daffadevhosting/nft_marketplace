@@ -9,7 +9,6 @@ import {
   Link, Card, CardHeader, CardBody, CardFooter, Divider, Container, Spinner
   } from '@chakra-ui/react'
 import { MARKETPLACE_ADDRESS } from "../const/contractAddresses";
-import Banner from "../components/hero";
 import styles from "../styles/Theme.module.css";
 
 export default function Listings() {

@@ -336,6 +336,7 @@
 .styleStack {
     width: -webkit-fill-available;
     margin: auto 13px;
+	z-index: 999;
 }
 
 .nftBoxGrid {
