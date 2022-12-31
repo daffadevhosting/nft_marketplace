@@ -110,7 +110,7 @@ export default function Navbar() {
                   cursor={'pointer'}
                   minW={0}>
                   <RiShieldUserFill
-                    size={32}
+                    size={35}
                   />
                 </MenuButton>
                 <MenuList alignItems={'center'}>
@@ -162,7 +162,7 @@ export default function Navbar() {
                   cursor={'pointer'}
                   minW={0}>
                   <RiLoginCircleFill
-                    size={32}
+                    size={35}
                   />
                 </MenuButton>
                 <MenuList alignItems={'center'}>
