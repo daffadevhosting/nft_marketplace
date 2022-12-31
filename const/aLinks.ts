@@ -99,7 +99,7 @@ export const ChainName = () => {
 }
 
 export const swapUrl = () => {
-  const token = process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS
+  const token = process.env.NEXT_PUBLIC_TOKEN_ADDRESS
   const chain = process.env.NEXT_PUBLIC_CHAIN_ID
 
 // PolygonCase
@@ -188,5 +188,6 @@ export const snsLinks = {
   discordUrl,
   cmcUrl,
   walletscanUrl,
-  ChainName
+  ChainName,
+  swapUrl
 }
