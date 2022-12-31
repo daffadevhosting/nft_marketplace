@@ -31,6 +31,7 @@ const IMAGE =
   const tokenId = 0;
   const price = INITIAL_TOKEN_PRICE
 const network = ChainName();
+const bgColor = useColorModeValue('white', 'gray.800');
 
 export default function ProductSimple() {
   const { contract: editionDrop } = useContract(MEMBERPASS_CONTRACT_ADDRESS);
@@ -107,7 +108,7 @@ Switch to {network}
         p={6}
         maxW={'330px'}
         w={'full'}
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={bgColor}
         boxShadow={'2xl'}
         rounded={'lg'}
         pos={'relative'}
