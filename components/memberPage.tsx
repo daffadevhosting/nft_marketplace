@@ -31,7 +31,6 @@ const IMAGE =
   const tokenId = 0;
   const price = INITIAL_TOKEN_PRICE
 const network = ChainName();
-const bgColor = useColorModeValue('white', 'gray.800');
 
 export default function ProductSimple() {
   const { contract: editionDrop } = useContract(MEMBERPASS_CONTRACT_ADDRESS);
@@ -41,6 +40,7 @@ export default function ProductSimple() {
   const [, switchNetwork] = useNetwork();
   
   const alert = useToast();
+  const bgColor = useColorModeValue('white', 'gray.800');
   
   const { data: nftMetadata } = useNFT(editionDrop, tokenId);
 
