@@ -43,12 +43,16 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import React, { useContext, useRef, useEffect, useState } from "react";
 import { NFT_COLLECTION_ADDRESS, TOKEN_DROP_ADDRESS, MEMBERPASS_CONTRACT_ADDRESS, NFT_STAKING_ADDRESS } from "../const/contractAddresses";
+import { ChainName } from "../const/aLinks";
 import MintMember from "../components/memberPage";
 import styles from "../styles/Theme.module.css";
 
 const nftCollection = NFT_COLLECTION_ADDRESS;
 const tokenContractAddress = TOKEN_DROP_ADDRESS;
 const stakingContractAddress = NFT_STAKING_ADDRESS;
+
+const network = ChainName;
+const ava = '/icons/bot.png';
 
 const Stake: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -61,18 +65,12 @@ const Stake: NextPage = () => {
   const [, switchNetwork] = useNetwork();
   const color = useColorModeValue('gray.800', 'gray.300');
   const bgColor = useColorModeValue('white', 'gray.800');
+  const btnColor = useColorModeValue('#151f21', 'gray.900');
   
   const connectWithMetamask = useMetamask();
   const connectWithWalletConnect = useWalletConnect();
   const connectWithCoinbaseWallet = useCoinbaseWallet();
 
-  const Toast = useToast({
-    position: 'top',
-    title: 'Salah Jaringan',
-    containerStyle: {
-      maxWidth: '100%',
-    },
-  })
   
   const { contract: editionDrop } = useContract(
     MEMBERPASS_CONTRACT_ADDRESS,
@@ -96,7 +94,7 @@ const Stake: NextPage = () => {
   const { data: ownedNfts } = useOwnedNFTs(nftCollection, address);
 
   // Load Balance of Token
-  const { data: tokenBalance } = useTokenBalance(tokenContract, address);
+  const { data: tokenReward } = useTokenBalance(tokenContract, address);
 
   ///////////////////////////////////////////////////////////////////////////
   // Custom contract functions
@@ -396,9 +394,7 @@ const Stake: NextPage = () => {
         <Flex justify={'center'} mt={-12}>
           <Avatar
             size={'xl'}
-            src={
-              'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-            }
+            src={ava}
             style={{
               border: '2px solid white',
             }}
@@ -408,30 +404,30 @@ const Stake: NextPage = () => {
         <Box p={6}>
           <Stack spacing={0} align={'center'} mb={5}>
             <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
-              Your Token
+              {tokenReward?.symbol} Token
             </Heading>
             <Text color={'gray.500'}>Staking Reward</Text>
           </Stack>
 
           <Stack direction={{ md: 'column', base: 'column'}} justify={'center'} spacing={6}>
             <Stack spacing={0} align={'center'}>
-              <Text fontWeight={600}>
-                <b>{tokenBalance?.displayValue}</b> {tokenBalance?.symbol}</Text>
               <Text fontSize={'sm'} color={'gray.500'}>
                 Balance
               </Text>
+              <Text fontWeight={600}>
+                <b>{tokenReward?.displayValue}</b> {tokenReward?.symbol}</Text>
             </Stack>
             <Stack spacing={0} align={'center'}>
-              <Text fontWeight={600}>
-                <b>
-                  {!claimableRewards
-                    ? "Loading..."
-                    : ethers.utils.formatUnits(claimableRewards, 18)}
-                </b>{" "}
-                {tokenBalance?.symbol}</Text>
               <Text fontSize={'sm'} color={'gray.500'}>
                 Claimable
               </Text>
+              <Text fontWeight={600}>
+                <b>
+                  {!claimableRewards
+                    ? "Claiming..."
+                    : ethers.utils.formatUnits(claimableRewards, 18)}
+                </b>{" "}
+                {tokenReward?.symbol}</Text>
             </Stack>
           </Stack>
 
@@ -439,14 +435,14 @@ const Stake: NextPage = () => {
             onClick={() => claimRewards()}
             w={'full'}
             mt={8}
-            bg={bgColor}
-            color={'white'}
+            bg={btnColor}
+			color={'white'}
             rounded={'md'}
             _hover={{
               transform: 'translateY(-2px)',
               boxShadow: 'lg',
             }}>
-            Claim Rewards
+            Claim Rewards 
           </Button>
         </Box>
       </Box>
@@ -467,36 +463,54 @@ const Stake: NextPage = () => {
   <TabPanels>
     <TabPanel>
             {ownedNfts?.map((nft) => (
+			<div className={styles.stakingGrid}>
               <div className={styles.nftBox} key={nft.metadata.id.toString()}>
                 <ThirdwebNftMedia
                   metadata={nft.metadata}
                   className={styles.nftMedia}
                 />
-                <h3>{nft.metadata.name}</h3>
-                <button
-                  className={`${styles.mainButton} ${styles.spacerBottom}`}
+                <Button
+			w={'full'}
+            mt={8}
+            bg={btnColor}
+			color={'white'}
+            rounded={'md'}
+            _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: 'lg',
+            }}	
                   onClick={() => stakeNft(nft.metadata.id)}
                 >
                   Stake
-                </button>
+                </Button>
               </div>
+			</div>
             ))}
     </TabPanel>
     <TabPanel>
             {stakedNfts?.map((nft) => (
+			<div className={styles.stakingGrid}>
               <div className={styles.nftBox} key={nft.metadata.id.toString()}>
                 <ThirdwebNftMedia
                   metadata={nft.metadata}
                   className={styles.nftMedia}
                 />
-                <h3>{nft.metadata.name}</h3>
-                <button
-                  className={`${styles.mainButton} ${styles.spacerBottom}`}
+                <Button
+			w={'full'}
+            mt={8}
+            bg={btnColor}
+			color={'white'}
+            rounded={'md'}
+            _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: 'lg',
+            }}
                   onClick={() => withdraw(nft.metadata.id)}
                 >
                   Withdraw
-                </button>
+                </Button>
               </div>
+			</div>
             ))}
     </TabPanel>
   </TabPanels>

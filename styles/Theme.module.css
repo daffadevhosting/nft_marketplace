@@ -273,6 +273,13 @@
     flex-wrap: wrap;
 }
 
+.stakingGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 10px;
+}
+
 .nftBox {
     border-radius: 16px;
     width: 100%;

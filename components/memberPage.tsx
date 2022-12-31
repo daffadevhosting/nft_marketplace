@@ -22,6 +22,7 @@ import {
 import { BigNumber } from "ethers";
 import React, { useState } from "react";
 import { MEMBERPASS_CONTRACT_ADDRESS, INITIAL_TOKEN_PRICE } from "../const/contractAddresses";
+import { ChainName } from "../const/aLinks";
 import { RiSignalWifiErrorLine } from "react-icons/ri";
 import styles from "../styles/Theme.module.css";
 
@@ -29,6 +30,7 @@ const IMAGE =
   '/botmember.png';
   const tokenId = 0;
   const price = INITIAL_TOKEN_PRICE
+const network = ChainName();
 
 export default function ProductSimple() {
   const { contract: editionDrop } = useContract(MEMBERPASS_CONTRACT_ADDRESS);
@@ -88,6 +90,18 @@ export default function ProductSimple() {
   
   return (
     <Center py={12} className={styles.loading}>
+{networkMismatch ? (
+<>
+            <Button leftIcon={<RiSignalWifiErrorLine />}
+              colorScheme={'blue'}
+              bg={'blue.400'}
+              _hover={{ bg: 'blue.600' }}
+			  className={`${styles.spacerBottom}`}
+              onClick={() => switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID))}>
+Switch to {network}
+            </Button>
+</>
+) : (
       <Box style={{width: 'max-content'}}
         role={'group'}
         p={6}
@@ -139,23 +153,11 @@ export default function ProductSimple() {
               {price}
             </Text>
 			<br/>
-{networkMismatch ? (
-<>
-            <Button leftIcon={<RiSignalWifiErrorLine />}
-              colorScheme={'blue'}
-              bg={'blue.400'}
-              _hover={{ bg: 'blue.600' }}
-			  className={`${styles.mainButton} ${styles.spacerBottom}`}
-              onClick={() => switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID))}>
-Switch Network
-            </Button>
-</>
-) : (
       <Button
               colorScheme={'blue'}
               bg={'blue.400'}
               _hover={{ bg: 'blue.600' }}
-        className={`${styles.mainButton} ${styles.spacerBottom}`}
+        className={` ${styles.spacerBottom}`}
         onClick={() =>
           mint()
         }
@@ -163,10 +165,10 @@ Switch Network
       >
     Claim {price}
       </Button>
-)}
           </Stack>
         </Stack>
       </Box>
+)}
     </Center>
   );
 }

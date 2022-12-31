@@ -61,7 +61,7 @@ export default function Index() {
     router.push("/staking");
   }
   function moreClick() {
-    router.push("/learnmore");
+    router.push("/roadmap");
   }
   
   return (
@@ -153,7 +153,7 @@ Switch Network
               Connect Wallet
             </Button>
             <Button onClick={moreClick} variant={'link'} colorScheme={'blue'} size={'sm'}>
-              Learn more
+              Our Road Map
             </Button>
 			<AlertDialog
         isOpen={isOpen}

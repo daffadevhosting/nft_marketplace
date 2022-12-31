@@ -142,7 +142,7 @@ export default function ListingPage() {
       <Stack
         align={'center'}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 20, md: 28 }}
+        py={{ base: 20, md: 20 }}
         direction={{ base: 'column', md: 'row' }}>
         <Flex
           flex={1}
@@ -227,14 +227,14 @@ export default function ListingPage() {
       </form>
       </Box>
     </Box>
-          <Text color={'gray.500'} style={{fontSize: 25}}>
+          <Text color={'gray.500'} style={{fontSize: 25, marginTop: 5}}>
             <b>{listing.buyoutCurrencyValuePerToken.displayValue}</b>{" "}
             {listing.buyoutCurrencyValuePerToken.symbol}
           </Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row', }}
-			style={{margin: '20px auto'}}>
+			style={{margin: '6px auto'}}>
             <Button
 			  width={'248px'}
               rounded={'full'}

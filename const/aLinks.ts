@@ -187,5 +187,6 @@ export const snsLinks = {
   instagramUrl,
   discordUrl,
   cmcUrl,
-  walletscanUrl
+  walletscanUrl,
+  ChainName
 }
