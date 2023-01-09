@@ -140,6 +140,7 @@ Switch to {network}
             width={282}
             objectFit={'cover'}
             src={IMAGE}
+            alt=""
           />
         </Box>
         <Stack pt={10} align={'center'}>

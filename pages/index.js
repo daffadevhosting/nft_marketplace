@@ -34,6 +34,7 @@ import { useRouter } from "next/router";
 import React, { useContext, useRef } from "react";
 import { RiStore2Line, RiSignalWifiErrorLine } from "react-icons/ri";
 import { FcGallery, FcShop } from "react-icons/fc";
+import HeroPage from "../components/Hero";
 import styles from "../styles/Theme.module.css";
 
 export default function Index() {
@@ -41,8 +42,6 @@ export default function Index() {
   const cancelRef = React.useRef();
   const router = useRouter();
   const toast = useToast();
-  const networkMismatch = useNetworkMismatch();
-  const [, switchNetwork] = useNetwork();
   const address = useAddress();
   
   const color = useColorModeValue('gray.800', 'gray.300');
@@ -51,21 +50,19 @@ export default function Index() {
   const connectWithWalletConnect = useWalletConnect();
   const connectWithCoinbaseWallet = useCoinbaseWallet();
   const disconnectWallet = useDisconnect();
-  function homeClick() {
-    router.push("/listings");
-  }
-  function uploadClick() {
-    router.push("/upload");
-  }
-  function stakeClick() {
-    router.push("/staking");
-  }
+
   function moreClick() {
     router.push("/roadmap");
   }
   
   return (
     <>
+        {address ? (
+		<>
+<HeroPage />
+	    </>
+          ) : (
+		  <>
       <Container maxW={'3xl'}>
         <Stack
           as={Box}
@@ -92,55 +89,6 @@ export default function Index() {
             align={'center'}
             alignSelf={'center'}
             position={'relative'}>
-        {address ? (
-		<>
-{networkMismatch ? (
-<>
-            <Button leftIcon={<RiSignalWifiErrorLine />} variant={'outline'}
-              rounded={'full'}
-              px={6} onClick={() => switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID))} colorScheme={'blue'} size={'md'}>
-Switch Network
-            </Button>
-</>
-) : (
-<>
-        <Stack flex={2} direction={{ md: 'row', base: 'column'}} spacing={{ base: 5, md: 5 }}>
-            <Button leftIcon={<FcShop />} variant={'outline'} onClick={homeClick}
-              colorScheme={'green'}
-              bg={'green.400'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bg: 'green.500',
-              }}>
-              Marketplace
-            </Button>
-            <Button leftIcon={<FcGallery />} variant={'outline'} onClick={uploadClick}
-              colorScheme={'green'}
-              bg={'green.400'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bg: 'green.500',
-              }}>
-              Create Listing
-            </Button>
-            <Button leftIcon={<FcGallery />} variant={'outline'} onClick={stakeClick}
-              colorScheme={'blue'}
-              bg={'blue.400'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bg: 'blue.500',
-              }}>
-              Stake NFT
-            </Button>
-</Stack>
-</>
-)}
-	    </>
-          ) : (
-		  <>
         <Stack flex={2} direction={{ md: 'row', base: 'column'}} spacing={{ base: 5, md: 5 }}>
             <Button onClick={onOpen}
               colorScheme={'green'}
@@ -217,11 +165,11 @@ Switch Network
               </Text>
             </Box>
 </Stack>
-		  </>
-		)}
           </Stack>
         </Stack>
       </Container>
+		  </>
+		)}
     </>
   );
 }
