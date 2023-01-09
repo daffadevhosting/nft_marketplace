@@ -171,14 +171,19 @@ Switch Network
             <AlertDialogBody>
               <Menu>
                   <MenuDivider />
-                  <MenuItem gap='5' onClick={() => {connectWithMetamask(), onClose()}} className={styles.hoverItem}>Metamask
-				  <Tag size='sm' variant='solid' colorScheme='blue' borderRadius='full'>
+                  <MenuItem onClick={() => {connectWithMetamask(), onClose()}} className={`${styles.hoverItem} ${styles.flexCenter}`}>Metamask
+            <div className={styles.floatR}>
+				  <Tag size='sm' variant='solid' colorScheme='green' borderRadius='full'>
 					  Recomended
-					</Tag></MenuItem>
+					</Tag> <div className={styles.metamask}></div></div></MenuItem>
                   <MenuDivider />
-                  <MenuItem onClick={() => {connectWithWalletConnect(), onClose()}} className={styles.hoverItem}>WalletConnect</MenuItem>
+                  <MenuItem onClick={() => {connectWithWalletConnect(), onClose()}} className={`${styles.hoverItem} ${styles.flexCenter}`}>WalletConnect
+            <div className={styles.floatR}>
+                <div className={styles.walletconnect}></div></div></MenuItem>
                   <MenuDivider />
-                  <MenuItem onClick={() => {connectWithCoinbaseWallet(), onClose()}} className={styles.hoverItem}>CoinBase</MenuItem>
+                  <MenuItem onClick={() => {connectWithCoinbaseWallet(), onClose()}} className={`${styles.hoverItem} ${styles.flexCenter}`}>CoinBase
+            <div className={styles.floatR}>
+                <div className={styles.coinbase}></div></div></MenuItem>
                   <MenuDivider />
               </Menu>
             </AlertDialogBody>

@@ -122,7 +122,7 @@ export const swapUrl = () => {
 }
 
 export const openseaUrl = () => {
-  const name = process.env.NEXT_PUBLIC_0PENSEA_NAME
+  const name = process.env.NEXT_PUBLIC_OPENSEA_NAME
 
   switch (process.env.NEXT_PUBLIC_CHAIN_ID) {
     case '137':

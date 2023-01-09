@@ -520,3 +520,41 @@
     transform: translate(-50%,20%);
     width: 100%;
 }
+
+.floatR {
+    display: flex;
+    gap: 10px;
+}
+
+.flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.metamask {
+    background-image: url('../public/icons/metamask.svg');
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.walletconnect {
+    background-image: url('../public/icons/walletconnect.svg');
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.coinbase {
+    background-image: url('../public/icons/coinbase.svg');
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}

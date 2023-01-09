@@ -90,10 +90,10 @@ export default function Navbar() {
           <Box onClick={homeClick} cursor={'pointer'} fontSize={'lg'} fontWeight={700}>{Title}</Box>
 
           <Flex alignItems={'center'}>
-            <Stack direction={'row'} spacing={5}>
+            <Stack direction={'row'} spacing={3}>
               <Button>
-  <Link href={openseaLink()} target="_blank" rel="noopener noreferrer" title="OpenSea" style={{height: 28,}}>
-				<Image src={Logo} width={28} height={28} alt="logo" /></Link>
+  <Link href={openseaLink()} target="_blank" rel="noopener noreferrer" title="OpenSea" style={{height: 20,}}>
+				<Image src={Logo} width={20} height={20} alt="logo" /></Link>
               </Button>
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon size={32} /> : <SunIcon size={32} />}

@@ -153,9 +153,9 @@ const Resell: NextPage = () => {
       <Stack spacing={8} mx={'auto'} maxW={'lg'} px={1}>
         <Stack align={'center'}>
           <Heading fontSize={'2xl'}>
-            Resell your NFT to marketplace</Heading>
+            Resell NFT kamu ke marketplace</Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
-            Kamu juga bisa jual kembali di <Link href={openseaLink()} className={styles.linkOpnsi} color={'blue.400'} target="_blank" rel="noopener noreferrer" title="OpenSea">OPENSEA <Image src={Logo} width={18} height={18} alt="opensea" /></Link>
+            Kamu juga bisa listing di <Link href={openseaLink()} className={styles.linkOpnsi} color={'blue.400'} target="_blank" rel="noopener noreferrer" title="OpenSea">OPENSEA <Image src={Logo} width={18} height={18} alt="opensea" /></Link>
           </Text>
         </Stack>
         <Box style={{marginTop: '10px', zIndex: 999}}

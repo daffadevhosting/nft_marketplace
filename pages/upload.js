@@ -31,6 +31,7 @@ import { useContext, useRef } from "react";
 import styles from "../styles/Theme.module.css";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
+const OpenseaName = process.env.NEXT_PUBLIC_OPENSEA_NAME
 
 const Upload = () => {
   const address = useAddress();
@@ -267,7 +268,7 @@ const Upload = () => {
             Upload NFT
           </Heading>
           <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
-            @bot-collection
+            @{OpenseaName}
           </Text>
             <FormControl id="price" isRequired>
           <Input
