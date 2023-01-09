@@ -192,14 +192,14 @@ export default function ListingPage() {
             Owned by <b>{listing.sellerAddress?.slice(0, 7)}</b>
             </Text>
           </Heading>
-    <Box bg='white.400' color='white' textAlign='left' padding='10px' mt={0} className={styles.portalW}>
+    <Box bg='white.400' textAlign='left' padding='10px' mt={0} className={styles.portalW}>
           <Text color={'gray.500'} style={{fontSize: 15}}>
             <b>{listing.asset.description}</b>
           </Text>
             <br />
       <Portal containerRef={ref}>
       </Portal>
-      <Box ref={ref} bg='#0a0b0d' padding='10px' borderRadius='8px'>
+      <Box ref={ref} bg={'whiteAlpha.500'} padding='10px' borderRadius='8px' boxShadow='2px 2px 10px -2px #000000a8'>
 	  Detail:
           <Text fontSize={'sm'} style={{marginTop: '20px'}}>
              <b> ID token: {listing.asset.id}</b>

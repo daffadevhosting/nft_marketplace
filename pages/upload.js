@@ -215,7 +215,7 @@ const Upload = () => {
   };
 
   return (
-	<Container mt={20}>
+	<Container pt={20}>
     <form onSubmit={(e) => handleCreateListing(e)}>
     <Center py={6}>
       <Stack className={styles.styleStack}
