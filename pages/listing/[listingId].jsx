@@ -175,6 +175,7 @@ export default function ListingPage() {
             <Text
               as={'span'}
               position={'relative'}
+              textShadow={'2px 1px 6px #000000ad'}
               _after={{
                 content: "''",
                 width: 'full',

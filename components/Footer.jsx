@@ -7,7 +7,7 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react';
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaInstagram, FaTwitter, FaGithub } from 'react-icons/fa';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import { explorerUrl } from "../const/aLinks";
@@ -58,11 +58,11 @@ export default function Footer() {
           <SocialButton label={'Twitter'} href={'/'}>
             <FaTwitter />
           </SocialButton>
-          <SocialButton label={'YouTube'} href={'/'}>
-            <FaYoutube />
-          </SocialButton>
           <SocialButton label={'Instagram'} href={'/'}>
             <FaInstagram />
+          </SocialButton>
+          <SocialButton label={'Github'} href={'https://github.com/daffadevhosting/nft_marketplace'}>
+            <FaGithub />
           </SocialButton>
           <SocialButton label={'bscscan'} href={bscLink()} target="_blank" rel="noopener noreferrer">
             <Image src={FaBsc} width={16} height={16} alt="bsc" />

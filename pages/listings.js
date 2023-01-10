@@ -6,8 +6,7 @@ import {
   ThirdwebNftMedia,
 } from "@thirdweb-dev/react";
 import { 
-  Link, Card, CardHeader, CardBody, CardFooter, Divider, Container, Spinner
-  } from '@chakra-ui/react'
+  Link, Card, CardHeader, CardBody, CardFooter, Divider, Container, Spinner, Text } from '@chakra-ui/react'
 import { MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import Banner from "../components/Banner";
 import styles from "../styles/Theme.module.css";
@@ -58,14 +57,14 @@ export default function Listings() {
                     className={styles.nftMedia}
                   />
 				<CardBody style={{padding: '15px'}}>
-                  <h4>{listing.asset.name}</h4>
+                  <Text fontWeight={700}>{listing.asset.name}</Text>
   </CardBody>
   <Divider />
   <CardFooter style={{padding: '10px'}}>
-                  <p>
+                  <Text color={'#e53e3e'}>
                     {listing.buyoutCurrencyValuePerToken.displayValue}{" "}
                     {listing.buyoutCurrencyValuePerToken.symbol}
-                  </p>
+                  </Text>
   </CardFooter>
 </Card>
                 </Link>
