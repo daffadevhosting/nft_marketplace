@@ -85,7 +85,7 @@ export default function Navbar() {
   
   return (
     <>
-      <Box bg={'whiteAlpha.300'} px={4} style={{position: 'fixed', width: '100%', zIndex: 99999, top: 0}}>
+      <Box bg={'rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);'} px={4} style={{position: 'fixed', width: '100%', zIndex: 99999, top: 0}}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box onClick={homeClick} cursor={'pointer'} fontSize={'lg'} fontWeight={700}>{Title}</Box>
 

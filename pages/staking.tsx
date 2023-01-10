@@ -380,7 +380,7 @@ const Stake: NextPage = () => {
 		  </div>
       ) : (
         <>
-    <Container maxW={'5xl'} py={12}>
+    <Container maxW={'5xl'} py={20}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} marginBottom={{ base: 20, md: 0 }}>
     <Center py={6}>
       <Box

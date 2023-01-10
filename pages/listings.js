@@ -9,6 +9,7 @@ import {
   Link, Card, CardHeader, CardBody, CardFooter, Divider, Container, Spinner
   } from '@chakra-ui/react'
 import { MARKETPLACE_ADDRESS } from "../const/contractAddresses";
+import Banner from "../components/Banner";
 import styles from "../styles/Theme.module.css";
 
 export default function Listings() {
@@ -24,18 +25,17 @@ export default function Listings() {
   return (
     <Container centerContent>
       <div className={styles.collectionContainer}>
-        <div className={styles.detailPageContainer}>
+        <div className={styles.bannerContainer}>
           {!loadingMetadata ? (
             <>
-              <h1>{contractMetadata?.name}</h1>
-              <p>{contractMetadata?.description}</p>
+                <Banner />
+          <hr className={`${styles.smallDivider} ${styles.detailPageHr}`} />
             </>
           ) : (
 		  <div className={styles.loading}>
 		  <Spinner size='md' />
           </div>
           )}
-          <hr className={`${styles.smallDivider} ${styles.detailPageHr}`} />
         </div>
 
         {!isLoading ? (
@@ -48,7 +48,11 @@ export default function Listings() {
                   key={listing.id.toString()}
                   href={`/listing/${listing.id}`}
                 >
-			<Card maxW='sm' overflow='hidden'>
+			<Card maxW='sm' overflow='hidden' transition='transform .2s'
+                    _hover={{
+              transform: 'scale(1.1)',
+              boxShadow: 'lg',
+            }}>
                   <ThirdwebNftMedia
                     metadata={{ ...listing.asset }}
                     className={styles.nftMedia}
