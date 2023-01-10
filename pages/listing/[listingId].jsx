@@ -22,7 +22,7 @@ import {
   IconProps,
   useColorModeValue,
   Spinner,
-  Portal 
+  Portal
 } from '@chakra-ui/react';
 import { ChainId, ListingType, NATIVE_TOKENS } from "@thirdweb-dev/sdk";
 import { useRouter } from "next/router";
@@ -122,13 +122,11 @@ export default function ListingPage() {
 
   async function buyNft() {
     try {
-      // Ensure user is on the correct network
       if (networkMismatch) {
         switchNetwork && switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID));
         return;
       }
 
-      // Simple one-liner for buying the NFT
       await marketplace?.buyoutListing(listingId, 1);
       alert("NFT bought successfully!");
     } catch (err) {
@@ -249,6 +247,28 @@ export default function ListingPage() {
 			  style={{fontWeight: 700, color: 'white'}}>
               Buy
             </Button>
+            <div
+              style={{
+                display: "none",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              <Input
+                type="text"
+                name="bidAmount"
+                className={styles.textInput}
+                onChange={(e) => setBidAmount(e.target.value)}
+                placeholder="Amount"
+                style={{ marginTop: 0, marginLeft: 0, width: 128, height: 40 }}
+              />
+              <Button
+                onClick={createBidOrOffer}
+              >
+                Make Offer
+              </Button>
+            </div>
           </Stack>
         </Stack>
       </Stack>

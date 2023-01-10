@@ -61,7 +61,7 @@ export default function Listings() {
   </CardBody>
   <Divider />
   <CardFooter style={{padding: '10px'}}>
-                  <Text color={'#e53e3e'}>
+                  <Text color={'#418dff'}>
                     {listing.buyoutCurrencyValuePerToken.displayValue}{" "}
                     {listing.buyoutCurrencyValuePerToken.symbol}
                   </Text>
