@@ -143,7 +143,7 @@ export default function Navbar() {
                   <MenuItem onClick={sellingClick}>Resell NFT</MenuItem>
                   <MenuItem onClick={() => {disconnectWallet(), homeClick(), toast({
           title: 'Wallet Disconnected.',
-          description: "You've disconnect your wallet.",
+          description: "Dompet kamu sudah tidak terhubung..",
           status: 'info',
           duration: 3000,
           isClosable: true,

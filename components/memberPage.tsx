@@ -60,8 +60,8 @@ export default function ProductSimple() {
         {
           onSuccess: (data) => {
             alert({
-          title: 'Transaction Success.',
-          description: "Your member claim, Success.",
+          title: 'Success.',
+          description: "Kartu Member Berhasil di Claim.",
           status: 'success',
           duration: 6000,
           isClosable: true,

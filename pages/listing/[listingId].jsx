@@ -22,7 +22,8 @@ import {
   IconProps,
   useColorModeValue,
   Spinner,
-  Portal
+  Portal,
+  useToast,
 } from '@chakra-ui/react';
 import { ChainId, ListingType, NATIVE_TOKENS } from "@thirdweb-dev/sdk";
 import { useRouter } from "next/router";
@@ -40,6 +41,7 @@ export default function ListingPage() {
 
   const [copySuccess, setCopySuccess] = useState('');
   const TextRef = useRef(null);
+  const alert = useToast();
 
   function copyToClipboard(e) {
     TextRef.current.select();
@@ -116,7 +118,13 @@ export default function ListingPage() {
       );
     } catch (err) {
       console.error(err.message || "something went wrong");
-      alert(err.message || "something went wrong");
+      alert({
+              title: 'GAGAL',
+			  description: "Pembelian NFT, Gagal.",
+			  status: 'error',
+			  duration: 6000,
+			  isClosable: true,
+            });
     }
   }
 
@@ -128,10 +136,22 @@ export default function ListingPage() {
       }
 
       await marketplace?.buyoutListing(listingId, 1);
-      alert("NFT bought successfully!");
+      alert({
+          title: 'Berhasil.',
+          description: "Pembelian NFT Berhasil...",
+          status: 'success',
+          duration: 6000,
+          isClosable: true,
+        });
     } catch (err) {
-      console.error(err);
-      alert(err.message);
+      console.error(err.message);
+      alert({
+              title: 'GAGAL',
+			  description: "Pembelian NFT, Gagal. Pastikan saldo token mencukupi",
+			  status: 'error',
+			  duration: 6000,
+			  isClosable: true,
+            });
     }
   }
   
