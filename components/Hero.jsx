@@ -43,13 +43,13 @@ export default function Hero() {
       }
       backgroundSize={'cover'}
       backgroundPosition={'center center'}>
-{networkMismatch ? (
-<>
       <VStack
         w={'full'}
         justify={'center'}
         px={useBreakpointValue({ base: 4, md: 8 })}
         bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
+{networkMismatch ? (
+<>
         <Stack maxW={'2xl'} align={'center'} spacing={6}>
           <Text
             color={'white'}
@@ -64,15 +64,9 @@ Ganti Jaringan
             </Button>
           </Stack>
         </Stack>
-      </VStack>
 </>
 ) : (
 <>
-      <VStack
-        w={'full'}
-        justify={'center'}
-        px={useBreakpointValue({ base: '4xl', md: '8xl' })}
-        bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
         <Stack maxW={'2xl'} align={'center'} spacing={6}>
           <Text
             color={'white'}
@@ -118,9 +112,9 @@ Ganti Jaringan
             </Button>
           </Stack>
         </Stack>
-      </VStack>
 </>
 )}
+      </VStack>
     </Flex>
   );
 }

@@ -1,1 +1,1 @@
-## thirdweb Marketplace with chakra-UI template
+## thirdweb NFT Marketplace with chakra-UI template
