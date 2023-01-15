@@ -12,6 +12,7 @@ import {
 } from "@thirdweb-dev/react";
 import { useRouter } from "next/router";
 import React, { useContext, useRef } from "react";
+import { ChainName } from "../const/aLinks";
 import { RiStore2Line, RiSignalWifiErrorLine } from "react-icons/ri";
 import { FcGallery, FcShop } from "react-icons/fc";
 
@@ -21,6 +22,7 @@ export default function Hero() {
   const [, switchNetwork] = useNetwork();
   const router = useRouter();
 
+  const Jaringan = ChainName();
 
   function homeClick() {
     router.push("/listings");
@@ -41,6 +43,31 @@ export default function Hero() {
       }
       backgroundSize={'cover'}
       backgroundPosition={'center center'}>
+{networkMismatch ? (
+<>
+      <VStack
+        w={'full'}
+        justify={'center'}
+        px={useBreakpointValue({ base: 4, md: 8 })}
+        bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
+        <Stack maxW={'2xl'} align={'center'} spacing={6}>
+          <Text
+            color={'white'}
+            fontWeight={700}
+            lineHeight={1.2}
+            fontSize={useBreakpointValue({ base: '1xl', md: '2xl' })}>
+            Website ini berinteraksi di jaringan {Jaringan},<br/> silahkan ganti jaringan dompet kamu.
+          </Text>
+          <Stack direction={'row'}>
+            <Button leftIcon={<RiSignalWifiErrorLine />} variant={'outline'} bg={'whiteAlpha.300'} rounded={'full'} color={'white'} _hover={{ bg: 'whiteAlpha.500' }}px={6} onClick={() => switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID))} colorScheme={'blue'} size={'md'}>
+Ganti Jaringan
+            </Button>
+          </Stack>
+        </Stack>
+      </VStack>
+</>
+) : (
+<>
       <VStack
         w={'full'}
         justify={'center'}
@@ -55,15 +82,6 @@ export default function Hero() {
             Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
             eiusmod tempor
           </Text>
-          <Stack direction={'row'}>
-{networkMismatch ? (
-<>
-            <Button leftIcon={<RiSignalWifiErrorLine />} variant={'outline'} bg={'whiteAlpha.300'} rounded={'full'} color={'white'} _hover={{ bg: 'whiteAlpha.500' }}px={6} onClick={() => switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID))} colorScheme={'blue'} size={'md'}>
-Switch Network
-            </Button>
-</>
-) : (
-<>
         <Stack flex={2} direction={{ md: 'row', base: 'column'}} spacing={{ base: 5, md: 5 }}>
             <Button leftIcon={<FcShop />} variant={'outline'} onClick={homeClick}
               colorScheme={'green'}
@@ -98,12 +116,11 @@ Switch Network
               }}>
               Stake NFT
             </Button>
-</Stack>
-</>
-)}
           </Stack>
         </Stack>
       </VStack>
+</>
+)}
     </Flex>
   );
 }
