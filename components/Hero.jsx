@@ -23,7 +23,7 @@ export default function Hero() {
   const router = useRouter();
 
   const Jaringan = ChainName();
-  const FontBreak = useBreakpointValue({ base: '2xl', md: '4xl' });
+  const FontBreak = useBreakpointValue({ base: '2xl', md: '3xl' });
 
   function homeClick() {
     router.push("/listings");
