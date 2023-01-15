@@ -71,7 +71,7 @@ Ganti Jaringan
       <VStack
         w={'full'}
         justify={'center'}
-        px={useBreakpointValue({ base: 4, md: 8 })}
+        px={useBreakpointValue({ base: '4xl', md: '8xl' })}
         bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
         <Stack maxW={'2xl'} align={'center'} spacing={6}>
           <Text
