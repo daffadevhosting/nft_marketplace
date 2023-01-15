@@ -23,6 +23,7 @@ export default function Hero() {
   const router = useRouter();
 
   const Jaringan = ChainName();
+  const Breakpoint = useBreakpointValue({ base: 4, md: 8 });
 
   function homeClick() {
     router.push("/listings");
@@ -46,7 +47,7 @@ export default function Hero() {
       <VStack
         w={'full'}
         justify={'center'}
-        px={useBreakpointValue({ base: 4, md: 8 })}
+        px={Breakpoint}
         bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
 {networkMismatch ? (
 <>
@@ -55,7 +56,7 @@ export default function Hero() {
             color={'white'}
             fontWeight={700}
             lineHeight={1.2}
-            fontSize={useBreakpointValue({ base: '1xl', md: '2xl' })}>
+            fontSize={Breakpoint}>
             Website ini berinteraksi di jaringan {Jaringan},<br/> silahkan ganti jaringan dompet kamu.
           </Text>
           <Stack direction={'row'}>
@@ -72,7 +73,7 @@ Ganti Jaringan
             color={'white'}
             fontWeight={700}
             lineHeight={1.2}
-            fontSize={useBreakpointValue({ base: '3xl', md: '4xl' })}>
+            fontSize={Breakpoint}>
             Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
             eiusmod tempor
           </Text>
