@@ -32,6 +32,38 @@ import { useAddress } from "@thirdweb-dev/react";
       return ''
   }
 }
+  export const tokenExplorer = () => {
+  const address = process.env.NEXT_PUBLIC_TOKEN_ADDRESS
+
+  switch (process.env.NEXT_PUBLIC_CHAIN_ID) {
+    case '1':
+      // Mainnet
+      return `https://etherscan.io/token/${address}`
+    case '5':
+      // Goerli
+      return `https://goerli.etherscan.io/token/${address}`
+	case '56':
+	  // BNB
+      return `https://bscscan.com/token/${address}`
+    case '97':
+      // tBNB
+      return `https://testnet.bscscan.com/token/${address}`
+    case '137':
+      // Polygon
+      return `https://polygonscan.com/token/${address}`
+    case '80001':
+      // Munbai
+      return `https://mumbai.polygonscan.com/token/${address}`
+    case '250':
+      // Fantom
+      return `https://ftmscan.com/token/${address}`
+    case '4002':
+      // FantomTestnet
+      return `https://testnet.ftmscan.com/token/${address}`
+    default:
+      return ''
+  }
+}
 
 export const walletscanUrl = () => {
   const walletAddress = useAddress();
@@ -181,6 +213,7 @@ export const discordUrl = () => {
 
 export const snsLinks = {
   explorerUrl,
+  tokenExplorer,
   openseaUrl,
   shopUrl,
   twitterUrl,

@@ -44,7 +44,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import React, { useContext, useRef, useEffect, useState } from "react";
 import { NFT_COLLECTION_ADDRESS, TOKEN_DROP_ADDRESS, MEMBERPASS_CONTRACT_ADDRESS, NFT_STAKING_ADDRESS } from "../const/contractAddresses";
-import { ChainName, swapUrl } from "../const/aLinks";
+import { ChainName, swapUrl, tokenExplorer } from "../const/aLinks";
 import MintMember from "../components/memberPage";
 import styles from "../styles/Theme.module.css";
 
@@ -55,6 +55,7 @@ const stakingContractAddress = NFT_STAKING_ADDRESS;
 const network = ChainName;
 const ava = '/icons/bot.png';
 const Logo = '/icons/pancakeswap.png';
+const FaBsc = '/icons/bscscan-logo.svg';
 const swap = swapUrl;
 
 const Stake: NextPage = () => {
@@ -410,9 +411,21 @@ const Stake: NextPage = () => {
         </Flex>
           <Flex position={'absolute'} alignItems={'center'} top={20} ml={3}>
             <Stack direction={'row'} spacing={5}>
-              <Button>
+              <Button bg={btnColor}
+            _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: 'lg',
+            }}>
   <Link href={swapUrl()} target="_blank" rel="noopener noreferrer" title="pancakeswap" style={{height: 28,}}>
 				<Image src={Logo} style={{width: 28, height: 28}} width={28} height={28} alt="logo" /></Link>
+              </Button>
+              <Button bg={btnColor}
+            _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: 'lg',
+            }}>
+  <Link href={tokenExplorer()} target="_blank" rel="noopener noreferrer" title="pancakeswap" style={{height: 28,}}>
+				<Image src={FaBsc} style={{width: 28, height: 28}} width={28} height={28} alt="logo" /></Link>
               </Button>
             </Stack>
           </Flex>
