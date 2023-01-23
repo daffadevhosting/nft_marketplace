@@ -140,6 +140,6 @@ contract ERC721Staking is ReentrancyGuard {
         return (((
             ((block.timestamp - stakers[_staker].timeOfLastUpdate) *
                 stakers[_staker].amountStaked)
-        ) * rewardsPerHour) / 1000000);
+        ) * rewardsPerHour) / 10000000);
     }
 }

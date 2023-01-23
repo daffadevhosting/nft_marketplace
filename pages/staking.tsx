@@ -513,7 +513,7 @@ const Stake: NextPage = () => {
                 />
                 <Button
 			w={'full'}
-            mt={8}
+            mt={'12px'}
             bg={btnColor}
 			color={'white'}
             rounded={'md'}
