@@ -13,6 +13,7 @@ import {
 import { useRouter } from "next/router";
 import React, { useContext, useRef } from "react";
 import { ChainName } from "../const/aLinks";
+import NotifWran from "./Notif";
 import { RiStore2Line, RiSignalWifiErrorLine } from "react-icons/ri";
 import { FcGallery, FcShop } from "react-icons/fc";
 
@@ -113,6 +114,7 @@ Ganti Jaringan
             </Button>
           </Stack>
         </Stack>
+<NotifWran />
 </>
 )}
       </VStack>
