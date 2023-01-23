@@ -166,24 +166,27 @@ const Resell: NextPage = () => {
           <Stack spacing={4}>
             <FormControl id="contractAddress" isRequired>
               <FormLabel>NFT Contract</FormLabel>
-              <Input
+              <input
+            className={styles.textInput}
             type="text"
             name="contractAddress"
             placeholder="NFT Contract Address" />
             </FormControl>
             <FormControl id="tokenId" isRequired>
               <FormLabel>NFT Token ID</FormLabel>
-              <Input
+              <input
+            className={styles.textInput}
             type="text"
             name="tokenId"
             placeholder="NFT Token ID" />
             </FormControl>
             <FormControl id="price" isRequired>
               <FormLabel>Sale Price</FormLabel>
-          <Input
+          <input
+            className={styles.textInput}
             type="text"
             name="price"
-            placeholder="Sale Price"
+            placeholder="Sale Price in BNB"
           />
             </FormControl>
 

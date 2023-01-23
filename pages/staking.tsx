@@ -477,7 +477,7 @@ const Stake: NextPage = () => {
     <Tab>Your Staked NFTs</Tab>
   </TabList>
   <TabPanels>
-    <TabPanel>
+    <TabPanel className={styles.maxH}>
 			<div className={styles.stakingGrid}>
             {ownedNfts?.map((nft) => (
               <div className={styles.nftBox} key={nft.metadata.id.toString()}>

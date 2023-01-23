@@ -26,7 +26,6 @@
 }
 
 .textInput {
-  width: 75%;
   background-color: transparent;
   border: 1px solid grey;
   border-radius: 8px;
@@ -220,13 +219,14 @@
 }
 
 .textInput {
-  width: 48px;
+  width: 100%;
   background-color: transparent;
   border: 1px solid grey;
   border-radius: 8px;
-  height: 48px;
+  height: 38px;
   padding: 0 16px;
   font-size: 1rem;
+  margin-top: 6px !important;
 }
 
 .quantityControlButton {
@@ -281,7 +281,7 @@
 
 .stakingGrid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     gap: 10px;
 }
@@ -304,12 +304,17 @@
   max-height: 300px;
 }
 
+.maxH {
+    max-height: 418px;
+    overflow: auto;
+}
+
 .nftStakeMedia {
   object-fit: cover !important;
   object-position: center !important;
   width: 100%;
-  height: 300px;
-  max-height: 300px;
+  height: 150px;
+  max-height: 150px;
   border-radius: 8px;
   box-shadow: 3px 3px 6px -2px #000;
 }
@@ -329,6 +334,12 @@
 .uploadSection {
     flex-direction: column;
     width: min-content;
+}
+
+.stakingGrid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 5px;
 }
 
 .nftStakeMedia {

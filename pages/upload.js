@@ -191,7 +191,7 @@ const Upload = () => {
         },
         {
           onSuccess: (tx) => {
-            return tx;
+            router.push(`/listings`);
           },
         }
       );
@@ -215,8 +215,8 @@ const Upload = () => {
   };
 
   return (
-	<Container pt={20}>
     <form onSubmit={(e) => handleCreateListing(e)}>
+	<Container pt={20}>
     <Center py={6}>
       <Stack className={styles.styleStack}
         borderWidth="1px"
@@ -271,24 +271,27 @@ const Upload = () => {
             @{OpenseaName}
           </Text>
             <FormControl id="price" isRequired>
-          <Input
+          <input
             type="text"
             name="name"
             placeholder="Name"
+            className={styles.textInput}
           />
             </FormControl>
             <FormControl id="description" isRequired>
-          <Input
+          <input
             type="text"
             name="description"
             placeholder="Description"
+            className={styles.textInput}
           />
             </FormControl>
             <FormControl id="price" isRequired>
-          <Input
+          <input
             type="text"
             name="price"
             placeholder="Price (in BNB)"
+            className={styles.textInput}
           />
             </FormControl>
 
@@ -369,8 +372,8 @@ Switch Network
         </Stack>
       </Stack>
     </Center>
-    </form>
 	</Container>
+    </form>
   );
 };
 

@@ -46,8 +46,6 @@ export default function ListingPage() {
   function copyToClipboard(e) {
     TextRef.current.select();
     document.execCommand('copy');
-    // This is just personal preference.
-    // I prefer to not show the whole text area selected.
     e.target.focus();
     setCopySuccess('Berhasil di salin');
   };
@@ -147,7 +145,7 @@ export default function ListingPage() {
       console.error(err.message);
       alert({
               title: 'GAGAL',
-			  description: "Pembelian NFT, Gagal. Pastikan saldo token mencukupi",
+			  description: "Pembelian NFT Gagal. Pastikan saldo mencukupi",
 			  status: 'error',
 			  duration: 6000,
 			  isClosable: true,
@@ -232,7 +230,7 @@ export default function ListingPage() {
 	   <div>
         <Text>
 		  <b>Contract:</b>{" "}
-          <Button onClick={copyToClipboard} variant={'link'} colorScheme={'blue'} title={'Salin'}> {contracAddress.slice(0, 3).concat("...").concat(contracAddress.slice(-4))}</Button> 
+          <Button onClick={copyToClipboard} variant={'link'} colorScheme={'blue'} title={'Salin'}> {contracAddress.slice(0, 4).concat("...").concat(contracAddress.slice(-4))}</Button> 
 		</Text>
           {copySuccess}
         </div>

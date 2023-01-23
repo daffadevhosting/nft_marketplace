@@ -34,7 +34,7 @@ contract ERC721Staking is ReentrancyGuard {
         uint256 unclaimedRewards;
     }
 
-    uint256 private rewardsPerHour = 1000000;
+    uint256 private rewardsPerHour = 1000000000;
 
     mapping(address => Staker) public stakers;
 
@@ -140,6 +140,6 @@ contract ERC721Staking is ReentrancyGuard {
         return (((
             ((block.timestamp - stakers[_staker].timeOfLastUpdate) *
                 stakers[_staker].amountStaked)
-        ) * rewardsPerHour) / 3600);
+        ) * rewardsPerHour) / 1000000);
     }
 }
