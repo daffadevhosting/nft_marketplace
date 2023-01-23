@@ -480,14 +480,14 @@ const Stake: NextPage = () => {
     <TabPanel className={styles.maxH}>
 			<div className={styles.stakingGrid}>
             {ownedNfts?.map((nft) => (
-              <div className={styles.nftBox} key={nft.metadata.id.toString()}>
+              <div className={styles.nftStakeBox} key={nft.metadata.id.toString()}>
                 <ThirdwebNftMedia
                   metadata={nft.metadata}
                   className={styles.nftStakeMedia}
                 />
                 <Button
 			w={'full'}
-            mt={8}
+            mt={'12px'}
             bg={btnColor}
 			color={'white'}
             rounded={'md'}
@@ -503,10 +503,10 @@ const Stake: NextPage = () => {
             ))}
 			</div>
     </TabPanel>
-    <TabPanel>
+    <TabPanel className={styles.maxH}>
 			<div className={styles.stakingGrid}>
             {stakedNfts?.map((nft) => (
-              <div className={styles.nftBox} key={nft.metadata.id.toString()}>
+              <div className={styles.nftStakeBox} key={nft.metadata.id.toString()}>
                 <ThirdwebNftMedia
                   metadata={nft.metadata}
                   className={styles.nftStakeMedia}
