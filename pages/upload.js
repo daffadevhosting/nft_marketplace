@@ -361,8 +361,9 @@ Switch Network
               flex={1}
               fontSize={'sm'}
               rounded={'full'}
+			  colorScheme={'red'}
               _focus={{
-                bg: 'gray.200',
+                bg: 'red.200',
               }}
 			disabled> Connect Wallet
             </Button>

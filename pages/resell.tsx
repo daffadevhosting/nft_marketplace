@@ -239,7 +239,7 @@ Switch Network
           ) : (
           <Button
 			colorScheme={'red'}
-            style={{ marginTop: 32, borderStyle: "none" }}
+            style={{ marginTop: 3, borderStyle: "none" }}
 			disabled> Connect Wallet
           </Button >
 		)}
