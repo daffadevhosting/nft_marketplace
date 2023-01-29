@@ -24,10 +24,10 @@ import {
   useToast,
   Input,
   Container
-} from '@chakra-ui/react';import React, { useState } from "react";
+} from '@chakra-ui/react';
+import React, { useState, useContext, useRef } from "react";
 import { NFT_COLLECTION_ADDRESS, MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import { useRouter } from "next/router";
-import { useContext, useRef } from "react";
 import styles from "../styles/Theme.module.css";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)

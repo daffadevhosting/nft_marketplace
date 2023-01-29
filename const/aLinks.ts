@@ -174,6 +174,27 @@ export const openseaUrl = () => {
   }
 }
 
+export const memberUrl = () => {
+  const member = process.env.NEXT_PUBLIC_MEMBERPASS_CONTRACT_ADDRESS
+
+  switch (process.env.NEXT_PUBLIC_CHAIN_ID){
+    case '137':
+      // Mainnet
+      return `https://opensea.io/assets/matic/${member}/0`
+    case '80001':
+      // Mumbai
+      return `https://testnets.opensea.io/assets/mumbai/${member}/0`
+    case '56':
+      // Mainnet
+      return `https://testnets.opensea.io/assets/bsc/${member}/0`
+    case '97':
+      // tBNB
+      return `https://testnets.opensea.io/assets/bsc-testnet/${member}/0`
+    default:
+      return ``
+  }
+}
+
 export const shopUrl = () => {
   const shop = process.env.NEXT_PUBLIC_CONTRACT_SHOP
 
@@ -222,5 +243,6 @@ export const snsLinks = {
   cmcUrl,
   walletscanUrl,
   ChainName,
-  swapUrl
+  swapUrl,
+  memberUrl
 }

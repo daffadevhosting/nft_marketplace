@@ -7,7 +7,8 @@ import {
   Stack,
   Image,
   useToast,
-  Button
+  Button,
+  Link,
 } from '@chakra-ui/react';
 import {
   ThirdwebNftMedia,
@@ -22,12 +23,13 @@ import {
 import { BigNumber } from "ethers";
 import React, { useState } from "react";
 import { MEMBERPASS_CONTRACT_ADDRESS, INITIAL_TOKEN_PRICE } from "../const/contractAddresses";
-import { ChainName } from "../const/aLinks";
+import { ChainName, memberUrl } from "../const/aLinks";
 import { RiSignalWifiErrorLine } from "react-icons/ri";
 import styles from "../styles/Theme.module.css";
 
 const IMAGE =
   '/botmember.png';
+const Logo = "/icons/opensea.svg"
   const tokenId = 0;
   const price = INITIAL_TOKEN_PRICE
 const network = ChainName();
@@ -90,7 +92,8 @@ export default function ProductSimple() {
   }
   
   return (
-    <Center py={12} className={styles.loading}>
+<div className={styles.loading}>
+    <Center py={12}>
 {networkMismatch ? (
 <>
             <Button leftIcon={<RiSignalWifiErrorLine />}
@@ -167,10 +170,13 @@ Switch to {network}
       >
     Claim {price}
       </Button>
+<br/>
+<Link href={memberUrl()} className={styles.linkOpnsi} color={'blue.400'} target="_blank" rel="noopener noreferrer" title="OpenSea">OPENSEA <Image src={Logo} width={18} height={18} alt="opensea" /></Link>
           </Stack>
         </Stack>
       </Box>
 )}
     </Center>
+</div>
   );
 }
