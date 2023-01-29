@@ -10,7 +10,7 @@ export default async function generateMintSignature(req, res) {
   const sdk = ThirdwebSDK.fromPrivateKey(process.env.PRIVATE_KEY, NETWORK_CHAIN_NAME);
 
   const nftContract = await sdk.getContract(
-    "NFT_COLLECTION_ADDRESS",
+    NFT_COLLECTION_ADDRESS,
     "nft-collection"
   );
 
