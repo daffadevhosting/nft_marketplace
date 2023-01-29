@@ -250,7 +250,7 @@ const Upload = () => {
             </div>
           )}
         </Flex>
-          <input isRequired
+          <Input isRequired
             type="file"
             accept="image/png, image/gif, image/jpeg"
             id="profile-picture-input"
