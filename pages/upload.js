@@ -25,7 +25,7 @@ import {
   Input,
   Container
 } from '@chakra-ui/react';
-import React, { useState, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { NFT_COLLECTION_ADDRESS, MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import { useRouter } from "next/router";
 import styles from "../styles/Theme.module.css";
@@ -250,7 +250,7 @@ const Upload = () => {
             </div>
           )}
         </Flex>
-          <Input isRequired
+          <input
             type="file"
             accept="image/png, image/gif, image/jpeg"
             id="profile-picture-input"
