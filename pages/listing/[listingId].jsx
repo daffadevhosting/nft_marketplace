@@ -144,6 +144,7 @@ export default function ListingPage() {
           duration: 6000,
           isClosable: true,
         });
+              router.push(`/`);
     } catch (err) {
       console.error(err.message);
       alert({
@@ -219,7 +220,7 @@ export default function ListingPage() {
         <input
 		  style={{height: '0px'}}
           ref={TextRef}
-          value='0x92143bb7e94d59D194d58422B30F7261901F9cad'
+          value='0xD928C0977AE3DBC6561E4731D388e4335C24ED5A'
         />
       </form>
       </Box>
