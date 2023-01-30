@@ -30,6 +30,7 @@ import { useContext, useRef } from "react";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { openseaUrl, walletscanUrl } from "../const/aLinks";
 import { RiLoginCircleFill, RiWallet3Fill, RiShieldUserFill, RiSignalWifiErrorLine } from "react-icons/ri";
+import { useMagic } from "@thirdweb-dev/react/evm/connectors/magic";
 
 const Title = 'NFT marketplace';
 const openseaLink = openseaUrl;
@@ -71,7 +72,7 @@ export default function Navbar() {
     router.push("/upload");
   }
   function marketClick() {
-    router.push("/listings");
+    router.push("/");
   }
   function homeClick() {
     router.push("/");
@@ -85,9 +86,9 @@ export default function Navbar() {
   
   return (
     <>
-      <Box bg={'rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);'} px={4} style={{position: 'fixed', width: '100%', zIndex: 99999, top: 0}}>
+      <Box bg={'#262936; backdrop-filter: blur(5px); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);'} px={4} style={{position: 'fixed', width: '100%', top: 0}}zIndex={1}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box onClick={homeClick} cursor={'pointer'} fontSize={'lg'} fontWeight={700}>{Title}</Box>
+          <Box onClick={homeClick} cursor={'pointer'} fontSize={'lg'} fontWeight={700} color={'white'}>{Title}</Box>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={3}>
@@ -108,9 +109,10 @@ export default function Navbar() {
                   rounded={'full'}
                   variant={'link'}
                   cursor={'pointer'}
-                  minW={0}>
+                  minW={0}
+                  color={'white'}>
                   <RiShieldUserFill
-                    size={35}
+                    size={40}
                   />
                 </MenuButton>
                 <MenuList alignItems={'center'}>
@@ -139,11 +141,11 @@ export default function Navbar() {
 <>
                   <MenuItem onClick={marketClick}>Marketplace</MenuItem>
                   <MenuItem onClick={stakeClick}>Stake NFT</MenuItem>
-                  <MenuItem onClick={handleClick}>Create NFT</MenuItem>
+                  <MenuItem onClick={handleClick}>Upload NFT</MenuItem>
                   <MenuItem onClick={sellingClick}>Resell NFT</MenuItem>
                   <MenuItem onClick={() => {disconnectWallet(), homeClick(), toast({
-          title: 'Wallet Disconnected.',
-          description: "Dompet kamu sudah tidak terhubung..",
+          title: 'Wallet Disconnect.',
+          description: "Wallet has been disconnected..",
           status: 'info',
           duration: 3000,
           isClosable: true,
@@ -155,33 +157,6 @@ export default function Navbar() {
 	  </>
           ) : (
 		  <>
-                <MenuButton
-                  as={Button}
-                  rounded={'full'}
-                  variant={'link'}
-                  cursor={'pointer'}
-                  minW={0}>
-                  <RiLoginCircleFill
-                    size={35}
-                  />
-                </MenuButton>
-                <MenuList alignItems={'center'}>
-                  <br />
-                  <Center>
-                    <RiWallet3Fill
-                      size={40}
-                    />
-                  </Center>
-                  <br />
-                  <Center>
-                    <p>Connect Wallet</p>
-                  </Center>
-                  <br />
-                  <MenuDivider />
-                  <MenuItem onClick={connectWithMetamask}>Metamask</MenuItem>
-                  <MenuItem onClick={connectWithWalletConnect}>WalletConnect</MenuItem>
-                  <MenuItem onClick={connectWithCoinbaseWallet}>CoinBase</MenuItem>
-                </MenuList>
 		  </>
 		)}
     </>

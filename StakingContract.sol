@@ -6,10 +6,9 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract ERC721Staking is ReentrancyGuard {
+contract nftStaking is ReentrancyGuard {
     using SafeERC20 for IERC20;
 
-    // Interfaces for ERC20 and ERC721
     IERC20 public immutable rewardsToken;
     IERC721 public immutable nftCollection;
 
@@ -34,7 +33,7 @@ contract ERC721Staking is ReentrancyGuard {
         uint256 unclaimedRewards;
     }
 
-    uint256 private rewardsPerHour = 1000000000;
+    uint256 private rewardsPerHour = 10000000000;
 
     mapping(address => Staker) public stakers;
 
@@ -140,6 +139,6 @@ contract ERC721Staking is ReentrancyGuard {
         return (((
             ((block.timestamp - stakers[_staker].timeOfLastUpdate) *
                 stakers[_staker].amountStaked)
-        ) * rewardsPerHour) / 10000000);
+        ) * rewardsPerHour) / 10000000000);
     }
 }

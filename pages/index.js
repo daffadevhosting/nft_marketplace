@@ -1,188 +1,158 @@
-import Head from 'next/head';
-import {
-  useAddress,
-  useDisconnect,
-  useMetamask, useWalletConnect, useCoinbaseWallet,
-  useNetwork,
-  useNetworkMismatch,
-} from "@thirdweb-dev/react";
+import React, { useState } from "react";
 import {
   Box,
-  Heading,
+  Center,
   Container,
-  Text,
-  Button,
-  Stack,
-  Icon,
   useColorModeValue,
-  createIcon,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-  useDisclosure,
-  Menu,
-  MenuItem,
-  MenuDivider,
-  useToast,
-  Flex,
-  Tag,
-} from '@chakra-ui/react';
-import { useRouter } from "next/router";
-import React, { useContext, useRef } from "react";
-import { RiStore2Line, RiSignalWifiErrorLine } from "react-icons/ri";
-import { FcGallery, FcShop } from "react-icons/fc";
-import HeroPage from "../components/Hero";
-import styles from "../styles/Theme.module.css";
+  Heading,
+  Text,
+  Stack,
+  Image,
+  Radio, RadioGroup
+} from '@chakra-ui/react'
+import {
+  useContract,
+  useActiveListings,
+  useContractMetadata,
+  ThirdwebNftMedia,
+} from "@thirdweb-dev/react";
+import { MARKETPLACE_ADDRESS } from "../const/contractAddresses";
+import css from "../styles/css.module.scss";
+import LoginModal from "../components/Login"
+import Banner from "../components/Banner";
+import Loading from "../components/Spinner";
 
-export default function Index() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = React.useRef();
-  const router = useRouter();
-  const toast = useToast();
-  const address = useAddress();
-  
-  const color = useColorModeValue('gray.800', 'gray.300');
-  
-  const connectWithMetamask = useMetamask();
-  const connectWithWalletConnect = useWalletConnect();
-  const connectWithCoinbaseWallet = useCoinbaseWallet();
-  const disconnectWallet = useDisconnect();
+export default function Listings() {
+  const { contract: marketplace } = useContract(MARKETPLACE_ADDRESS);
+  const { data: listings, isLoading } = useActiveListings(marketplace);
 
-  function moreClick() {
-    router.push("/roadmap");
-  }
-  
+  // Load contract metadata
+  const { data: contractMetadata, isLoading: loadingMetadata } =
+    useContractMetadata(marketplace);
+
+  const [filter, setFilter] = useState(0); // 0 = direct, auction = 1
+
+  const colorBg = useColorModeValue('white', 'gray.800');
+
   return (
-    <>
-        {address ? (
-		<>
-<HeroPage />
-	    </>
+    <div className={css.container}>
+        <div className={css.bannerContainer}>
+          {!loadingMetadata ? (
+            <>
+                <Banner />
+            </>
           ) : (
-		  <>
-      <Container maxW={'3xl'}>
-        <Stack
-          as={Box}
-          textAlign={'center'}
-          spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}>
-          <Heading
-            fontWeight={600}
-            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
-            lineHeight={'110%'}>
-            Hasilkan uang dari <br />
-            <Text as={'span'} color={'green.400'}>
-             kreativitas Anda
-            </Text>
-          </Heading>
-          <Text color={'gray.500'}>
-            Monetize your creativity by charging your most loyal community and reward
-            them loyalty points. Give back to your loyal community by granting
-            them access to your pre-releases and staking NFT.
+            <>
+             <div className={css.loading}><Loading /></div>
+            </>
+          )}
+        </div>
+
+<Container maxW={'100%'}>
+        {/* Toggle between direct listing and auction listing */}
+        <div className={css.none}>
+          <input
+            type="radio"
+            name="listingType"
+            id="directListing"
+            value="directListing"
+            defaultChecked
+            className={css.listingType}
+            onClick={() => setFilter(0)}
+          />
+          <label htmlFor="directListing" className={css.listingTypeLabel}>
+            Direct Listing
+          </label>
+          <input
+            type="radio"
+            name="listingType"
+            id="auctionListing"
+            value="auctionListing"
+            className={css.listingType}
+            onClick={() => setFilter(1)}
+          />
+          <label htmlFor="auctionListing" className={css.listingTypeLabel}>
+            Auction Listing
+          </label>
+        </div>
+
+        {!isLoading ? (
+          <div className={css.nftBoxGrid}>
+            {listings
+              ?.filter((listing) => listing.type === filter)
+              ?.map((listing) => (
+                <a
+                  className={css.nftBox}
+                  key={listing.id.toString()}
+                  href={`/listing/${listing.id}`}
+                >
+      <Box
+        role={'group'}
+        p={{ base: 2, md: 6 }}
+        maxW={'330px'}
+        w={'full'}
+        bg={colorBg}
+        boxShadow={'2xl'}
+        rounded={'lg'}
+        pos={'relative'}
+        zIndex={0}>
+        <Box
+          rounded={'lg'}
+          mt={{ base: '0', md: '-12'}}
+          pos={'relative'}
+          height={{ base: 'auto', md: 230 }}
+          _after={{
+            transition: 'all .3s ease',
+            content: '""',
+            w: 'full',
+            h: 'full',
+            pos: 'absolute',
+            top: 5,
+            left: 0,
+            backgroundImage: `url(${listing.asset.image})`,
+            filter: 'blur(15px)',
+            zIndex: -1,
+          }}
+          _groupHover={{
+            _after: {
+              filter: 'blur(20px)',
+            },
+          }}>
+                  <Image
+                    src={`${listing.asset.image}`}
+                    rounded={'lg'}
+                    height={{ base: 140, md: 230 }}
+                    width={282}
+                    objectFit={'cover'}
+                    metadata={{ ...listing.asset }}
+                    alt='NFT listing'
+                  />
+        </Box>
+        <Stack pt={10} align={'center'}>
+          <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
+            
           </Text>
-          <Stack
-            direction={'column'}
-            spacing={3}
-            align={'center'}
-            alignSelf={'center'}
-            position={'relative'}>
-        <Stack flex={2} direction={{ md: 'row', base: 'column'}} spacing={{ base: 5, md: 5 }}>
-            <Button onClick={onOpen}
-              colorScheme={'green'}
-              bg={'green.400'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bg: 'green.500',
-              }}>
-              Connect Wallet
-            </Button>
-            <Button onClick={moreClick} variant={'link'} colorScheme={'blue'} size={'sm'}>
-              Our Road Map
-            </Button>
-			<AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-		motionPreset='slideInBottom'
-		isCentered
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent margin={'auto 10px'}>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Connect Wallet
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              <Menu>
-                  <MenuDivider />
-                  <MenuItem onClick={() => {connectWithMetamask(), onClose()}} className={`${styles.hoverItem} ${styles.flexCenter}`}>Metamask
-            <div className={styles.floatR}>
-				  <Tag size='sm' variant='solid' colorScheme='green' borderRadius='full'>
-					  Recomended
-					</Tag> <div className={styles.metamask}></div></div></MenuItem>
-                  <MenuDivider />
-                  <MenuItem onClick={() => {connectWithWalletConnect(), onClose()}} className={`${styles.hoverItem} ${styles.flexCenter}`}>WalletConnect
-            <div className={styles.floatR}>
-                <div className={styles.walletconnect}></div></div></MenuItem>
-                  <MenuDivider />
-                  <MenuItem onClick={() => {connectWithCoinbaseWallet(), onClose()}} className={`${styles.hoverItem} ${styles.flexCenter}`}>CoinBase
-            <div className={styles.floatR}>
-                <div className={styles.coinbase}></div></div></MenuItem>
-                  <MenuDivider />
-              </Menu>
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose} colorScheme='red'>
-                Cancel
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-            <Box style={{position: 'absolute', top: '-35px'}}>
-              <Icon
-                as={Arrow}
-                color={color}
-                w={71}
-                position={'absolute'}
-                right={-71}
-                top={'-8px'}
-                transform={'rotate(-120deg)'}
-              />
-              <Text
-                fontSize={'lg'}
-                fontFamily={'Caveat'}
-                position={'absolute'}
-                right={'-105px'}
-                top={'-15px'}
-                transform={'rotate(10deg)'}>
-                Sign Your Wallet
-              </Text>
-            </Box>
-</Stack>
+          <Heading fontSize={'1xl'} fontFamily={'body'} fontWeight={500}>
+            {listing.asset.name}
+          </Heading>
+          <Stack direction={'row'} align={'center'}>
+            <Text fontWeight={800} fontSize={'xl'}>
+              {listing.buyoutCurrencyValuePerToken.displayValue}{" "}
+                    {listing.buyoutCurrencyValuePerToken.symbol}
+            </Text>
           </Stack>
         </Stack>
-      </Container>
-		  </>
-		)}
-    </>
+      </Box>
+                </a>
+              ))}
+          </div>
+        ) : (
+        <>
+          <div className={css.loading}><Loading /></div>
+        </>
+        )}
+</Container>
+<LoginModal />
+    </div>
   );
 }
-
-const Arrow = createIcon({
-  displayName: 'Arrow',
-  viewBox: '0 0 72 24',
-  path: (
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M0.600904 7.08166C0.764293 6.8879 1.01492 6.79004 1.26654 6.82177C2.83216 7.01918 5.20326 7.24581 7.54543 7.23964C9.92491 7.23338 12.1351 6.98464 13.4704 6.32142C13.84 6.13785 14.2885 6.28805 14.4722 6.65692C14.6559 7.02578 14.5052 7.47362 14.1356 7.6572C12.4625 8.48822 9.94063 8.72541 7.54852 8.7317C5.67514 8.73663 3.79547 8.5985 2.29921 8.44247C2.80955 9.59638 3.50943 10.6396 4.24665 11.7384C4.39435 11.9585 4.54354 12.1809 4.69301 12.4068C5.79543 14.0733 6.88128 15.8995 7.1179 18.2636C7.15893 18.6735 6.85928 19.0393 6.4486 19.0805C6.03792 19.1217 5.67174 18.8227 5.6307 18.4128C5.43271 16.4346 4.52957 14.868 3.4457 13.2296C3.3058 13.0181 3.16221 12.8046 3.01684 12.5885C2.05899 11.1646 1.02372 9.62564 0.457909 7.78069C0.383671 7.53862 0.437515 7.27541 0.600904 7.08166ZM5.52039 10.2248C5.77662 9.90161 6.24663 9.84687 6.57018 10.1025C16.4834 17.9344 29.9158 22.4064 42.0781 21.4773C54.1988 20.5514 65.0339 14.2748 69.9746 0.584299C70.1145 0.196597 70.5427 -0.0046455 70.931 0.134813C71.3193 0.274276 71.5206 0.70162 71.3807 1.08932C66.2105 15.4159 54.8056 22.0014 42.1913 22.965C29.6185 23.9254 15.8207 19.3142 5.64226 11.2727C5.31871 11.0171 5.26415 10.5479 5.52039 10.2248Z"
-      fill="currentColor"
-    />
-  ),
-});

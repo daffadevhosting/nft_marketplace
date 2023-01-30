@@ -1,3 +1,4 @@
+import React, { useState, useRef } from "react";
 import {
   useContract,
   useNetwork,
@@ -5,41 +6,25 @@ import {
   useAddress,
   useSDK,
   useCreateDirectListing,
-  useCreateAuctionListing,
+  useCreateAuctionListing
 } from "@thirdweb-dev/react";
 import { ChainId, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
+import { NFT_COLLECTION_ADDRESS, MARKETPLACE_ADDRESS, } from "../const/contractAddresses";
 import {
-  Badge,
-  Button,
-  Center,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Image,
-  Link,
-  Stack,
-  Text,
-  useColorModeValue,
-  useToast,
-  Input,
-  Container
+  Image, Container,
+  Flex, Stack, Button
 } from '@chakra-ui/react';
-import React, { useState, useRef } from "react";
-import { NFT_COLLECTION_ADDRESS, MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import { useRouter } from "next/router";
-import styles from "../styles/Theme.module.css";
+import LoginModal from "../components/Login"
+import css from "../styles/css.module.scss";
 
-const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
-const OpenseaName = process.env.NEXT_PUBLIC_OPENSEA_NAME
+const activeChainId =  parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`);
 
 const Upload = () => {
   const address = useAddress();
   const networkMismatch = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
   const sdk = useSDK();
-
-  const alert = useToast()
 
   const [creatingListing, setCreatingListing] = useState(false);
 
@@ -61,7 +46,6 @@ const Upload = () => {
   const router = useRouter();
   const [file, setFile] = useState();
   const fileInputRef = useRef(null);
-  
 
   // This function gets called when the form is submitted.
   async function handleCreateListing(e) {
@@ -130,17 +114,11 @@ const Upload = () => {
 
       // If the transaction succeeds, take the user back to the homepage to view their listing!
       if (transactionResult) {
-        router.push(`/listings`);
+        router.push(`/`);
       }
     } catch (error) {
       console.error(error);
-      alert({
-          title: 'Upload Gagal.',
-          description: "Upload NFT gagal. Check the console for more details",
-          status: 'error',
-          duration: 7000,
-          isClosable: true,
-        });
+      alert("Error creating listing. Check the console for more details");
     } finally {
       setCreatingListing(false);
     }
@@ -161,19 +139,12 @@ const Upload = () => {
         },
         {
           onSuccess: (tx) => {
-            return tx;
+              router.push(`/`);
           },
         }
       );
     } catch (error) {
-      console.error(error)
-      alert({
-          title: 'Error.',
-          description: "NFT gagal di upload.",
-          status: 'error',
-          duration: 7000,
-          isClosable: true,
-        })
+      console.error(error);
     }
   }
 
@@ -191,7 +162,7 @@ const Upload = () => {
         },
         {
           onSuccess: (tx) => {
-            router.push(`/listings`);
+              router.push(`/`);
           },
         }
       );
@@ -215,30 +186,28 @@ const Upload = () => {
   };
 
   return (
+<>
     <form onSubmit={(e) => handleCreateListing(e)}>
-	<Container pt={20}>
-    <Center py={6}>
-      <Stack className={styles.styleStack}
-        borderWidth="1px"
-        borderRadius="lg"
-        w={{ sm: '100%', md: '540px' }}
-        height={{ sm: '476px', md: '20rem' }}
-        direction={{ base: 'column', md: 'row' }}
-        bg={useColorModeValue('white', 'gray.900')}
-        boxShadow={'2xl'}
-        padding={4}>
-        <Flex flex={1} bg="blue.200" style={{borderRadius: 16}}>
+      <div className={css.container}>
+        {/* Form Section */}
+        <div className={css.collectionContainer}>
+    <Stack className={css.boxBorder} minH={'50vh'} direction={{ base: 'column', md: 'row' }} p={{ base: 2, md: 10 }} maxW={940} m={'auto'} w={'100%'}>
+      <Flex flex={1}>
           {file ? (
-          <Image
-		    borderRadius="16px"
-            objectFit="cover"
-            boxSize="100%"
-            src={URL.createObjectURL(file)} alt='upload'
-			onClick={() => setFile(undefined)}
-          />
+            <Image
+              src={URL.createObjectURL(file)} alt=''
+              style={{
+                maxWidth: '100%',
+                objectFit: 'cover',
+                width: '100%',
+                height: '100%',
+                maxHeight: 420, cursor: "pointer", 
+                borderRadius: 8, margin: 'auto', overflow: 'hidden' }}
+              onClick={() => setFile(undefined)}
+            />
           ) : (
             <div
-              className={styles.imageInput}
+              className={css.imageInput}
               onClick={uploadFile}
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => {
@@ -246,10 +215,15 @@ const Upload = () => {
                 setFile(e.dataTransfer.files[0]);
               }}
             >
-              Click or Drag an image here to upload.
+              Drag and drop an image here to upload it!
             </div>
           )}
-        </Flex>
+      </Flex>
+      <Flex p={4} flex={1} align={'center'} justify={'center'}>
+        <Stack spacing={4} w={'full'} maxW={'md'}>
+          <h1 className={css.ourCollection}>
+            Upload your NFT
+          </h1>
           <input
             type="file"
             accept="image/png, image/gif, image/jpeg"
@@ -257,124 +231,72 @@ const Upload = () => {
             ref={fileInputRef}
             style={{ display: "none" }}
           />
-        <Stack
-          flex={1}
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          p={1}
-          pt={2}>
-          <Heading fontSize={'2xl'} fontFamily={'body'}>
-            Upload NFT
-          </Heading>
-          <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
-            @{OpenseaName}
-          </Text>
-            <FormControl id="price" isRequired>
+
+          {/* Sale Price For Listing Field */}
           <input
             type="text"
             name="name"
+            className={css.textInput}
             placeholder="Name"
-            className={styles.textInput}
           />
-            </FormControl>
-            <FormControl id="description" isRequired>
+
+          {/* Sale Price For Listing Field */}
           <input
             type="text"
             name="description"
+            className={css.textInput}
             placeholder="Description"
-            className={styles.textInput}
           />
-            </FormControl>
-            <FormControl id="price" isRequired>
+
+          {/* Sale Price For Listing Field */}
           <input
             type="text"
             name="price"
-            placeholder="Price (in BNB)"
-            className={styles.textInput}
+            className={css.textInput}
+            placeholder="Price (in TBNB)"
           />
-            </FormControl>
 
           {/* Toggle between direct listing and auction listing */}
-          <div className={styles.listingTypeContainer}>
+          <div className={css.none}>
             <input
               type="radio"
               name="listingType"
               id="directListing"
               value="directListing"
               defaultChecked
-              className={styles.listingType}
+              className={css.listingType}
             />
-            <label htmlFor="directListing" className={styles.listingTypeLabel}>
-              Direct
+            <label htmlFor="directListing" className={css.listingTypeLabel}>
+              Direct Listing
             </label>
             <input
               type="radio"
               name="listingType"
               id="auctionListing"
               value="auctionListing"
-              className={styles.listingType}
+              className={css.listingType}
             />
-            <label htmlFor="auctionListing" className={styles.listingTypeLabel}>
-              Auction
+            <label htmlFor="auctionListing" className={css.listingTypeLabel}>
+              Auction Listing
             </label>
           </div>
-		  
-          <Stack
-            width={'100%'}
-            mt={'2rem'}
-            direction={'row'}
-            padding={2}
-            justifyContent={'space-between'}
-            alignItems={'center'}>
 
-        {address ? (
-            <Button
-			  type="submit"
-              flex={1}
-              fontSize={'sm'}
-              rounded={'full'}
-              bg={'blue.400'}
-              color={'white'}
-              boxShadow={
-                '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
-              }
-              _hover={{
-                bg: 'blue.500',
-              }}
-              _focus={{
-                bg: 'blue.500',
-              }}
-              disabled={creatingListing}>
-{networkMismatch ? (
-<>
-Switch Network
-</>
-) : (
-<>
-            {creatingListing ? "Loading..." : "Mint + List NFT"}
-			</>
-)}
-            </Button>
-          ) : (
-            <Button
-              flex={1}
-              fontSize={'sm'}
-              rounded={'full'}
-			  colorScheme={'red'}
-              _focus={{
-                bg: 'red.200',
-              }}
-			disabled> Connect Wallet
-            </Button>
-		)}
-		
-          </Stack>
+          <Button
+            type="submit"
+            bg={'blue'} color={'white'}
+            style={{ marginTop: 32, borderStyle: "none", margin: '32px auto' }}
+            disabled={creatingListing}
+          >
+            {creatingListing ? "Loading... Wait..." : "Mint + List NFT"}
+          </Button>
         </Stack>
-      </Stack>
-    </Center>
-	</Container>
+      </Flex>
+    </Stack>
+        </div>
+      </div>
     </form>
+<LoginModal />
+</>
   );
 };
 

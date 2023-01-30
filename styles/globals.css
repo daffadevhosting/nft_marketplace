@@ -1,9 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
-html {
-    height: -webkit-fill-available;
-}
-
 /* Change the values in here to match your branding */
 :root {
   /* Background color of the page */
@@ -44,11 +40,6 @@ body {
   box-sizing: border-box;
 }
 
-a:-webkit-any-link:hover {
-	color: red;
-	text-decoration: none;
-}
-
 ::-webkit-scrollbar {
   width: 5px;
   border-radius: 8px;
@@ -56,16 +47,15 @@ a:-webkit-any-link:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent; 
+  background: $light; 
   border-radius: 8px;
 }
  
 ::-webkit-scrollbar-thumb {
-  background: rgb(0 0 0 / 25%); 
+  background: $dark; 
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
-

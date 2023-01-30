@@ -30,7 +30,7 @@ import { MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { openseaUrl } from "../const/aLinks";
-import styles from "../styles/Theme.module.css";
+import css from "../styles/css.module.scss";
 
 const activeChainId = parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`)
 const openseaLink = openseaUrl;
@@ -91,7 +91,7 @@ const Resell: NextPage = () => {
 
       // If the transaction succeeds, take the user back to the homepage to view their listing!
       if (transactionResult) {
-        router.push(`/listings`);
+        router.push(`/`);
       }
     } catch (error) {
       console.error(error);
@@ -146,19 +146,18 @@ const Resell: NextPage = () => {
   return (
     <form onSubmit={(e) => handleCreateListing(e)}>
     <Flex
-      minH={'100vh'}
+      mt={{ base: 10, md: 20 }}
+      minH={{ base: '80vh', md: '95vh' }}
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} px={1}>
-        <Stack align={'center'}>
           <Heading fontSize={'2xl'}>
-            Resell NFT kamu ke marketplace</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            Kamu juga bisa listing di <Link href={openseaLink()} className={styles.linkOpnsi} color={'blue.400'} target="_blank" rel="noopener noreferrer" title="OpenSea">OPENSEA <Image src={Logo} width={18} height={18} alt="opensea" /></Link>
+            Resell your NFT to marketplace</Heading>
+          <Text fontSize={'lg'} color={'gray.600'} mt={'0px'} className={css.flexCenter}>
+            You can also list on <Link href={openseaLink()} color={'blue.400'} target="_blank" rel="noopener noreferrer" title="OpenSea">OPENSEA <Image src={Logo} width={18} height={18} alt="opensea" /></Link>
           </Text>
-        </Stack>
-        <Box style={{marginTop: '10px', zIndex: 999}}
+        <Box style={{marginTop: '10px', zIndex: 0}}
           rounded={'lg'}
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}
@@ -167,7 +166,7 @@ const Resell: NextPage = () => {
             <FormControl id="contractAddress" isRequired>
               <FormLabel>NFT Contract</FormLabel>
               <input
-            className={styles.textInput}
+            className={css.textInput}
             type="text"
             name="contractAddress"
             placeholder="NFT Contract Address" />
@@ -175,7 +174,7 @@ const Resell: NextPage = () => {
             <FormControl id="tokenId" isRequired>
               <FormLabel>NFT Token ID</FormLabel>
               <input
-            className={styles.textInput}
+            className={css.textInput}
             type="text"
             name="tokenId"
             placeholder="NFT Token ID" />
@@ -183,7 +182,7 @@ const Resell: NextPage = () => {
             <FormControl id="price" isRequired>
               <FormLabel>Sale Price</FormLabel>
           <input
-            className={styles.textInput}
+            className={css.textInput}
             type="text"
             name="price"
             placeholder="Sale Price in BNB"
@@ -191,16 +190,16 @@ const Resell: NextPage = () => {
             </FormControl>
 
           {/* Toggle between direct listing and auction listing */}
-          <div className={styles.listingTypeContainer}>
+          <div className={css.none}>
             <input
               type="radio"
               name="listingType"
               id="directListing"
               value="directListing"
               defaultChecked
-              className={styles.listingType}
+              className={css.listingType}
             />
-            <label htmlFor="directListing" className={styles.listingTypeLabel}>
+            <label htmlFor="directListing" className={css.listingTypeLabel}>
               Direct Listing
             </label>
             <input
@@ -208,9 +207,9 @@ const Resell: NextPage = () => {
               name="listingType"
               id="auctionListing"
               value="auctionListing"
-              className={styles.listingType}
+              className={css.listingType}
             />
-            <label htmlFor="auctionListing" className={styles.listingTypeLabel}>
+            <label htmlFor="auctionListing" className={css.listingTypeLabel}>
               Auction Listing
             </label>
           </div>

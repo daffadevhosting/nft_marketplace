@@ -43,13 +43,14 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import React, { useContext, useRef, useEffect, useState } from "react";
-import { NFT_COLLECTION_ADDRESS, TOKEN_DROP_ADDRESS, MEMBERPASS_CONTRACT_ADDRESS, NFT_STAKING_ADDRESS } from "../const/contractAddresses";
+import { NFT_COLLECTION_ADDRESS, TOKEN_REWARD_ADDRESS, MEMBERPASS_CONTRACT_ADDRESS, NFT_STAKING_ADDRESS } from "../const/contractAddresses";
 import { ChainName, swapUrl, tokenExplorer } from "../const/aLinks";
-import MintMember from "../components/memberPage";
-import styles from "../styles/Theme.module.css";
+import MintMember from "../components/Member";
+import LoginModal from "../components/Login";
+import css from "../styles/css.module.scss";
 
 const nftCollection = NFT_COLLECTION_ADDRESS;
-const tokenContractAddress = TOKEN_DROP_ADDRESS;
+const tokenContractAddress = TOKEN_REWARD_ADDRESS;
 const stakingContractAddress = NFT_STAKING_ADDRESS;
 
 const network = ChainName;
@@ -88,7 +89,7 @@ const Stake: NextPage = () => {
   );
 
   const { contract: tokenContract } = useContract(
-    TOKEN_DROP_ADDRESS,
+    TOKEN_REWARD_ADDRESS,
     "token"
   );
 
@@ -100,9 +101,6 @@ const Stake: NextPage = () => {
   // Load Balance of Token
   const { data: tokenReward } = useTokenBalance(tokenContract, address);
 
-  ///////////////////////////////////////////////////////////////////////////
-  // Custom contract functions
-  ///////////////////////////////////////////////////////////////////////////
   const [stakedNfts, setStakedNfts] = useState<any[]>([]);
   const [claimableRewards, setClaimableRewards] = useState<BigNumber>();
 
@@ -152,91 +150,8 @@ const Stake: NextPage = () => {
   if (!address) {
     return (
 <>
-    <div className={styles.loading} style={{width: '100%'}}>
-      {!address ? (
-		  <div className={styles.loading} style={{marginTop: '-96px'}}>
-      <h1 className={styles.h1} style={{fontFamily: 'Caveat'}}>& <br/>Stake Your NFTs</h1>
-
-      <br className={`${styles.divider} ${styles.spacerTop}`} />
-        <Stack flex={2} direction={{ md: 'row', base: 'column'}} spacing={{ base: 5, md: 5 }}>
-            <Button onClick={onOpen}
-              colorScheme={'green'}
-              bg={'green.400'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bg: 'green.500',
-              }}>
-              Connect Wallet
-            </Button>
-			<AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-		motionPreset='slideInBottom'
-		isCentered
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent margin={'auto 10px'}>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Connect Wallet
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              <Menu>
-                  <MenuDivider />
-                  <MenuItem onClick={() => {connectWithMetamask(), onClose()}} className={`${styles.hoverItem} ${styles.flexCenter}`}>Metamask
-            <div className={styles.floatR}>
-				  <Tag size='sm' variant='solid' colorScheme='green' borderRadius='full'>
-					  Recomended
-					</Tag> <div className={styles.metamask}></div></div></MenuItem>
-                  <MenuDivider />
-                  <MenuItem onClick={() => {connectWithWalletConnect(), onClose()}} className={`${styles.hoverItem} ${styles.flexCenter}`}>WalletConnect
-            <div className={styles.floatR}>
-                <div className={styles.walletconnect}></div></div></MenuItem>
-                  <MenuDivider />
-                  <MenuItem onClick={() => {connectWithCoinbaseWallet(), onClose()}} className={`${styles.hoverItem} ${styles.flexCenter}`}>CoinBase
-            <div className={styles.floatR}>
-                <div className={styles.coinbase}></div></div></MenuItem>
-                  <MenuDivider />
-              </Menu>
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose} colorScheme='red'>
-                Cancel
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-            <Box style={{position: 'absolute', top: '-35px'}}>
-              <Icon
-                as={Arrow}
-                color={color}
-                w={71}
-                position={'absolute'}
-                right={-145}
-                top={'40px'}
-                transform={'rotate(-100deg)'}
-              />
-              <Text
-                fontSize={'lg'}
-                fontFamily={'Caveat'}
-                position={'absolute'}
-                right={'-105px'}
-                top={'-8px'}
-                transform={'rotate(10deg)'}>
-                Sign Your Wallet
-              </Text>
-            </Box>
-</Stack>
-		  </div>
-      ) : (
-        <>
-        </>
-      )}
-	</div>
+<Text className={css.loadingOrError}>You have to login first</Text>
+<LoginModal />
 </>
     );
   }
@@ -244,7 +159,7 @@ const Stake: NextPage = () => {
   // 1. Loading
   if (isLoading) {
     return 
-		  <div className={styles.loading}>
+		  <div className={css.loading}>
 		  <Spinner
 			  thickness='4px'
 			  speed='0.65s'
@@ -256,7 +171,7 @@ const Stake: NextPage = () => {
   
   // Something went wrong
   if (!memberNfts || isError) {
-    return <div className={styles.loading}>Error...!</div>;
+    return <div className={css.loading}>Error...!</div>;
   }
 
   // 2. No NFTs - mint page
@@ -267,11 +182,7 @@ const Stake: NextPage = () => {
 </>
     );
   }
-  
-  // 3. Has NFT already - show button to take to staking
-  ///////////////////////////////////////////////////////////////////////////
-  // Write Functions
-  ///////////////////////////////////////////////////////////////////////////
+
   async function stakeNft(id: string) {
     if (!address) return;
 
@@ -294,8 +205,8 @@ const Stake: NextPage = () => {
     const claim = await contract?.call("claimRewards");
   }
 
-  if (isLoading) {
-		  <div className={styles.loading}>
+  if (!isLoading) {
+		  <div className={css.loading}>
 		  <Spinner
 			  thickness='4px'
 			  speed='0.65s'
@@ -306,82 +217,18 @@ const Stake: NextPage = () => {
   }
 
   return (
-    <div className={styles.StakeContainer}>
+    <div className={css.StakeContainer}>
 
       {!address ? (
-		  <div className={styles.loading} style={{marginTop: '-96px'}}>
-      <h1 className={styles.h1} style={{fontFamily: 'Caveat'}}>& <br/>Stake Your NFTs</h1>
-
-      <br className={`${styles.divider} ${styles.spacerTop}`} />
-        <Stack flex={2} direction={{ md: 'row', base: 'column'}} spacing={{ base: 5, md: 5 }}>
-            <Button onClick={onOpen}
-              colorScheme={'green'}
-              bg={'green.400'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bg: 'green.500',
-              }}>
-              Connect Wallet
-            </Button>
-			<AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-		motionPreset='slideInBottom'
-		isCentered
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Connect Wallet
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              <Menu>
-                  <MenuDivider />
-                  <MenuItem onClick={() => {connectWithMetamask(), onClose()}} className={styles.hoverItem}>Metamask</MenuItem>
-                  <MenuDivider />
-                  <MenuItem onClick={() => {connectWithWalletConnect(), onClose()}} className={styles.hoverItem}>WalletConnect</MenuItem>
-                  <MenuDivider />
-                  <MenuItem onClick={() => {connectWithCoinbaseWallet(), onClose()}} className={styles.hoverItem}>CoinBase</MenuItem>
-                  <MenuDivider />
-              </Menu>
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose} colorScheme='red'>
-                Cancel
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-            <Box style={{position: 'absolute', top: '-35px'}}>
-              <Icon
-                as={Arrow}
-                color={color}
-                w={71}
-                position={'absolute'}
-                right={-145}
-                top={'55px'}
-                transform={'rotate(-100deg)'}
-              />
-              <Text
-                fontSize={'lg'}
-                fontFamily={'Caveat'}
-                position={'absolute'}
-                right={'-105px'}
-                top={'10px'}
-                transform={'rotate(10deg)'}>
-                Sign Your Wallet
-              </Text>
-            </Box>
-</Stack>
-		  </div>
+<>
+<Center>
+<Text>You have to login first</Text>
+</Center>
+<LoginModal />
+</>
       ) : (
         <>
-    <Container maxW={'5xl'} py={20}>
+    <Container maxW={'5xl'} py={20} pb={-20}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} marginBottom={{ base: 20, md: 0 }}>
     <Center py={6}>
       <Box
@@ -424,7 +271,7 @@ const Stake: NextPage = () => {
               transform: 'translateY(-2px)',
               boxShadow: 'lg',
             }}>
-  <Link href={tokenExplorer()} target="_blank" rel="noopener noreferrer" title="pancakeswap" style={{height: 28,}}>
+  <Link href={tokenExplorer()} target="_blank" rel="noopener noreferrer" title="Token Scan" style={{height: 28,}}>
 				<Image src={FaBsc} style={{width: 28, height: 28}} width={28} height={28} alt="logo" /></Link>
               </Button>
             </Stack>
@@ -490,13 +337,13 @@ const Stake: NextPage = () => {
     <Tab>Your Staked NFTs</Tab>
   </TabList>
   <TabPanels>
-    <TabPanel className={styles.maxH}>
-			<div className={styles.stakingGrid}>
+    <TabPanel className={css.maxH}>
+			<div className={css.stakingGrid}>
             {ownedNfts?.map((nft) => (
-              <div className={styles.nftStakeBox} key={nft.metadata.id.toString()}>
+              <div className={css.nftStakeBox} key={nft.metadata.id.toString()}>
                 <ThirdwebNftMedia
                   metadata={nft.metadata}
-                  className={styles.nftStakeMedia}
+                  className={css.nftStakeMedia}
                 />
                 <Button
 			w={'full'}
@@ -516,13 +363,13 @@ const Stake: NextPage = () => {
             ))}
 			</div>
     </TabPanel>
-    <TabPanel className={styles.maxH}>
-			<div className={styles.stakingGrid}>
+    <TabPanel className={css.maxH}>
+			<div className={css.stakingGrid}>
             {stakedNfts?.map((nft) => (
-              <div className={styles.nftStakeBox} key={nft.metadata.id.toString()}>
+              <div className={css.nftStakeBox} key={nft.metadata.id.toString()}>
                 <ThirdwebNftMedia
                   metadata={nft.metadata}
-                  className={styles.nftStakeMedia}
+                  className={css.nftStakeMedia}
                 />
                 <Button
 			w={'full'}

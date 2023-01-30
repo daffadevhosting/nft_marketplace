@@ -23,9 +23,9 @@ export default function Banner() {
   return (
     <Flex
       w={'full'}
-      h={'30vh'}
+      h={{ base: '30vh', md: '90vh' }}
       backgroundImage={
-        'url(../banner.png)'
+        'url(./banner.png)'
       }
       backgroundSize={'cover'}
       backgroundPosition={'center center'}>
@@ -34,7 +34,7 @@ export default function Banner() {
         justify={'center'}
         px={useBreakpointValue({ base: 4, md: 8 })}
         bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
-        <Stack maxW={'2xl'} align={'flex-start'} spacing={6}>
+        <Stack maxW={'2xl'} align={'center'} spacing={6}>
           <Text
             color={'white'}
             fontWeight={700}

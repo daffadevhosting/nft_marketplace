@@ -8,11 +8,12 @@ import {
   VisuallyHidden,
 } from '@chakra-ui/react';
 import { FaInstagram, FaTwitter, FaGithub } from 'react-icons/fa';
-import Image from 'next/image';
 import { ReactNode } from 'react';
+import Image from 'next/image';
 import { explorerUrl } from "../const/aLinks";
 const FaBsc = '/icons/bscscan-logo.svg';
 const bscLink = explorerUrl;
+
 const SocialButton = ({
   children,
   label,
@@ -20,7 +21,7 @@ const SocialButton = ({
 }) => {
   return (
     <chakra.button
-      bg={useColorModeValue('blackAlpha.500', 'whiteAlpha.500')}
+      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
       rounded={'full'}
       w={8}
       h={8}
@@ -42,9 +43,9 @@ const SocialButton = ({
 
 export default function Footer() {
   return (
-    <Box style={{position: 'absolute', bottom: 0, width: '100%', marginTop: 50}}
-      bg={'whiteAlpha.300'}
-      color={useColorModeValue('gray.200', 'gray.200')}>
+    <Box style={{position: 'relative', bottom: 0, width: '100%', marginTop: 0}}
+      bg={useColorModeValue('gray.50', 'gray.900')}
+      color={useColorModeValue('gray.700', 'gray.200')}>
       <Container
         as={Stack}
         maxW={'6xl'}
@@ -53,15 +54,15 @@ export default function Footer() {
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}>
-        <Text style={{color: '#8a919e'}}>© 2022 Chakra Templates. All rights reserved</Text>
+        <Text>© 2022 Chakra Templates. All rights reserved</Text>
         <Stack direction={'row'} spacing={6}>
-          <SocialButton label={'Twitter'} href={'/'}>
+          <SocialButton label={'Twitter'} href={'#'}>
             <FaTwitter />
           </SocialButton>
-          <SocialButton label={'Instagram'} href={'/'}>
+          <SocialButton label={'Instagram'} href={'#'}>
             <FaInstagram />
           </SocialButton>
-          <SocialButton label={'Github'} href={'https://github.com/daffadevhosting/nft_marketplace'}>
+          <SocialButton label={'Github'} href={'https://github.com/daffadev-inc/simplNFTmarketplace'}>
             <FaGithub />
           </SocialButton>
           <SocialButton label={'bscscan'} href={bscLink()} target="_blank" rel="noopener noreferrer">
