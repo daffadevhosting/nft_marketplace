@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 import "../styles/globals.css";
 
 const activeChainId =  parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`);
-const Title = 'Simple Marketplace';
+const Title = 'NFT Marketplace';
 
 function MyApp({ Component, pageProps }) {
   return (

@@ -12,7 +12,8 @@ import { ChainId, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
 import { NFT_COLLECTION_ADDRESS, MARKETPLACE_ADDRESS, } from "../const/contractAddresses";
 import {
   Image, Container,
-  Flex, Stack, Button
+  Flex, Stack, Button,
+  useToast,
 } from '@chakra-ui/react';
 import { useRouter } from "next/router";
 import LoginModal from "../components/Login"
@@ -25,6 +26,7 @@ const Upload = () => {
   const networkMismatch = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
   const sdk = useSDK();
+  const alert = useToast()
 
   const [creatingListing, setCreatingListing] = useState(false);
 
@@ -118,7 +120,13 @@ const Upload = () => {
       }
     } catch (error) {
       console.error(error);
-      alert("Error creating listing. Check the console for more details");
+      alert({
+          title: 'Upload Gagal.',
+          description: "Upload NFT gagal. Check the console for more details",
+          status: 'error',
+          duration: 7000,
+          isClosable: true,
+        });
     } finally {
       setCreatingListing(false);
     }
@@ -139,12 +147,25 @@ const Upload = () => {
         },
         {
           onSuccess: (tx) => {
+              alert({
+                  title: 'Success.',
+                  description: "NFT berhasil di upload.",
+                  status: 'success',
+                  duration: 7000,
+                  isClosable: true,
+                });
               router.push(`/`);
           },
         }
       );
     } catch (error) {
-      console.error(error);
+      alert({
+          title: 'Error.',
+          description: "NFT gagal di upload.",
+          status: 'error',
+          duration: 7000,
+          isClosable: true,
+        });
     }
   }
 
@@ -162,12 +183,25 @@ const Upload = () => {
         },
         {
           onSuccess: (tx) => {
+              alert({
+                  title: 'Success.',
+                  description: "NFT berhasil di upload.",
+                  status: 'success',
+                  duration: 7000,
+                  isClosable: true,
+                });
               router.push(`/`);
           },
         }
       );
     } catch (error) {
-      console.error(error);
+      alert({
+          title: 'Error.',
+          description: "NFT gagal di upload.",
+          status: 'error',
+          duration: 7000,
+          isClosable: true,
+        });
     }
   }
 

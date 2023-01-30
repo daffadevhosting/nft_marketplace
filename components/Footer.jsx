@@ -62,7 +62,7 @@ export default function Footer() {
           <SocialButton label={'Instagram'} href={'#'}>
             <FaInstagram />
           </SocialButton>
-          <SocialButton label={'Github'} href={'https://github.com/daffadev-inc/simplNFTmarketplace'}>
+          <SocialButton label={'Github'} href={'https://github.com/daffadevhosting/nft_marketplace'}>
             <FaGithub />
           </SocialButton>
           <SocialButton label={'bscscan'} href={bscLink()} target="_blank" rel="noopener noreferrer">
