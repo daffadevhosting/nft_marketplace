@@ -166,6 +166,7 @@ const Upload = () => {
           duration: 7000,
           isClosable: true,
         });
+        window.location.reload();
     }
   }
 
@@ -202,6 +203,7 @@ const Upload = () => {
           duration: 7000,
           isClosable: true,
         });
+        window.location.reload();
     }
   }
 

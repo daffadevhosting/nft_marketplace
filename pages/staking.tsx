@@ -150,7 +150,7 @@ const Stake: NextPage = () => {
   if (!address) {
     return (
 <>
-<Text className={css.loadingOrError}>You have to login first</Text>
+<Text className={css.loadingOrError}>You have to connect your wallet first</Text>
 <LoginModal />
 </>
     );
@@ -222,7 +222,7 @@ const Stake: NextPage = () => {
       {!address ? (
 <>
 <Center>
-<Text>You have to login first</Text>
+<Text>You have to connect your wallet first</Text>
 </Center>
 <LoginModal />
 </>
