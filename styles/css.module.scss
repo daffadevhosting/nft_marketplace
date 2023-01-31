@@ -378,7 +378,7 @@ margin-top: 0;
 .bannerContainer {
   height: 80vh;
   position: fixed;
-  width: -webkit-fill-available;
+  width: 100%;
 @include mobile {
   height: 30vh;
     }
