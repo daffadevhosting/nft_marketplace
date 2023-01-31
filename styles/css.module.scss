@@ -549,3 +549,17 @@ margin-top: 0;
   transform: scale3d(1, 1, 1);
   }
   }
+
+  .miring {
+      position: absolute;
+      bottom: 21%;
+      left: 8%;
+      z-index: -1;
+      -webkit-transform: matrix(0.99, 0.14, -0.14, 0.99, 0, 0);
+      -moz-transform: matrix(0.99, 0.14, -0.14, 0.99, 0, 0);
+      -ms-transform: matrix(0.99, 0.14, -0.14, 0.99, 0, 0);
+      transform: matrix(0.99, 0.14, -0.14, 0.99, 0, 0);
+  @include mobile {
+      display: none !important;
+      }
+  }

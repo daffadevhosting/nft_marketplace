@@ -128,8 +128,18 @@ const bgColor = useColorModeValue('white', 'gray.800');
   return (
     <Container maxW={'8xl'} py={{ base: 6, md: 12 }} mt={{ base: 6, md: 0 }}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} mt={'8'}>
-        <Flex justify={'center'} bg={'blueviolet'} borderRadius={'6'}>
+        <Flex justify={'center'} overflow={'hidden'} borderRadius={'6'}>
           <Image
+            h={500}
+            maxW={'auto'}
+            rounded={'md'}
+            alt={'feature image'}
+            src={IMAGE}
+            objectFit={'cover'}
+            transform={'matrix(0.99, -0.15, 0.15, 0.99, 0, 0);'}
+          />
+          <Image
+            className={css.miring}
             h={500}
             maxW={'auto'}
             rounded={'md'}
