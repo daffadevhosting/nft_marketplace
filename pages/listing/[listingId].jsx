@@ -29,8 +29,9 @@ import {
   IoLogoBitcoin,
   IoSearchSharp,
 } from 'react-icons/io5';
-import LoginModal from "../../components/Login"
-import Loading from "../../components/Spinner"
+import LoginModal from "../../components/Login";
+import Loading from "../../components/Spinner";
+import Footer from "../../components/Footer";
 import css from "../../styles/css.module.scss";
 import React, { ReactElement, useContext, useState, useRef } from "react";
 import { useRouter } from "next/router";
@@ -89,23 +90,20 @@ export default function ListingPage() {
 
   async function createBidOrOffer() {
     try {
-      // Ensure user is on the correct network
       if (networkMismatch) {
         switchNetwork &&  switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID));
         return;
       }
 
-      // If the listing type is a direct listing, then we can create an offer.
       if (listing?.type === ListingType.Direct) {
         await marketplace?.direct.makeOffer(
-          listingId, // The listingId of the listing we want to make an offer for
-          1, // Quantity = 1
-          NATIVE_TOKENS[activeChainId].wrapped.address, // Wrapped Ether address on Goerli
-          bidAmount // The offer amount the user entered
+          listingId,
+          1,
+          NATIVE_TOKENS[activeChainId].wrapped.address,
+          bidAmount
         );
       }
 
-      // If the listing type is an auction listing, then we can create a bid.
       if (listing?.type === ListingType.Auction) {
         await marketplace?.auction.makeBid(listingId, bidAmount);
       }
@@ -118,8 +116,8 @@ export default function ListingPage() {
     } catch (error) {
       console.error(error.message || "something went wrong");
       alert({
-              title: 'GAGAL',
-			  description: "Pembelian NFT, Gagal.",
+              title: 'ERROR',
+			  description: "something went wrong.",
 			  status: 'error',
 			  duration: 6000,
 			  isClosable: true,
@@ -129,13 +127,12 @@ export default function ListingPage() {
 
   async function buyNft() {
     try {
-      // Ensure user is on the correct network
+
       if (networkMismatch) {
         switchNetwork && switchNetwork(Number(process.env.NEXT_PUBLIC_CHAIN_ID));
         return;
       }
 
-      // Simple one-liner for buying the NFT
       await marketplace?.buyoutListing(listingId, 1);
       alert({
           title: 'Berhasil.',
@@ -160,7 +157,7 @@ export default function ListingPage() {
 <>
     <Container maxW={'5xl'} py={12} mt={{ base: 8, md: 50 }}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-        <Flex>
+        <Flex maxH={{ base: 361, md: 476 }} h={'100%'}>
           <MediaRenderer
             className={css.objectCover}
             src={listing.asset.image}
@@ -246,6 +243,7 @@ export default function ListingPage() {
       </SimpleGrid>
     </Container>
 <LoginModal />
+<Footer />
 </>
   );
 }

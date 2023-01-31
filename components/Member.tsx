@@ -137,6 +137,7 @@ const bgColor = useColorModeValue('white', 'gray.800');
             src={IMAGE}
             objectFit={'cover'}
             transform={'matrix(0.99, -0.15, 0.15, 0.99, 0, 0);'}
+            _hover={{ transform: 'scale(1.2)', transition: 'all .8s ease' }}
           />
           <Image
             className={css.miring}

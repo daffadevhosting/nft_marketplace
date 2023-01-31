@@ -288,12 +288,14 @@ margin-top: 0;
 }
 
 .nftBoxGrid {
+    max-width: 1350px;
+    margin: auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     gap: 30px;
     margin-top: 28px;
-    margin-bottom: 105px;
+    margin-bottom: 105px !important;
     height: 100%;
     padding-top: 550px;
 @include mobile {
@@ -301,6 +303,11 @@ margin-top: 0;
     gap: 10px;
     padding-top: 180px;
  }
+}
+
+.maxH {
+    max-height: 418px;
+    overflow-y: auto;
 }
 
 .nftStakeBox {

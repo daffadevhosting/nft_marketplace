@@ -47,6 +47,7 @@ import { NFT_COLLECTION_ADDRESS, TOKEN_REWARD_ADDRESS, MEMBERPASS_CONTRACT_ADDRE
 import { ChainName, swapUrl, tokenExplorer } from "../const/aLinks";
 import MintMember from "../components/Member";
 import LoginModal from "../components/Login";
+import Footer from "../components/Footer";
 import css from "../styles/css.module.scss";
 
 const nftCollection = NFT_COLLECTION_ADDRESS;
@@ -178,7 +179,8 @@ const Stake: NextPage = () => {
   if (memberNfts.length === 0 || networkMismatch) {
     return (
 <>
-        <MintMember />
+<MintMember />
+<Footer />
 </>
     );
   }
@@ -217,6 +219,7 @@ const Stake: NextPage = () => {
   }
 
   return (
+<>
     <div className={css.StakeContainer}>
 
       {!address ? (
@@ -397,6 +400,8 @@ const Stake: NextPage = () => {
         </>
       )}
     </div>
+<Footer />
+</>
   );
 };
 

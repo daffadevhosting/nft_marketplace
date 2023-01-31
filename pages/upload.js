@@ -16,7 +16,8 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useRouter } from "next/router";
-import LoginModal from "../components/Login"
+import LoginModal from "../components/Login";
+import Footer from "../components/Footer";
 import css from "../styles/css.module.scss";
 
 const activeChainId =  parseInt(`${process.env.NEXT_PUBLIC_CHAIN_ID}`);
@@ -332,6 +333,7 @@ const Upload = () => {
       </div>
     </form>
 <LoginModal />
+<Footer />
 </>
   );
 };

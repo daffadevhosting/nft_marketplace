@@ -20,6 +20,7 @@ import { MARKETPLACE_ADDRESS } from "../const/contractAddresses";
 import css from "../styles/css.module.scss";
 import LoginModal from "../components/Login"
 import Banner from "../components/Banner";
+import Footer from "../components/Footer";
 import Loading from "../components/Spinner";
 
 export default function Listings() {
@@ -35,6 +36,7 @@ export default function Listings() {
   const colorBg = useColorModeValue('white', 'gray.800');
 
   return (
+<>
     <div className={css.container}>
         <div className={css.bannerContainer}>
           {!loadingMetadata ? (
@@ -49,7 +51,7 @@ export default function Listings() {
         </div>
 
 <Container maxW={'100%'}>
-        {/* Toggle between direct listing and auction listing */}
+
         <div className={css.none}>
           <input
             type="radio"
@@ -127,11 +129,11 @@ export default function Listings() {
                     metadata={{ ...listing.asset }}
                     alt='NFT listing'
             _hover={{
-              transform: 'matrix(0.99, 0.15, -0.15, 0.99, 0, 0);',
-              boxShadow: 'lg', }}
+              transform: 'matrix(0.99, 0.15, -0.15, 0.99, 0, 0) scale(1.2)',
+              boxShadow: 'lg', transition: 'all .8s ease' }}
                   />
         </Box>
-        <Stack pt={10} align={'center'}>
+        <Stack pt={{ base: 6, md: 10 }} align={'center'}>
           <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
             
           </Text>
@@ -157,5 +159,7 @@ export default function Listings() {
 </Container>
 <LoginModal />
     </div>
+<Footer />
+</>
   );
 }
