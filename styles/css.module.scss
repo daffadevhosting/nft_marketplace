@@ -295,9 +295,11 @@ margin-top: 0;
     margin-top: 28px;
     margin-bottom: 105px;
     height: 100%;
+    padding-top: 550px;
 @include mobile {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    padding-top: 180px;
  }
 }
 
@@ -375,6 +377,8 @@ margin-top: 0;
 
 .bannerContainer {
   height: 80vh;
+  position: fixed;
+  width: -webkit-fill-available;
 @include mobile {
   height: 30vh;
     }
