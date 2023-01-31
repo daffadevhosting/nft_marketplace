@@ -43,7 +43,7 @@ export default function Listings() {
             </>
           ) : (
             <>
-             <div className={css.loading}><Loading /></div>
+             <div className={css.loading}></div>
             </>
           )}
         </div>
@@ -126,6 +126,9 @@ export default function Listings() {
                     objectFit={'cover'}
                     metadata={{ ...listing.asset }}
                     alt='NFT listing'
+            _hover={{
+              transform: 'matrix(0.99, 0.15, -0.15, 0.99, 0, 0);',
+              boxShadow: 'lg', }}
                   />
         </Box>
         <Stack pt={10} align={'center'}>
@@ -148,7 +151,7 @@ export default function Listings() {
           </div>
         ) : (
         <>
-          <div className={css.loading}><Loading /></div>
+          <div className={css.loadingOrError}><Loading /></div>
         </>
         )}
 </Container>
