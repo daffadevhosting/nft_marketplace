@@ -215,7 +215,6 @@ Switch to {network}
             }>Claim {price}</Button>
 )}
           </Stack>
-<br/>
 <Link href={memberUrl()} className={css.linkOpnsi} color={'blue.400'} target="_blank" rel="noopener noreferrer" title="OpenSea">OPENSEA <Image src={Logo} width={18} height={18} alt="opensea" /></Link>
         </Stack>
       </SimpleGrid>
