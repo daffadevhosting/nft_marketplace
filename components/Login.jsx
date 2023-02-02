@@ -53,7 +53,11 @@ export default function Login() {
 <>
 <div className={css.fixed}>
 <Tooltip hasArrow className={css.pulse} label='Sign Your Wallet' bg='red' color='white'>
-      <Button colorScheme='blue' onClick={onOpen}>
+      <Button colorScheme='blue' onClick={onOpen} _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: 'lg',
+              bg: 'blue.800',
+            }}>
         Connect Wallet
       </Button>
 </Tooltip>

@@ -22,7 +22,7 @@ import {
   Button,
   useToast,
   Spinner,
-  Portal,
+  Portal, Tooltip,
 } from '@chakra-ui/react';
 import {
   IoAnalyticsSharp,
@@ -222,22 +222,73 @@ export default function ListingPage() {
       </form>
       </Box>
     </Box>
+{listing?.type === ListingType.Auction ? (
+<>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 8,
+                justifyContent: "flex-end"
+              }}
+            >
+        {address ? (
+<>
+              <input
+                type="text"
+                name="bidAmount"
+                className={css.textInput}
+                onChange={(e) => setBidAmount(e.target.value)}
+                placeholder="Amount"
+                style={{ marginTop: 0, marginLeft: 0, width: 128 }}
+              />
+              <Button
+                bg={'blue'}
+                onClick={createBidOrOffer}
+                style={{
+                  borderStyle: "none",
+                  width: "fit-content",
+                }} _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: 'lg',
+              bg: 'blue.800',
+            }}
+              >
+                Make Offer
+              </Button>
+</>
+        ) : (<>
+<Tooltip className={css.pulse} label='Connect your Wallet' bg='red' color='white' placement={'top'}>
+            <h2>
+              Wallet not connect
+            </h2>
+</Tooltip>
+            </>)}
+            </div>
+</>
+) : (
+<>
         {address ? (
             <Button w={200} bg={'blue.400'} alignSelf={'flex-end'}
               onClick={buyNft}
             _hover={{
               transform: 'translateY(-2px)',
               boxShadow: 'lg',
-              bg: 'blue.500',
+              bg: 'blue.800',
             }}
             >
               Buy
             </Button>
         ) : (<>
+<Tooltip className={css.pulse} label='Wallet not connected' bg='red' color='white' placement={'top'}>
             <Button w={200} bg={'grey'} color={'white'} alignSelf={'flex-end'} fontWeight={600} p={2} rounded={'md'} isDisabled>
               Buy
             </Button>
+</Tooltip>
             </>)}
+</>
+)}
           </Stack>
         </Stack>
       </SimpleGrid>

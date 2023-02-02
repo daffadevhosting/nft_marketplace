@@ -173,7 +173,7 @@ const Resell: NextPage = () => {
           rounded={'lg'}
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}
-          p={8}>
+          p={2}>
           <Stack spacing={4}>
             <FormControl id="contractAddress" isRequired>
               <FormLabel>NFT Contract</FormLabel>
@@ -202,28 +202,30 @@ const Resell: NextPage = () => {
             </FormControl>
 
           {/* Toggle between direct listing and auction listing */}
-          <div className={css.none}>
+          <div style={{display: 'flex', justifyContent: 'space-between', gap: '10px'}}>
+<Button>
             <input
               type="radio"
               name="listingType"
               id="directListing"
               value="directListing"
               defaultChecked
-              className={css.listingType}
             />
-            <label htmlFor="directListing" className={css.listingTypeLabel}>
+            <label htmlFor="directListing" className={css.listingTypeLabel} style={{padding: '10px'}}>
               Direct Listing
             </label>
+</Button>
+<Button>
             <input
               type="radio"
               name="listingType"
               id="auctionListing"
               value="auctionListing"
-              className={css.listingType}
             />
-            <label htmlFor="auctionListing" className={css.listingTypeLabel}>
+            <label htmlFor="auctionListing" className={css.listingTypeLabel} style={{padding: '10px'}}>
               Auction Listing
             </label>
+</Button>
           </div>
 		  
             <Stack spacing={10}>
