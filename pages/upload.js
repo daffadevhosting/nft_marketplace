@@ -14,6 +14,16 @@ import {
   Image, Container,
   Flex, Stack, Button,
   useToast,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+  ButtonGroup
 } from '@chakra-ui/react';
 import { useRouter } from "next/router";
 import LoginModal from "../components/Login";
@@ -27,7 +37,8 @@ const Upload = () => {
   const networkMismatch = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
   const sdk = useSDK();
-  const alert = useToast()
+  const alert = useToast();
+  const initRef = React.useRef();
 
   const [creatingListing, setCreatingListing] = useState(false);
 
@@ -115,7 +126,6 @@ const Upload = () => {
         );
       }
 
-      // If the transaction succeeds, take the user back to the homepage to view their listing!
       if (transactionResult) {
         router.push(`/`);
       }
@@ -137,14 +147,14 @@ const Upload = () => {
     try {
       makeAuctionListing(
         {
-          assetContractAddress: contractAddress, // Contract Address of the NFT
-          buyoutPricePerToken: price, // Maximum price, the auction will end immediately if a user pays this price.
-          currencyContractAddress: NATIVE_TOKEN_ADDRESS, // NATIVE_TOKEN_ADDRESS is the crpyto curency that is native to the network. i.e. Goerli ETH.
-          listingDurationInSeconds: 60 * 60 * 24 * 7, // When the auction will be closed and no longer accept bids (1 Week)
-          quantity: 1, // How many of the NFTs are being listed (useful for ERC 1155 tokens)
-          reservePricePerToken: 0, // Minimum price, users cannot bid below this amount
-          startTimestamp: new Date(), // When the listing will start
-          tokenId: tokenId, // Token ID of the NFT.
+          assetContractAddress: contractAddress,
+          buyoutPricePerToken: price,
+          currencyContractAddress: NATIVE_TOKEN_ADDRESS,
+          listingDurationInSeconds: 60 * 60 * 24 * 7,
+          quantity: 1,
+          reservePricePerToken: 0,
+          startTimestamp: new Date(),
+          tokenId: tokenId,
         },
         {
           onSuccess: (tx) => {
@@ -175,13 +185,13 @@ const Upload = () => {
     try {
       makeDirectListing(
         {
-          assetContractAddress: contractAddress, // Contract Address of the NFT
-          buyoutPricePerToken: price, // Maximum price, the auction will end immediately if a user pays this price.
-          currencyContractAddress: NATIVE_TOKEN_ADDRESS, // NATIVE_TOKEN_ADDRESS is the crpyto curency that is native to the network. i.e. Goerli ETH.
-          listingDurationInSeconds: 60 * 60 * 24 * 7, // When the auction will be closed and no longer accept bids (1 Week)
-          quantity: 1, // How many of the NFTs are being listed (useful for ERC 1155 tokens)
-          startTimestamp: new Date(0), // When the listing will start
-          tokenId: tokenId, // Token ID of the NFT.
+          assetContractAddress: contractAddress,
+          buyoutPricePerToken: price,
+          currencyContractAddress: NATIVE_TOKEN_ADDRESS,
+          listingDurationInSeconds: 60 * 60 * 24 * 7,
+          quantity: 1,
+          startTimestamp: new Date(0),
+          tokenId: tokenId,
         },
         {
           onSuccess: (tx) => {
@@ -208,7 +218,6 @@ const Upload = () => {
     }
   }
 
-  // Function to store file in state when user uploads it
   const uploadFile = () => {
     if (fileInputRef?.current) {
       fileInputRef.current.click();
@@ -226,9 +235,8 @@ const Upload = () => {
 <>
     <form onSubmit={(e) => handleCreateListing(e)}>
       <div className={css.container}>
-        {/* Form Section */}
         <div className={css.collectionContainer}>
-    <Stack className={css.boxBorder} minH={'50vh'} direction={{ base: 'column', md: 'row' }} p={{ base: 2, md: 10 }} maxW={940} m={'auto'} w={'100%'}>
+    <Stack className={css.boxBorder} minH={'50vh'} h={{ base: '-webkit-fill-available', md: 435 }} direction={{ base: 'column', md: 'row' }} p={{ base: 2, md: 10 }} maxW={940} m={{ base: '6px', md: 'auto' }} w={{base: 'auto', md: '100%'}}>
       <Flex flex={1}>
           {file ? (
             <Image
@@ -269,7 +277,6 @@ const Upload = () => {
             style={{ display: "none" }}
           />
 
-          {/* Sale Price For Listing Field */}
           <input
             type="text"
             name="name"
@@ -277,7 +284,6 @@ const Upload = () => {
             placeholder="Name"
           />
 
-          {/* Sale Price For Listing Field */}
           <input
             type="text"
             name="description"
@@ -285,7 +291,6 @@ const Upload = () => {
             placeholder="Description"
           />
 
-          {/* Sale Price For Listing Field */}
           <input
             type="text"
             name="price"
@@ -293,7 +298,6 @@ const Upload = () => {
             placeholder="Price (in TBNB)"
           />
 
-          {/* Toggle between direct listing and auction listing */}
           <div className={css.none}>
             <input
               type="radio"
@@ -317,15 +321,40 @@ const Upload = () => {
               Auction Listing
             </label>
           </div>
-
-          <Button
-            type="submit"
-            bg={'blue'} color={'white'}
-            style={{ marginTop: 32, borderStyle: "none", margin: '32px auto' }}
-            disabled={creatingListing}
-          >
-            {creatingListing ? "Loading... Wait..." : "Mint + List NFT"}
-          </Button>
+        {address ? (
+<Popover isLazy closeOnBlur={false} placement='top-start' initialFocusRef={initRef}>
+      {({ isOpen, onClose }) => (
+        <>
+  <PopoverTrigger>
+    <Button bg={'blue'} color={'white'} _hover={{
+              transform: 'translateY(-2px)',
+              boxShadow: 'lg',
+              bg: 'blue.800',
+            }} isLoading={creatingListing} loadingText='Loading' spinnerPlacement='start'>{creatingListing ? "Wait... Loading... " : "Upload NFT"}</Button>
+  </PopoverTrigger>
+  <PopoverContent>
+    <PopoverHeader fontWeight='semibold'>Confirmation</PopoverHeader>
+    <PopoverArrow />
+    <PopoverCloseButton />
+    <PopoverBody>
+      There will be at least 2 to 3 transactions for NFT uploads, do you agree?
+    </PopoverBody>
+          <PopoverFooter display='flex' justifyContent='flex-end'>
+            <ButtonGroup size='sm'>
+              <Button variant='outline'
+                  onClick={onClose}>No way</Button>
+              <Button type="submit" colorScheme='green' onClick={onClose}>Ok, Do it</Button>
+            </ButtonGroup>
+          </PopoverFooter>
+  </PopoverContent>
+        </>
+      )}
+</Popover>
+          ) : (
+          <h2>
+            Connect your wallet
+          </h2>
+		)}
         </Stack>
       </Flex>
     </Stack>
@@ -333,7 +362,6 @@ const Upload = () => {
       </div>
     </form>
 <LoginModal />
-<Footer />
 </>
   );
 };

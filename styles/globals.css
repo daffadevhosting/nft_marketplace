@@ -59,3 +59,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+
+#tilt {
+  height: 500px;
+  width: auto;
+  margin: 0 auto;
+  transition: box-shadow 0.1s, transform 0.8s;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  z-index: 1;
+}

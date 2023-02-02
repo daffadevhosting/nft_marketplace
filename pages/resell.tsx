@@ -18,7 +18,8 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  Container
+  Container,
+  useToast
 } from '@chakra-ui/react';
 import {
   ChainId,
@@ -39,6 +40,7 @@ const Logo = "/icons/opensea.svg"
 
 const Resell: NextPage = () => {
   const address = useAddress();
+  const alert = useToast();
 
   const router = useRouter();
   const networkMismatch = useNetworkMismatch();
@@ -52,6 +54,7 @@ const Resell: NextPage = () => {
   );
 
   async function handleCreateListing(e: any) {
+    setCreatingListing(true);
     try {
       if (networkMismatch) {
         switchNetwork?.(activeChainId);
@@ -84,10 +87,25 @@ const Resell: NextPage = () => {
       }
 
       if (transactionResult) {
+              alert({
+                  title: 'Success.',
+                  description: "Listing NFT berhasil...",
+                  status: 'success',
+                  duration: 5000,
+                  isClosable: true,
+                });
         router.push(`/`);
       }
     } catch (error) {
-      console.error(error);
+      alert({
+          title: 'Listing Gagal.',
+          description: "Listing NFT gagal. Check the console for more details",
+          status: 'error',
+          duration: 7000,
+          isClosable: true,
+        });
+    } finally {
+      setCreatingListing(false);
     }
   }
 
@@ -121,7 +139,7 @@ const Resell: NextPage = () => {
   ) {
     try {
       const transaction = await marketplace?.direct.createListing({
-        assetContractAddress: contractAddress, // Contract Address of the NFT
+        assetContractAddress: contractAddress,
         buyoutPricePerToken: price,
         currencyContractAddress: NATIVE_TOKEN_ADDRESS,
         listingDurationInSeconds: 60 * 60 * 24 * 7,
@@ -140,8 +158,8 @@ const Resell: NextPage = () => {
 <>
     <form onSubmit={(e) => handleCreateListing(e)}>
     <Flex
-      mt={{ base: 10, md: 20 }}
-      minH={{ base: '80vh', md: '95vh' }}
+      mt={{ base: 10, md: 10 }}
+      minH={{ base: '83vh', md: '95vh' }}
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -217,8 +235,7 @@ const Resell: NextPage = () => {
                 color={'white'}
                 _hover={{
                   bg: 'blue.500'
-                }}
-          >
+                }} isLoading={creatingListing} loadingText='Transaction' spinnerPlacement='start'>
 {networkMismatch ? (
 <>
 Switch Network
@@ -242,7 +259,7 @@ Switch Network
       </Stack>
     </Flex>
     </form>
-<Footer />
+      <Footer />
 </>
   );
 };

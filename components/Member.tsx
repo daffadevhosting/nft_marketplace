@@ -73,7 +73,7 @@ export default function Member() {
   const [, switchNetwork] = useNetwork();
   
   const alert = useToast();
-  
+
   const { data: nftMetadata } = useNFT(editionDrop, tokenId);
 
   const { data: activeClaimCondition } = useActiveClaimCondition(
@@ -127,11 +127,11 @@ const bgColor = useColorModeValue('white', 'gray.800');
 
   return (
     <Container maxW={'8xl'} py={{ base: 6, md: 12 }} mt={{ base: 6, md: 0 }}>
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} mt={'8'}>
-        <Flex justify={'center'} overflow={'hidden'} borderRadius={'6'}>
-          <Image
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} mt={'8'} maxW={1200}ml={'auto'} mr={'auto'}>
+        <Flex justify={'center'} borderRadius={'6'}>
+          <Image id={'tilt'}
             h={500}
-            maxW={'auto'}
+            maxW={'500px'}
             rounded={'md'}
             alt={'feature image'}
             src={IMAGE}
@@ -142,7 +142,7 @@ const bgColor = useColorModeValue('white', 'gray.800');
           <Image
             className={css.miring}
             h={500}
-            maxW={'auto'}
+            maxW={'500'}
             rounded={'md'}
             alt={'feature image'}
             src={IMAGE}

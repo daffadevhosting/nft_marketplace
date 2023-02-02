@@ -83,16 +83,20 @@ export default function Login() {
       <Heading size='md' mb='4'>Connect your wallet</Heading>
 <SimpleGrid columns={2} spacingX='8px' spacingY='8px' h={{ base: '260px', sm: '100%'}}>
 <div>
+<Tooltip hasArrow className={css.pulse} label='Recomended' bg='green' color='white' placement={'top'}>
   <Box className={css.metamask} height='100px' onClick={ () => { connectWithMetamask();  onClose();}}
             _hover={{
               transform: 'translateY(-4px)',
+              transition: 'ease .5s all'
             }}></Box>
+</Tooltip>
   <Text fontWeight={600}>Metamask</Text>
 </div>
 <div>
   <Box className={css.walletconnect} height='100px' onClick={ () => { connectWithWalletConnect();  onClose();}}
             _hover={{
               transform: 'translateY(-4px)',
+              transition: 'ease .5s all'
             }}></Box>
   <Text fontWeight={600}>Wallet Connect</Text>
 </div>
@@ -100,6 +104,7 @@ export default function Login() {
   <Box className={css.coinbase} height='100px' onClick={ () => { connectWithCoinbaseWallet();  onClose();}}
             _hover={{
               transform: 'translateY(-4px)',
+              transition: 'ease .5s all'
             }}></Box>
   <Text fontWeight={600}>Coinbase</Text>
 </div>
