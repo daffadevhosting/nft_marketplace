@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Box,
+  Button,
   Center,
   Container,
   useColorModeValue,
@@ -27,6 +28,12 @@ import Loading from "../components/Spinner";
 export default function Listings() {
   const { contract: marketplace } = useContract(MARKETPLACE_ADDRESS);
   const { data: listings, isLoading } = useActiveListings(marketplace);
+
+  const [visible, setVisible] = useState(8);
+
+  const showMoreItems = () => {
+    setVisible((prevValue) => prevValue + 8);
+  };
 
   // Load contract metadata
   const { data: contractMetadata, isLoading: loadingMetadata } =
@@ -85,10 +92,11 @@ export default function Listings() {
   <TabPanels>
     <TabPanel minH={'100vh'} p={0}>
         {!isLoading ? (
+<>
           <div className={css.nftBoxGrid}>
             {listings
               ?.filter((listing) => listing.type === 0)
-              ?.map((listing) => (
+              ?.slice(0, visible).map((listing) => (
                 <a
                   className={css.nftBox}
                   key={listing.id.toString()}
@@ -158,6 +166,12 @@ export default function Listings() {
                 </a>
               ))}
           </div>
+<div className={css.more}>
+        <Button onClick={showMoreItems}>
+          Load More
+        </Button>
+</div>
+</>
         ) : (
         <>
 
@@ -167,10 +181,11 @@ export default function Listings() {
     </TabPanel>
     <TabPanel minH={'100vh'} p={0}>
         {!isLoading ? (
+<>
           <div className={css.nftBoxGrid}>
             {listings
               ?.filter((listing) => listing.type === 1)
-              ?.map((listing) => (
+              ?.slice(0, visible).map((listing) => (
                 <a
                   className={css.nftBox}
                   key={listing.id.toString()}
@@ -240,6 +255,12 @@ export default function Listings() {
                 </a>
               ))}
           </div>
+<div className={css.more}>
+        <Button onClick={showMoreItems}>
+          Load More
+        </Button>
+</div>
+</>
         ) : (
         <>
 
@@ -254,5 +275,5 @@ export default function Listings() {
     </div>
 <Footer />
 </>
-  );
+  )
 }
