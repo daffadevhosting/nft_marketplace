@@ -4,6 +4,7 @@ import {
   useMetamask, useWalletConnect, useCoinbaseWallet,
   useNetwork,
   useNetworkMismatch,
+  useContract
 } from "@thirdweb-dev/react";
 import { ReactNode } from 'react';
 import {
@@ -37,6 +38,7 @@ const openseaLink = openseaUrl;
 const scanUrl = walletscanUrl;
 const Logo = "/icons/opensea.svg";
 
+
 const NavLink = ({ children }, { children: ReactNode }) => (
   <Link
     px={2}
@@ -51,7 +53,6 @@ const NavLink = ({ children }, { children: ReactNode }) => (
   </Link>
 );
 
-
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -59,14 +60,15 @@ export default function Navbar() {
   const toast = useToast();
   const address = useAddress();
   const networkMismatch = useNetworkMismatch();
-  const [, switchNetwork] = useNetwork();
-  
+  const [, switchNetwork] = useNetwork(); 
+
   const color = useColorModeValue('gray.200', 'gray.700');
   
   const connectWithMetamask = useMetamask();
   const connectWithWalletConnect = useWalletConnect();
   const connectWithCoinbaseWallet = useCoinbaseWallet();
   const disconnectWallet = useDisconnect();
+
 
   function handleClick() {
     router.push("/upload");
